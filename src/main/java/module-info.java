@@ -4,6 +4,6 @@ module com.projectticketsystem.projectticketsystem {
 
     requires com.dlsc.formsfx;
 
-    opens com.projectticketsystem.projectticketsystem to javafx.fxml;
-    exports com.projectticketsystem.projectticketsystem;
+    opens com.projectticketsystem to javafx.fxml;
+    exports com.projectticketsystem;
 }

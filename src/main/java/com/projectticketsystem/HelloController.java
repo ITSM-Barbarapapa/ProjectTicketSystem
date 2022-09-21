@@ -1,4 +1,4 @@
-package com.projectticketsystem.projectticketsystem;
+package com.projectticketsystem;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
