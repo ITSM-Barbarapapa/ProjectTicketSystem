@@ -1,7 +1,6 @@
-package com.ProjectTicketSystem;
+package com.ProjectTicketSystemModel;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Ticket {
     private User user;

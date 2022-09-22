@@ -1,4 +1,4 @@
-package com.ProjectTicketSystem;
+package com.ProjectTicketSystemModel;
 
 public enum TicketStatus {
     Open, Resolved, ClosedWithoutResolve
