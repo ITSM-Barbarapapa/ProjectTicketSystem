@@ -10,16 +10,11 @@ public class BaseDAO
 
     }
     private final String uri = "mongodb+srv://user:user@users.jbnxxyk.mongodb.net/test";
-    static void main(String[] args)
-    {
-        System.out.println("Main method is empty!");
-    }
-
-    protected MongoDatabase ConnectDatabase()
+    public MongoDatabase ConnectDatabase()
     {
         try {
             MongoClient mongoClient = MongoClients.create(uri);
-            MongoDatabase database = mongoClient.getDatabase("ProjectTicketSystem");
+            MongoDatabase database = mongoClient.getDatabase("ProjectNoSQL");
             System.out.println("Connected to database!");
             return database;
         } catch (Exception e) {

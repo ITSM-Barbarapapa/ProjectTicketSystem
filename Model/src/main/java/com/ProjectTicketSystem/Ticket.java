@@ -1,5 +1,6 @@
 package com.ProjectTicketSystem;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Ticket {
@@ -7,5 +8,5 @@ public class Ticket {
     private TicketStatus ticketStatus;
     private String userInput;
     private String ticketSubject;
-    private Date date;
+    private LocalDate date;
 }
