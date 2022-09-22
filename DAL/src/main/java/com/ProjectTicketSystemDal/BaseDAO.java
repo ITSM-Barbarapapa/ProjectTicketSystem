@@ -6,6 +6,9 @@ import com.mongodb.client.MongoDatabase;
 
 public class BaseDAO
 {
+    public BaseDAO(){
+
+    }
     private final String uri = "mongodb+srv://user:user@users.jbnxxyk.mongodb.net/test";
     public MongoDatabase ConnectDatabase()
     {
@@ -19,4 +22,5 @@ public class BaseDAO
             return null;
         }
     }
+
 }
