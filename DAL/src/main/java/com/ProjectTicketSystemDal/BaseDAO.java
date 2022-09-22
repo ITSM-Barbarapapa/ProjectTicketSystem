@@ -23,9 +23,4 @@ public class BaseDAO
             return null;
         }
     }
-
-    protected void CloseDatabase()
-    {
-        // Add Code Here...
-    }
 }
