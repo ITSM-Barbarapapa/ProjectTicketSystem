@@ -1,9 +1,9 @@
 package com.ProjectTicketSystem;
 
 public abstract class User {
-    private int id;
-    private String username;
-    private String password;
+    protected int id;
+    protected String username;
+    protected String password;
 
     public User(int id, String username, String password) {
         this.id = id;
