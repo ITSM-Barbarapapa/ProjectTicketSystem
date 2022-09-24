@@ -5,13 +5,13 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class UserDAO
+public class UserDAO extends BaseDAO
 {
     MongoDatabase database;
 
     public UserDAO()
     {
-        database = new BaseDAO().ConnectDatabase();
+        database = ConnectDatabase();
     }
 
     public static void main(String[] args)
