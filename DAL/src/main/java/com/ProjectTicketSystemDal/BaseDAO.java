@@ -4,11 +4,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
-public class BaseDAO
+public abstract class BaseDAO
 {
-    public BaseDAO(){
-
-    }
     private final String uri = "mongodb+srv://user:user@users.jbnxxyk.mongodb.net/test";
     public MongoDatabase ConnectDatabase()
     {
