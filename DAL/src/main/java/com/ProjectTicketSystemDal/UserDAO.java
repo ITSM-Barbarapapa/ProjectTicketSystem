@@ -3,7 +3,11 @@ package com.ProjectTicketSystemDal;
 import com.ProjectTicketSystemModel.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public class UserDAO extends BaseDAO
 {
@@ -17,9 +21,7 @@ public class UserDAO extends BaseDAO
     public static void main(String[] args)
     {
         UserDAO userDAO = new UserDAO();
-        System.out.println("Adding user to database");
-        userDAO.AddTestUser(new User(6, "Luke","Luke123!", Role.RegularEmployee));
-        userDAO.GetUser(6);
+        userDAO.UpdateUser("Luke");
     }
 
     private MongoCollection<Document> GetCollection()
@@ -40,6 +42,7 @@ public class UserDAO extends BaseDAO
             System.out.println("User not found");
             return null;
         }
+
         System.out.println("User found");
         System.out.println(found.toJson());
 
@@ -60,4 +63,19 @@ public class UserDAO extends BaseDAO
         GetCollection().insertOne(document);
         System.out.println("User added");
     }
+
+    private void UpdateUser(String user)
+    {
+        Document found = (Document) GetCollection().find(new Document().append("Username", user)).first();
+
+        Bson updatedValues = Updates.combine(
+                Updates.set("Username", "Luke"),
+                Updates.set("Password", "Star_Wars_123_!"));
+
+        UpdateOptions options = new UpdateOptions().upsert(true);
+
+        UpdateResult updateResult  = GetCollection().updateOne(found, updatedValues, options);
+        System.out.println("User updated");
+    }
 }
+
