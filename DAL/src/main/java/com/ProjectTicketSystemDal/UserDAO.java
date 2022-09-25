@@ -49,7 +49,6 @@ public class UserDAO extends BaseDAO
                 found.getString("Username"),
                 found.getString("Password"),
                 Role.valueOf(found.getString(("Role"))));
-
     }
 
     private void AddTestUser(User user)
