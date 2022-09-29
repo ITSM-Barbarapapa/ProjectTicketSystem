@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.projectticketsystem.projectticketsystem/com.projectticketsystem.UI.HelloApplication
+                                com.projectticketsystem.projectticketsystem/com.projectticketsystem.UI.StartApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
