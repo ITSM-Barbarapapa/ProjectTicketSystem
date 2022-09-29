@@ -1,4 +1,4 @@
-package com.ProjectTicketSystemModel;
+package com.projectticketsystem.Model;
 
 public enum Role {
     RegularEmployee,

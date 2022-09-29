@@ -1,4 +1,4 @@
-package com.ProjectTicketSystemDal;
+package com.projectticketsystem.DAL;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

@@ -1,6 +1,6 @@
-package com.ProjectTicketSystemDal;
+package com.projectticketsystem.DAL;
 
-import com.ProjectTicketSystemModel.*;
+import com.projectticketsystem.Model.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
