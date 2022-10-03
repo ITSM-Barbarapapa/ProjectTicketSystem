@@ -1,5 +1,9 @@
 package com.projectticketsystem.UI;
 
+import com.projectticketsystem.Model.Ticket;
+import com.projectticketsystem.Model.TicketStatus;
+import com.projectticketsystem.Model.User;
+import com.projectticketsystem.Service.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +16,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;;import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class TicketCreationController {
+    private TicketService ticketService;
+    private User user;
     public TextArea DescriptionTextField;
     public TextField summaryTextField;
     public ChoiceBox<String> categoryChoiceBox;
@@ -24,6 +34,10 @@ public class TicketCreationController {
     public ChoiceBox<String> urgencyChoiceBox;
     public Button addTicketButton;
     public ImageView homeButton;
+
+    public TicketCreationController(){
+        ticketService = new TicketService();
+    }
 
     @FXML
     private void OnHomeButtonClick(MouseEvent event) throws IOException {
@@ -37,10 +51,50 @@ public class TicketCreationController {
         stage.show();
     }
 
-    public TicketCreationController(){
+    public void AddTicket(ActionEvent actionEvent){
+        if (!Requirements()){
+            System.out.println("not all info is there");
+            return;
+        }
+
+        Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), urgencyChoiceBox.getValue(), impactChoiceBox.getValue(), calculatePriorityTextBox.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
+        FillInTicketWithInformation(ticket);
+        ticketService.AddTicket(ticket);
 
     }
 
+    private int CreateID(){
+        int ticketID = ticketService.GetHighestTicketID();
+        return ticketID + 1;
+    }
+
+    private void FillInTicketWithInformation(Ticket ticket) {
+        if(categoryChoiceBox.getValue() != null){
+            ticket.setTicketCategory(categoryChoiceBox.getValue());
+        }
+
+        if (!Objects.equals(summaryTextField.getText(), "")){
+            ticket.setTicketSummary(summaryTextField.getText());
+        }
+
+        if (!Objects.equals(DescriptionTextField.getText(), "")){
+            ticket.setTicketDescription(DescriptionTextField.getText());
+        }
+    }
+
+    private boolean Requirements(){
+        boolean requirementsCheck = true;
+
+        System.out.println(nameTextField.getText());
+        System.out.println(contactTextField.getText());
+        System.out.println(urgencyChoiceBox.getValue());
+        System.out.println(impactChoiceBox.getValue());
+
+        if (Objects.equals(nameTextField.getText(), "") || Objects.equals(nameTextField.getText(), "") || urgencyChoiceBox.getValue() == null || impactChoiceBox.getValue() == null)
+            requirementsCheck = false;
+
+        return requirementsCheck;
+    }
 
     public void itemChange(ActionEvent actionEvent) {
         String impactValue = impactChoiceBox.getValue();

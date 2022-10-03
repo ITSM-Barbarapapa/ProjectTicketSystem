@@ -3,18 +3,29 @@ package com.projectticketsystem.Model;
 import java.time.LocalDate;
 
 public class Ticket {
+    private final int ticketID;
+    private final String name;
+    private final String contact;
+    private final String impact;
+    private final String urgency;
+    private final String priority;
+    private String ticketCategory;
+    private String ticketSummary;
+    private String ticketDescription;
     private User user;
-    private TicketStatus ticketStatus;
-    private String userInput;
-    private String ticketSubject;
-    private LocalDate date;
+    private final TicketStatus ticketStatus;
+    private final LocalDate date;
 
-    public Ticket(User user, TicketStatus ticketStatus, String userInput, String ticketSubject, LocalDate date) {
-        this.user = user;
+
+    public Ticket(String name, String contact, String impact, String urgency, String priority, LocalDate date, TicketStatus ticketStatus, int id) {
+        this.name = name;
+        this.contact = contact;
+        this.impact = impact;
+        this.urgency = urgency;
+        this.priority = priority;
         this.ticketStatus = ticketStatus;
-        this.userInput = userInput;
-        this.ticketSubject = ticketSubject;
         this.date = date;
+        this.ticketID = id;
     }
 
     public User getUser() {
@@ -29,31 +40,46 @@ public class Ticket {
         return ticketStatus;
     }
 
-    public void setTicketStatus(TicketStatus ticketStatus) {
-        this.ticketStatus = ticketStatus;
-    }
-
-    public String getUserInput() {
-        return userInput;
-    }
-
-    public void setUserInput(String userInput) {
-        this.userInput = userInput;
-    }
-
-    public String getTicketSubject() {
-        return ticketSubject;
-    }
-
-    public void setTicketSubject(String ticketSubject) {
-        this.ticketSubject = ticketSubject;
-    }
-
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setTicketCategory(String category) {this.ticketCategory = category;}
+    public void setTicketSummary(String summary){this.ticketSummary = summary;}
+    public void setTicketDescription(String description) {this.ticketDescription = description;}
+    public String getName() {
+        return name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public String getImpact() {
+        return impact;
+    }
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public String getTicketCategory() {
+        return ticketCategory;
+    }
+
+    public String getTicketSummary() {
+        return ticketSummary;
+    }
+
+    public String getTicketDescription() {
+        return ticketDescription;
+    }
+
+    public int getTicketId() {
+        return ticketID;
     }
 }
