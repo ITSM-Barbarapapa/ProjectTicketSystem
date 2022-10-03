@@ -5,7 +5,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -18,12 +17,6 @@ public class UserDAO extends BaseDAO
         database = ConnectDatabase();
     }
 
-    public static void main(String[] args)
-    {
-        UserDAO userDAO = new UserDAO();
-        userDAO.UpdateUser("Luke");
-    }
-
     private MongoCollection<Document> GetCollection()
     {
         try {
@@ -34,7 +27,7 @@ public class UserDAO extends BaseDAO
         }
     }
 
-    private User GetUser(int userID)
+    public User getUser(int userID)
     {
         Document found = GetCollection().find(new Document("UserID", userID)).first();
         if (found == null)
@@ -46,15 +39,14 @@ public class UserDAO extends BaseDAO
         System.out.println("User found");
         System.out.println(found.toJson());
 
-
         return new User(
                 found.getInteger("UserID"),
                 found.getString("Username"),
                 found.getString("Password"),
-                Role.valueOf(found.getString(("Role"))));
+                Role.valueOf(found.getString("Role")));
     }
 
-    private void AddTestUser(User user)
+    public void addUser(User user)
     {
         Document document = new Document("UserID", user.getId())
                 .append("Username", user.getUsername())
@@ -64,18 +56,31 @@ public class UserDAO extends BaseDAO
         System.out.println("User added");
     }
 
-    private void UpdateUser(String user)
+    public void updateUser(User user)
     {
-        Document found = (Document) GetCollection().find(new Document().append("Username", user)).first();
+        Document found = (Document) GetCollection().find(new Document().append("UserID", user.getId())).first();
+        if (found == null)
+        {
+            System.out.println("User not found in database");
+            System.out.println("Could not update user");
+            return;
+        }
 
         Bson updatedValues = Updates.combine(
-                Updates.set("Username", "Luke"),
-                Updates.set("Password", "Star_Wars_123_!"));
+                Updates.set("Username", user.getUsername()),
+                Updates.set("Password", user.getPassword()),
+                Updates.set("Role", user.getRole().toString()));
 
         UpdateOptions options = new UpdateOptions().upsert(true);
 
-        UpdateResult updateResult  = GetCollection().updateOne(found, updatedValues, options);
+        GetCollection().updateOne(found, updatedValues, options);
         System.out.println("User updated");
+    }
+
+    public void deleteUser(User user)
+    {
+        GetCollection().deleteOne(new Document("UserID", user.getId()));
+        System.out.println("User deleted");
     }
 }
 
