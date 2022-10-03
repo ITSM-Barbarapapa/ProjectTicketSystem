@@ -2,5 +2,6 @@ package com.projectticketsystem.Model;
 
 public enum Role {
     RegularEmployee,
-    ServiceDeskEmployee
+    ServiceDeskEmployee,
+    Administrator
 }

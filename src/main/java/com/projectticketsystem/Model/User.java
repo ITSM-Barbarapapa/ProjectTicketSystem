@@ -4,13 +4,13 @@ public class User {
 
     private int id;
     private String username;
-    private String password;
+    private HashedPassword password;
     private Role role;
 
-    public User(int id, String username, String password, Role role) {
+    public User(int id, String username, byte[] hashedPassword, byte[] salt, Role role) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        password = new HashedPassword(hashedPassword, salt);
         this.role = role;
     }
 
@@ -30,12 +30,8 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
+    public HashedPassword getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Role getRole() {

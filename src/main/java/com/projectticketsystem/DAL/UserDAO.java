@@ -1,10 +1,11 @@
 package com.projectticketsystem.DAL;
 
-import com.projectticketsystem.Model.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
+import com.projectticketsystem.Model.Role;
+import com.projectticketsystem.Model.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -27,7 +28,7 @@ public class UserDAO extends BaseDAO
         }
     }
 
-    public User getUser(int userID)
+   public User getUser(int userID)
     {
         Document found = GetCollection().find(new Document("UserID", userID)).first();
         if (found == null)
@@ -42,7 +43,8 @@ public class UserDAO extends BaseDAO
         return new User(
                 found.getInteger("UserID"),
                 found.getString("Username"),
-                found.getString("Password"),
+                found.getString("Password").getBytes(),
+                found.getString("Salt").getBytes(),
                 Role.valueOf(found.getString("Role")));
     }
 
@@ -50,7 +52,8 @@ public class UserDAO extends BaseDAO
     {
         Document document = new Document("UserID", user.getId())
                 .append("Username", user.getUsername())
-                .append("Password", user.getPassword())
+                .append("Password", user.getPassword().getHashedPassword())
+                .append("Salt", user.getPassword().getSalt())
                 .append("Role", user.getRole().toString());
         GetCollection().insertOne(document);
         System.out.println("User added");
@@ -68,7 +71,8 @@ public class UserDAO extends BaseDAO
 
         Bson updatedValues = Updates.combine(
                 Updates.set("Username", user.getUsername()),
-                Updates.set("Password", user.getPassword()),
+                Updates.set("Password", user.getPassword().getHashedPassword()),
+                Updates.set("Salt", user.getPassword().getSalt()),
                 Updates.set("Role", user.getRole().toString()));
 
         UpdateOptions options = new UpdateOptions().upsert(true);
