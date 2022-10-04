@@ -8,6 +8,9 @@ import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.Binary;
+
+import java.nio.charset.StandardCharsets;
 
 public class UserDAO extends BaseDAO
 {
@@ -43,9 +46,10 @@ public class UserDAO extends BaseDAO
         return new User(
                 found.getInteger("UserID"),
                 found.getString("Username"),
-                found.getString("Password").getBytes(),
-                found.getString("Salt").getBytes(),
+                found.get("Password", Binary.class).getData(),
+                found.get("Salt", Binary.class).getData(),
                 Role.valueOf(found.getString("Role")));
+
     }
 
     public void addUser(User user)
