@@ -1,6 +1,7 @@
 package com.projectticketsystem.UI;
 
 import com.projectticketsystem.DAL.UserDAO;
+import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,22 +57,16 @@ public class LoginController {
         //password = "Wachtwoord"
         byte[] salt = {-83, -91, -112, -10, 119, -120, -74, -60, 72, 42, -76, -52, -104, 94, -113, 75};
         byte[] passwordHash = {-24, 22, -106, -117, -114, -74, 78, 46, 108, 119, 22, -26, -117, -64, 11, 85};
-        User user; //= new User(1, "test", passwordHash, salt, Role.RegularEmployee);
+        User user = new User(1, "test", passwordHash, salt, Role.RegularEmployee);
 
         //get user from database
         UserDAO userDAO = new UserDAO();
-        user = userDAO.getUser(1000);
+        user = userDAO.getUser(1001);
 
 
-        KeySpec spec = new PBEKeySpec(passwordField.getText().toCharArray(), salt, 65536, 128);
+        KeySpec spec = new PBEKeySpec(passwordField.getText().toCharArray(), user.getPassword().getSalt(), 65536, 128);
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] currentHash = factory.generateSecret(spec).getEncoded();
-
-        System.out.println("Current hash: " + Arrays.toString(currentHash));
-        System.out.println("Stored hash: " + Arrays.toString(user.getPassword().getHashedPassword()));
-        System.out.println("Current hash equals stored hash: " + Arrays.equals(currentHash, user.getPassword().getHashedPassword()));
-        System.out.println("salt: " + Arrays.toString(user.getPassword().getSalt()));
-        System.out.println("inputted salt" + Arrays.toString(salt));
 
         return Arrays.equals(user.getPassword().getHashedPassword(), currentHash);
     }
