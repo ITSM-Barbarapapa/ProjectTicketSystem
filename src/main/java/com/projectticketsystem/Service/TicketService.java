@@ -14,8 +14,8 @@ public class TicketService {
         ticketDAO.addTicket(ticket);
     }
 
-    public int GetHighestTicketID(){
-        return ticketDAO.GetHighestTicketID();
+    public int getHighestTicketID(){
+        return ticketDAO.getHighestTicketID();
     }
 
 }

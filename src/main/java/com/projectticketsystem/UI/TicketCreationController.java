@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class TicketCreationController {
-    private TicketService ticketService;
+    private final TicketService ticketService;
     private User user;
     public TextArea DescriptionTextField;
     public TextField summaryTextField;
@@ -64,7 +64,7 @@ public class TicketCreationController {
     }
 
     private int CreateID(){
-        int ticketID = ticketService.GetHighestTicketID();
+        int ticketID = ticketService.getHighestTicketID();
         return ticketID + 1;
     }
 

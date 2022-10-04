@@ -2,9 +2,22 @@ package com.projectticketsystem.DAL;
 
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Sorts;
+import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.Ticket;
+import com.projectticketsystem.Model.TicketStatus;
+import com.projectticketsystem.Model.User;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.lt;
 
 public class TicketDAO extends BaseDAO
 {
@@ -25,9 +38,27 @@ public class TicketDAO extends BaseDAO
         }
     }
 
-    public void getTicket(Ticket ticket)
+    public Ticket getTicketByID(int ticketID)
     {
+        Document found = Objects.requireNonNull(GetCollection()).find(new Document("TicketID", ticketID)).first();
+        if (found == null)
+        {
+            System.out.println("Ticket not found");
+            return null;
+        }
 
+        System.out.println("Ticket found");
+        System.out.println(found.toJson());
+
+        return new Ticket(
+                found.getString("Name"),
+                found.getString("Contact"),
+                found.getString("Impact"),
+                found.getString("Urgency"),
+                found.getString("Priority"),
+                LocalDate.parse(found.getString("Date")),
+                TicketStatus.valueOf(found.getString("Status")),
+                found.getInteger("TicketID"));
     }
 
     public void addTicket(Ticket ticket)
@@ -58,11 +89,11 @@ public class TicketDAO extends BaseDAO
 
     }
 
-    public int GetHighestTicketID() {
-        int highestID = 0;
+    public int getHighestTicketID() {
+        Document doc = Objects.requireNonNull(GetCollection()).find()
+                .sort(Sorts.descending("TicketID"))
+                .first();
 
-
-
-        return highestID;
+        return Objects.requireNonNull(doc).getInteger("TicketID");
     }
 }
