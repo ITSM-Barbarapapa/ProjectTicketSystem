@@ -73,7 +73,15 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
                   </Label>
-                  <ChoiceBox fx:id="categoryChoiceBox" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="360.0" />
+                  <ChoiceBox fx:id="categoryChoiceBox" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="360.0" >
+                   <items>
+                       <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="1-Hoog" />
+                           <String fx:value="2-Midden" />
+                           <String fx:value="3-Laag" />
+                       </FXCollections>
+                   </items>
+                  </ChoiceBox>
                   <Label layoutX="214.0" layoutY="19.0" text="Contact">
                      <padding>
                         <Insets left="5.0" />
