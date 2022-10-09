@@ -50,7 +50,7 @@ public class TicketDAO extends BaseDAO
         System.out.println("Ticket found");
         System.out.println(found.toJson());
 
-        return new Ticket(
+        Ticket ticket = new Ticket(
                 found.getString("Name"),
                 found.getString("Contact"),
                 found.getString("Impact"),
@@ -59,6 +59,12 @@ public class TicketDAO extends BaseDAO
                 LocalDate.parse(found.getString("Date")),
                 TicketStatus.valueOf(found.getString("Status")),
                 found.getInteger("TicketID"));
+
+        ticket.setTicketSummary(found.getString("Summary"));
+        ticket.setTicketCategory(found.getString("Category"));
+        ticket.setTicketDescription(found.getString("Description"));
+
+        return ticket;
     }
 
     public void addTicket(Ticket ticket)
