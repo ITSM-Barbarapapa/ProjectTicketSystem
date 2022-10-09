@@ -14,6 +14,13 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String name, HashedPassword password, Role valueOf) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.role = valueOf;
+    }
+
     public int getId() {
         return id;
     }

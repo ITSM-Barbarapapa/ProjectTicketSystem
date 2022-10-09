@@ -6,9 +6,16 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.User;
+import org.bson.BsonType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.Binary;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.type;
 
 public class UserDAO extends BaseDAO
 {
@@ -50,6 +57,22 @@ public class UserDAO extends BaseDAO
 
     }
 
+    public List<User> getAllUsers()
+    {
+        List<User> users = new ArrayList<>();
+        Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)));
+        for (Document found : GetCollection().find(filter))
+        {
+            users.add(new User(
+                    found.getInteger("UserID"),
+                    found.getString("Username"),
+                    found.get("Password", Binary.class).getData(),
+                    found.get("Salt", Binary.class).getData(),
+                    Role.valueOf(found.getString("Role"))));
+        }
+        return users;
+    }
+
     public void addUser(User user)
     {
         Document document = new Document("UserID", user.getId())
@@ -88,5 +111,18 @@ public class UserDAO extends BaseDAO
         GetCollection().deleteOne(new Document("UserID", user.getId()));
         System.out.println("User deleted");
     }
+
+    public int getNextUserId()
+    {
+        int nextId;
+        Document found = GetCollection().find().sort(new Document("UserID", -1)).first();
+        assert found != null;
+        nextId = found.getInteger("UserID");
+        return nextId + 1;
+    }
+
+    /* public boolean checkPassword(String password, User user){
+         // TODO make function to check password
+    }*/
 }
 

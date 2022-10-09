@@ -8,5 +8,6 @@ module com.projectticketsystem.projectticketsystem {
     requires org.mongodb.bson;
 
     opens com.projectticketsystem.UI to javafx.fxml;
+    opens com.projectticketsystem.Model to javafx.base;
     exports com.projectticketsystem.UI;
 }

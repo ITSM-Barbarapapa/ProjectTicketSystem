@@ -3,6 +3,8 @@ package com.projectticketsystem.Service;
 import com.projectticketsystem.DAL.UserDAO;
 import com.projectticketsystem.Model.User;
 
+import java.util.List;
+
 public class UserService {
 
     private static final UserDAO userDAO = new UserDAO();
@@ -21,6 +23,18 @@ public class UserService {
 
     public void deleteUser(User user){
         userDAO.deleteUser(user);
+    }
+
+    public List<User> getAllUsers(){
+        return userDAO.getAllUsers();
+    }
+
+    /*public boolean checkPassword(String password, User user){
+        // TODO return userDAO.checkPassword(password, user);
+    }*/
+
+    public int getNextUserId(){
+        return userDAO.getNextUserId();
     }
 
 }

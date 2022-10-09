@@ -1,7 +1,7 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.DAL.UserDAO;
 import com.projectticketsystem.Model.User;
+import com.projectticketsystem.Service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -11,24 +11,22 @@ import javafx.scene.layout.VBox;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 
 public class LoginController extends BaseController {
     private User user;
     @FXML
-    TextField usernameField;
+    public TextField usernameField;
 
     @FXML
-    VBox vBoxLogin;
+    public VBox vBoxLogin;
 
     @FXML
-    PasswordField passwordField;
+    public PasswordField passwordField;
 
     @FXML
-    private void onLoginButtonClicked(ActionEvent event) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+    private void onLoginButtonClicked(ActionEvent event) throws IOException {
         System.out.println("Username: " + usernameField.getText());
         System.out.println("Password: " + passwordField.getText());
 
@@ -39,17 +37,16 @@ public class LoginController extends BaseController {
                 case Administrator, ServiceDeskEmployee ->
                     //Load service desk employee view
                     //Load admin view
-                        loadNextStage("login-view.fxml", new LoginController(), event);
+                        loadNextStage("login-view.fxml", null, event);
                 case RegularEmployee ->
                     //Load regular employee view
-                        loadNextStage("crud-employee-view.fxml", new crudEmployeeController(), event);
+                        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(), event);
             }
 
 
         }else {
             System.out.println("Login failed");
         }
-
     }
 
     private boolean checkPassword() {
@@ -62,8 +59,8 @@ public class LoginController extends BaseController {
         }
 
         //get user from database
-        UserDAO userDAO = new UserDAO();
-        user = userDAO.getUser(userID);
+        UserService userService = new UserService();
+        user = userService.getUser(userID);
 
         try {
             //get hash password

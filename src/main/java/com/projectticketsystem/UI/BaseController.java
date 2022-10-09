@@ -12,7 +12,9 @@ import java.io.IOException;
 public class BaseController {
     protected void loadNextStage(String fxmlFileName, BaseController controller, ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        loader.setController(controller);
+        if (controller != null){
+            loader.setController(controller);
+        }
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
