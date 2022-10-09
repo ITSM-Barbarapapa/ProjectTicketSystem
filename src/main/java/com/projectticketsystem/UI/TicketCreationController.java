@@ -17,14 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;;import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class TicketCreationController {
     private final TicketService ticketService;
     private User user;
-    public TextArea DescriptionTextField;
+    public TextArea descriptionTextField;
     public TextField summaryTextField;
     public ChoiceBox<String> categoryChoiceBox;
     public ChoiceBox<String> impactChoiceBox;
@@ -77,8 +75,8 @@ public class TicketCreationController {
             ticket.setTicketSummary(summaryTextField.getText());
         }
 
-        if (!Objects.equals(DescriptionTextField.getText(), "")){
-            ticket.setTicketDescription(DescriptionTextField.getText());
+        if (!Objects.equals(descriptionTextField.getText(), "")){
+            ticket.setTicketDescription(descriptionTextField.getText());
         }
     }
 
