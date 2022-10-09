@@ -1,7 +1,6 @@
 package com.projectticketsystem.UI;
 
 import com.projectticketsystem.DAL.UserDAO;
-import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +20,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 
-public class LoginController {
+public class LoginController implements ViewController {
+    private User user;
     @FXML
     TextField usernameField;
 
@@ -38,14 +38,21 @@ public class LoginController {
 
         if (checkPassword()){
             System.out.println("Login successful");
-            // Go to next window
-            // get current Stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            //Check if user is admin or regular employee or Service Desk employee
+            switch (user.getRole())
+            {
+                case Administrator:
+                case ServiceDeskEmployee:
+                    //Load service desk employee view
+                    //Load admin view
+                    loadNextStage("add-employee-view.fxml", new addEmployeeController(), event);
+                    break;
+                case RegularEmployee:
+                    //Load regular employee view
+                    loadNextStage("add-employee-view.fxml", new addEmployeeController(), event);
+                    break;
+            }
 
-            // load new scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("add-employee-view.fxml"));
-            stage.setScene(new Scene(loader.load()));
-            stage.show();
 
         }else {
             System.out.println("Login failed");
@@ -55,19 +62,49 @@ public class LoginController {
 
     private boolean checkPassword() throws InvalidKeySpecException, NoSuchAlgorithmException {
         //password = "Wachtwoord"
-        byte[] salt = {-83, -91, -112, -10, 119, -120, -74, -60, 72, 42, -76, -52, -104, 94, -113, 75};
-        byte[] passwordHash = {-24, 22, -106, -117, -114, -74, 78, 46, 108, 119, 22, -26, -117, -64, 11, 85};
-        User user = new User(1, "test", passwordHash, salt, Role.RegularEmployee);
+
+        int userID = tryParseInt(usernameField.getText());
+
+        if (userID == -1){
+            return false;
+        }
 
         //get user from database
         UserDAO userDAO = new UserDAO();
-        user = userDAO.getUser(1001);
+        user = userDAO.getUser(userID);
 
+        try {
+            //get hash password
+            byte[] salt = user.getPassword().getSalt();
+            byte[] hash = user.getPassword().getHashPassword();
 
-        KeySpec spec = new PBEKeySpec(passwordField.getText().toCharArray(), user.getPassword().getSalt(), 65536, 128);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] currentHash = factory.generateSecret(spec).getEncoded();
+            KeySpec spec = new PBEKeySpec(passwordField.getText().toCharArray(), salt, 65536, 128);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] hash2 = factory.generateSecret(spec).getEncoded();
 
-        return Arrays.equals(user.getPassword().getHashedPassword(), currentHash);
+            //check if hashes are equal
+            return Arrays.equals(hash, hash2);
+        } catch (Exception e) {
+            System.out.println("An error occurred when checking the password" + e.getMessage());
+            return false;
+        }
+    }
+
+    private int tryParseInt(String value){
+        try{
+            return Integer.parseInt(value);
+        }catch (NumberFormatException e){
+            return -1;
+        }
+    }
+
+    private void loadNextStage(String fxmlFileName, ViewController controller, ActionEvent event) throws IOException {
+        // get current Stage
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // load new scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+        stage.setScene(new Scene(loader.load()));
+        stage.show();
     }
 }
