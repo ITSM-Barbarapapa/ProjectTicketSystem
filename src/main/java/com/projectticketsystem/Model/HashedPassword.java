@@ -11,7 +11,7 @@ public class HashedPassword
         this.salt = salt;
     }
 
-    public byte[] getHashedPassword()
+    public byte[] getHashPassword()
     {
         return hashedPassword;
     }

@@ -10,8 +10,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.Binary;
 
-import java.nio.charset.StandardCharsets;
-
 public class UserDAO extends BaseDAO
 {
     MongoDatabase database;
@@ -27,7 +25,7 @@ public class UserDAO extends BaseDAO
             return database.getCollection("Users");
         } catch (Exception e) {
             System.out.println("An error occurred when getting the collection" + e.getMessage());
-            return null;
+            throw e;
         }
     }
 
@@ -56,7 +54,7 @@ public class UserDAO extends BaseDAO
     {
         Document document = new Document("UserID", user.getId())
                 .append("Username", user.getUsername())
-                .append("Password", user.getPassword().getHashedPassword())
+                .append("Password", user.getPassword().getHashPassword())
                 .append("Salt", user.getPassword().getSalt())
                 .append("Role", user.getRole().toString());
         GetCollection().insertOne(document);
@@ -65,7 +63,7 @@ public class UserDAO extends BaseDAO
 
     public void updateUser(User user)
     {
-        Document found = (Document) GetCollection().find(new Document().append("UserID", user.getId())).first();
+        Document found = GetCollection().find(new Document().append("UserID", user.getId())).first();
         if (found == null)
         {
             System.out.println("User not found in database");
@@ -75,7 +73,7 @@ public class UserDAO extends BaseDAO
 
         Bson updatedValues = Updates.combine(
                 Updates.set("Username", user.getUsername()),
-                Updates.set("Password", user.getPassword().getHashedPassword()),
+                Updates.set("Password", user.getPassword().getHashPassword()),
                 Updates.set("Salt", user.getPassword().getSalt()),
                 Updates.set("Role", user.getRole().toString()));
 
