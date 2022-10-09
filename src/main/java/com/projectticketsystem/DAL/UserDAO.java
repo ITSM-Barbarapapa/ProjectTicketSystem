@@ -25,7 +25,7 @@ public class UserDAO extends BaseDAO
             return database.getCollection("Users");
         } catch (Exception e) {
             System.out.println("An error occurred when getting the collection" + e.getMessage());
-            return null;
+            throw e;
         }
     }
 
@@ -63,7 +63,7 @@ public class UserDAO extends BaseDAO
 
     public void updateUser(User user)
     {
-        Document found = (Document) GetCollection().find(new Document().append("UserID", user.getId())).first();
+        Document found = GetCollection().find(new Document().append("UserID", user.getId())).first();
         if (found == null)
         {
             System.out.println("User not found in database");
