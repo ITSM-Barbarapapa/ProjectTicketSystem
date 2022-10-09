@@ -23,7 +23,7 @@
             <children>
                 <ImageView fx:id="homeButton" fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" onMouseClicked="#OnHomeButtonClick" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/Home%20button%20img.png" />
+                        <Image url="@../../../img/Home-button-img.png" />
                     </image>
                 </ImageView>
             </children></Pane>
@@ -40,7 +40,7 @@
             <children>
                 <ImageView fitHeight="97.0" fitWidth="146.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/green%20desk.png" />
+                        <Image url="@../../../img/green-desk.png" />
                     </image>
                 </ImageView>
             </children>
@@ -98,7 +98,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
                   </Label>
-                  <TextArea fx:id="DescriptionTextField" layoutX="16.0" layoutY="212.0" prefHeight="152.0" prefWidth="360.0" promptText="Beschrijving" />
+                  <TextArea fx:id="descriptionTextField" layoutX="16.0" layoutY="212.0" prefHeight="152.0" prefWidth="360.0" promptText="Beschrijving" />
                   <Line endX="113.84378051757812" layoutX="384.0" layoutY="189.0" rotate="90.0" scaleX="1.7" startX="-100.0" />
                   <Label layoutX="407.0" layoutY="19.0" text="Impact">
                      <padding>
