@@ -4,13 +4,9 @@ import com.projectticketsystem.DAL.UserDAO;
 import com.projectticketsystem.Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -20,7 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 
-public class LoginController implements ViewController {
+public class LoginController extends BaseController {
     private User user;
     @FXML
     TextField usernameField;
@@ -39,18 +35,14 @@ public class LoginController implements ViewController {
         if (checkPassword()){
             System.out.println("Login successful");
             //Check if user is admin or regular employee or Service Desk employee
-            switch (user.getRole())
-            {
-                case Administrator:
-                case ServiceDeskEmployee:
+            switch (user.getRole()) {
+                case Administrator, ServiceDeskEmployee ->
                     //Load service desk employee view
                     //Load admin view
-                    loadNextStage("add-employee-view.fxml", new addEmployeeController(), event);
-                    break;
-                case RegularEmployee:
+                        loadNextStage("login-view.fxml", new LoginController(), event);
+                case RegularEmployee ->
                     //Load regular employee view
-                    loadNextStage("add-employee-view.fxml", new addEmployeeController(), event);
-                    break;
+                        loadNextStage("crud-employee-view.fxml", new crudEmployeeController(), event);
             }
 
 
@@ -60,7 +52,7 @@ public class LoginController implements ViewController {
 
     }
 
-    private boolean checkPassword() throws InvalidKeySpecException, NoSuchAlgorithmException {
+    private boolean checkPassword() {
         //password = "Wachtwoord"
 
         int userID = tryParseInt(usernameField.getText());
@@ -96,15 +88,5 @@ public class LoginController implements ViewController {
         }catch (NumberFormatException e){
             return -1;
         }
-    }
-
-    private void loadNextStage(String fxmlFileName, ViewController controller, ActionEvent event) throws IOException {
-        // get current Stage
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // load new scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        stage.setScene(new Scene(loader.load()));
-        stage.show();
     }
 }

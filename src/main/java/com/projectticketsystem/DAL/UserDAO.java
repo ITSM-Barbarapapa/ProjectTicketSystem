@@ -53,7 +53,7 @@ public class UserDAO extends BaseDAO
     public void addUser(User user)
     {
         Document document = new Document("UserID", user.getId())
-                .append("Username", user.getUsername())
+                .append("Username", user.getName())
                 .append("Password", user.getPassword().getHashPassword())
                 .append("Salt", user.getPassword().getSalt())
                 .append("Role", user.getRole().toString());
@@ -72,7 +72,7 @@ public class UserDAO extends BaseDAO
         }
 
         Bson updatedValues = Updates.combine(
-                Updates.set("Username", user.getUsername()),
+                Updates.set("Username", user.getName()),
                 Updates.set("Password", user.getPassword().getHashPassword()),
                 Updates.set("Salt", user.getPassword().getSalt()),
                 Updates.set("Role", user.getRole().toString()));
