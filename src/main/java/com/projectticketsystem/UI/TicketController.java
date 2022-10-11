@@ -18,7 +18,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class TicketController implements Initializable {
+public class TicketController extends BaseController implements Initializable {
     public TicketController(Ticket ticket){
         ticketService = new TicketService();
         this.ticket = ticket;

@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectticketsystem.UI.TicketCreationController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="940.0" prefWidth="100.0" />
@@ -106,7 +106,7 @@
                   </Label>
                   <TextArea fx:id="descriptionTextField" layoutX="16.0" layoutY="212.0" prefHeight="152.0" prefWidth="360.0" promptText="Beschrijving" />
                   <Line endX="113.84378051757812" layoutX="384.0" layoutY="189.0" rotate="90.0" scaleX="1.7" startX="-100.0" />
-                  <Label layoutX="407.0" layoutY="19.0" text="Impact">
+                  <Label fx:id="impactLabel" layoutX="407.0" layoutY="19.0" text="Impact">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -120,8 +120,8 @@
                           </FXCollections>
                       </items>
                   </ChoiceBox>
-                  <Label layoutX="454.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
-                  <Label layoutX="616.0" layoutY="19.0" text="Urgentie">
+                  <Label fx:id="vereistLabel" layoutX="454.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
+                  <Label fx:id="urgentieLabel" layoutX="616.0" layoutY="19.0" text="Urgentie">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -135,8 +135,8 @@
                         </FXCollections>
                       </items>
                   </ChoiceBox>
-                  <Label layoutX="669.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
-                  <Label layoutX="408.0" layoutY="66.0" text="Berekende prioriteit">
+                  <Label fx:id="vereistLabel1" layoutX="669.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
+                  <Label fx:id="berekendePrioriteitLabel" layoutX="408.0" layoutY="66.0" text="Berekende prioriteit">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                      </padding>

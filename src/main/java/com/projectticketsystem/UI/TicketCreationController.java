@@ -1,5 +1,6 @@
 package com.projectticketsystem.UI;
 
+import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.Ticket;
 import com.projectticketsystem.Model.TicketStatus;
 import com.projectticketsystem.Model.User;
@@ -7,20 +8,25 @@ import com.projectticketsystem.Service.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;;import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class TicketCreationController {
+public class TicketCreationController extends BaseController implements Initializable {
     private final TicketService ticketService;
+    public Label impactLabel;
+    public Label urgentieLabel;
+    public Label berekendePrioriteitLabel;
+    public Label vereistLabel;
+    public Label vereistLabel1;
     private User user;
     public TextArea descriptionTextField;
     public TextField summaryTextField;
@@ -33,8 +39,26 @@ public class TicketCreationController {
     public Button addTicketButton;
     public ImageView homeButton;
 
-    public TicketCreationController(){
+
+    public TicketCreationController(User user){
         ticketService = new TicketService();
+        this.user = user;
+    }
+
+    private void CheckUser(){
+
+            HidePriorityBoxes();
+    }
+
+    private void HidePriorityBoxes() {
+        impactChoiceBox.hide();
+        urgencyChoiceBox.hide();
+        calculatePriorityTextBox.isDisabled();
+        impactLabel.isDisabled();
+        urgentieLabel.isDisabled();
+        berekendePrioriteitLabel.isDisabled();
+        vereistLabel.isDisabled();
+        vereistLabel1.isDisabled();
     }
 
     @FXML
@@ -112,4 +136,8 @@ public class TicketCreationController {
         return impact + urgency - 1;
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        CheckUser();
+    }
 }
