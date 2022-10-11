@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -19,9 +21,9 @@
     <children>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
             <children>
-                <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="homeButton" fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" onMouseClicked="#OnHomeButtonClick" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/Home%20button%20img.png" />
+                        <Image url="@../../../img/Home-button-img.png" />
                     </image>
                 </ImageView>
             </children></Pane>
@@ -38,7 +40,7 @@
             <children>
                 <ImageView fitHeight="97.0" fitWidth="146.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/green%20desk.png" />
+                        <Image url="@../../../img/green-desk.png" />
                     </image>
                 </ImageView>
             </children>
@@ -61,8 +63,8 @@
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding></Label>
-                  <Label layoutX="56.0" layoutY="19.0" text="(required)" textFill="#2eae03" />
-                  <TextField layoutX="14.0" layoutY="41.0" prefHeight="25.0" prefWidth="160.0" promptText="Naam" />
+                  <Label layoutX="56.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
+                  <TextField fx:id="nameTextField" layoutX="14.0" layoutY="41.0" prefHeight="25.0" prefWidth="160.0" promptText="Naam" />
                   <Label layoutX="14.0" layoutY="66.0" text="Ticket Categorie">
                      <opaqueInsets>
                         <Insets />
@@ -71,22 +73,77 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
                   </Label>
-                  <ChoiceBox layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="360.0" />
-                  <Label layoutX="214.0" layoutY="19.0" text="Contact" />
-                  <TextField layoutX="214.0" layoutY="41.0" prefHeight="25.0" prefWidth="160.0" promptText="Contact name, email" />
+                  <ChoiceBox fx:id="categoryChoiceBox" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="360.0">
+                   <items>
+                       <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Software" />
+                           <String fx:value="Hardware" />
+                           <String fx:value="Database" />
+                           <String fx:value="Virus" />
+                           <String fx:value="Telefonie" />
+                           <String fx:value="Netwerk" />
+                           <String fx:value="Procedures" />
+                           <String fx:value="Platform" />
+                           <String fx:value="ExterneFactoren" />
+                       </FXCollections>
+                   </items>
+                  </ChoiceBox>
+                  <Label layoutX="214.0" layoutY="19.0" text="Contact">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                  <TextField fx:id="contactTextField" layoutX="214.0" layoutY="41.0" prefHeight="25.0" prefWidth="160.0" promptText="Contact name, email" />
                   <Label layoutX="16.0" layoutY="123.0" text="Samenvatting">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
                   </Label>
-                  <TextField layoutX="14.0" layoutY="155.0" prefHeight="25.0" prefWidth="360.0" promptText="Incident in een zin" />
+                  <TextField fx:id="summaryTextField" layoutX="14.0" layoutY="155.0" prefHeight="25.0" prefWidth="360.0" promptText="Incident in een zin" />
                   <Label layoutX="16.0" layoutY="180.0" text="Beschrijving">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
                   </Label>
-                  <TextArea layoutX="16.0" layoutY="212.0" prefHeight="152.0" prefWidth="360.0" promptText="Beschrijving" />
+                  <TextArea fx:id="descriptionTextField" layoutX="16.0" layoutY="212.0" prefHeight="152.0" prefWidth="360.0" promptText="Beschrijving" />
                   <Line endX="113.84378051757812" layoutX="384.0" layoutY="189.0" rotate="90.0" scaleX="1.7" startX="-100.0" />
+                  <Label layoutX="407.0" layoutY="19.0" text="Impact">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox fx:id="impactChoiceBox" layoutX="407.0" layoutY="41.0" onAction="#itemChange" prefWidth="150.0">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="1-Hoog" />
+                              <String fx:value="2-Midden" />
+                              <String fx:value="3-Laag" />
+                          </FXCollections>
+                      </items>
+                  </ChoiceBox>
+                  <Label layoutX="454.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
+                  <Label layoutX="616.0" layoutY="19.0" text="Urgentie">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox fx:id="urgencyChoiceBox" layoutX="616.0" layoutY="41.0" onAction="#itemChange" prefWidth="150.0">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="1-Hoog" />
+                          <String fx:value="2-Midden" />
+                          <String fx:value="3-Laag" />
+                        </FXCollections>
+                      </items>
+                  </ChoiceBox>
+                  <Label layoutX="669.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
+                  <Label layoutX="408.0" layoutY="66.0" text="Berekende prioriteit">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="calculatePriorityTextBox" editable="false" layoutX="408.0" layoutY="98.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Button fx:id="addTicketButton" layoutX="616.0" layoutY="339.0" mnemonicParsing="false" onAction="#AddTicket" prefHeight="25.0" prefWidth="150.0" text="Ticket toevoegen" />
+                  <Label layoutX="266.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
                </children></Pane>
             <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="780.0" text="Nieuwe ticket" textAlignment="CENTER" GridPane.columnIndex="1">
                <font>
