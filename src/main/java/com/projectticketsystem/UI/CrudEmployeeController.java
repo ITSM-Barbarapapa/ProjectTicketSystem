@@ -118,6 +118,9 @@ public class CrudEmployeeController extends BaseController implements Initializa
     @FXML
     public void onNewSelect(MouseEvent mouseEvent) {
         mouseEvent.consume();
+        if (employeesTableView.getSelectionModel().getSelectedItem() == null){
+            return;
+        }
         User user = employeesTableView.getSelectionModel().getSelectedItem();
         nameField.setText(user.getName());
         passwordField.setText("");

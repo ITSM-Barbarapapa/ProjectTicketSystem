@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class LoginController extends BaseController {
     private User user;
     @FXML
-    public TextField usernameField;
+    public TextField userIdField;
 
     @FXML
     public VBox vBoxLogin;
@@ -27,7 +27,7 @@ public class LoginController extends BaseController {
 
     @FXML
     private void onLoginButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("Username: " + usernameField.getText());
+        System.out.println("Username: " + userIdField.getText());
         System.out.println("Password: " + passwordField.getText());
 
         if (checkPassword()){
@@ -42,8 +42,6 @@ public class LoginController extends BaseController {
                     //Load regular employee view
                         loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(), event);
             }
-
-
         }else {
             System.out.println("Login failed");
         }
@@ -52,7 +50,7 @@ public class LoginController extends BaseController {
     private boolean checkPassword() {
         //password = "Wachtwoord"
 
-        int userID = tryParseInt(usernameField.getText());
+        int userID = tryParseInt(userIdField.getText());
 
         if (userID == -1){
             return false;

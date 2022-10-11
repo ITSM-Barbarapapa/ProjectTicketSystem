@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectticketsystem.UI.LoginController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectticketsystem.UI.LoginController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -29,17 +29,17 @@
                <font>
                   <Font name="Arial Bold" size="30.0" />
                </font></Label>
-            <Label text="Gebruikersnaam" textFill="WHITE">
+            <Label text="Gebruikerscode" textFill="WHITE">
                <font>
                   <Font name="Arial" size="16.0" />
                </font></Label>
-            <TextField fx:id="usernameField" />
+            <TextField fx:id="userIdField" />
             <Label text="Wachtwoord" textFill="WHITE">
                <font>
                   <Font name="Arial" size="16.0" />
                </font></Label>
             <PasswordField fx:id="passwordField" />
-            <Button mnemonicParsing="false" onAction="#onLoginButtonClicked" prefWidth="300.0" style="-fx-background-color: #337C2D;" text="Inloggen" textFill="WHITE">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onLoginButtonClicked" prefWidth="300.0" style="-fx-background-color: #337C2D;" text="Inloggen" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font></Button>
