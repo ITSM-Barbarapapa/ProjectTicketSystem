@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TicketController extends BaseController implements Initializable {
@@ -70,12 +71,15 @@ public class TicketController extends BaseController implements Initializable {
     }*/
 
     public void OnReactButtonClick(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("react-ticket-view.fxml"));
-        loader.setController(new ReactTicketController(ticket));
+        loader.setController(new ReactTicketController(ticket, stage));
 
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setTitle("Reageren op ticket");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
     }

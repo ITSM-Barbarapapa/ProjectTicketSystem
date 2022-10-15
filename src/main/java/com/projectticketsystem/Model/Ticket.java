@@ -12,6 +12,7 @@ public class Ticket {
     private String ticketCategory;
     private String ticketSummary;
     private String ticketDescription;
+    private String ticketReaction;
     private User user;
     private final TicketStatus ticketStatus;
     private final LocalDate date;
@@ -81,5 +82,13 @@ public class Ticket {
 
     public int getTicketId() {
         return ticketID;
+    }
+
+    public String getTicketReaction() {
+        return ticketReaction;
+    }
+
+    public void setTicketReaction(String ticketReaction) {
+        this.ticketReaction = ticketReaction;
     }
 }

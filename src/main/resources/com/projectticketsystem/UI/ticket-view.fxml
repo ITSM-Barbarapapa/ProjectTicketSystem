@@ -70,7 +70,7 @@
                         <Insets bottom="10.0" left="20.0" right="10.0" />
                      </padding>
                   </Label>
-                  <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0" prefHeight="268.0" prefWidth="520.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
+                  <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0" prefHeight="130.0" prefWidth="520.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
                   <Line endX="-100.0" endY="296.0" layoutX="664.0" layoutY="75.0" startX="-100.0" startY="-66.0" />
                   <VBox alignment="CENTER_LEFT" layoutX="565.0" layoutY="9.0" prefHeight="210.0" prefWidth="180.0">
                      <children>
@@ -192,6 +192,7 @@
                            </VBox.margin></Button>
                      </children>
                   </VBox>
+                  <TextArea fx:id="ReactionTextfield" editable="false" layoutX="18.0" layoutY="236.0" prefHeight="130.0" prefWidth="520.0" promptText="(Answer)" />
                </children>
                 </Pane>
             </children>
