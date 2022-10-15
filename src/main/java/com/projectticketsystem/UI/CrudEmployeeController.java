@@ -9,11 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -22,10 +20,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class CrudEmployeeController extends BaseController implements Initializable {
 
+    private User selectedUser;
     private static final UserService userService = new UserService();
     public TextField nameField;
     public PasswordField passwordField;
@@ -33,6 +33,8 @@ public class CrudEmployeeController extends BaseController implements Initializa
     private final ObservableList<User> users;
     @FXML
     TableView<User> employeesTableView;
+    @FXML
+    public Label errorLabel;
 
     public CrudEmployeeController(){
         users = FXCollections.observableArrayList(userService.getAllUsers());
@@ -40,18 +42,24 @@ public class CrudEmployeeController extends BaseController implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        employeesTableView.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
+            selectedUser = employeesTableView.getSelectionModel().getSelectedItem();
+            nameField.setText(selectedUser.getName());
+            passwordField.setText("");
+            roleChoiceBox.setValue(selectedUser.getRole().toString());
+        });
         loadTableView();
     }
 
     private void loadTableView(){
+        Collections.sort(users);
         employeesTableView.setItems(users);
     }
 
     @FXML
     public void onAddEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
         actionEvent.consume();
-        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null){
-            System.out.println("Please fill in all fields");
+        if (checkEmptyFields()){
             return;
         }
         String name = nameField.getText();
@@ -67,37 +75,40 @@ public class CrudEmployeeController extends BaseController implements Initializa
     @FXML
     public void onDeleteEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
-        User user = employeesTableView.getSelectionModel().getSelectedItem();
-        if (user == null){
+        if (selectedUser == null){
             System.out.println("Please select an employee");
+            errorLabel.setText("Please select an employee");
             return;
         }
-        userService.deleteUser(user);
-        users.remove(user);
+        userService.deleteUser(selectedUser);
+        users.remove(selectedUser);
         loadTableView();
     }
 
     @FXML
     public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
         actionEvent.consume();
-        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null
-                || employeesTableView.getSelectionModel().getSelectedItem() == null){
-            System.out.println("Please fill in all fields");
+        if (employeesTableView.getSelectionModel().getSelectedItem() == null){
+            System.out.println("Please select an employee");
+            errorLabel.setText("Please select an employee");
             return;
         }
-        //get selected user
-        User user = userService.getUser(employeesTableView.getSelectionModel().getSelectedItem().getId());
 
-        users.remove(user);
+        User updatedUser = selectedUser;
+
+
 
         //set the new data
-        user.setPassword(hashPassword());
-        user.setName(nameField.getText());
-        user.setRole(Role.valueOf(roleChoiceBox.getValue()));
+        updatedUser.setPassword(hashPassword());
+        updatedUser.setName(nameField.getText());
+        updatedUser.setRole(Role.valueOf(roleChoiceBox.getValue()));
+
+        //remove selected user from tableview
+        users.remove(selectedUser);
 
         //update the user
-        userService.updateUser(user);
-        users.add(user);
+        userService.updateUser(updatedUser);
+        users.add(updatedUser);
         loadTableView();
     }
 
@@ -115,15 +126,23 @@ public class CrudEmployeeController extends BaseController implements Initializa
         return new HashedPassword(hash, salt);
     }
 
-    @FXML
-    public void onNewSelect(MouseEvent mouseEvent) {
-        mouseEvent.consume();
-        if (employeesTableView.getSelectionModel().getSelectedItem() == null){
-            return;
+
+    private boolean checkEmptyFields(){
+        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null){
+            System.out.println("Please fill in all fields");
+            errorLabel.setText("Please fill in all fields");
+            checkField(nameField);
+            checkField(passwordField);
+            return true;
         }
-        User user = employeesTableView.getSelectionModel().getSelectedItem();
-        nameField.setText(user.getName());
-        passwordField.setText("");
-        roleChoiceBox.setValue(user.getRole().toString());
+        return false;
+    }
+
+    private void checkField(TextField field){
+        if (field.getText().isEmpty() ){
+            field.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        } else {
+            field.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        }
     }
 }

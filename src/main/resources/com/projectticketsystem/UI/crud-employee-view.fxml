@@ -55,11 +55,11 @@
                 <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
             </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" style="-fx-background-color: #DEDEDE;" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                <children>
                   <TextField fx:id="nameField" maxWidth="-Infinity" prefWidth="200.0" promptText="Naam" />
                   <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefWidth="200.0" promptText="Wachtwoord" />
-                  <ChoiceBox fx:id="roleChoiceBox" maxWidth="-Infinity" prefWidth="200.0" value="RegularEmployee">
+                  <ChoiceBox fx:id="roleChoiceBox" maxWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #337C2D;" stylesheets="@style-dashboard.css" value="RegularEmployee">
                       <items>
                           <FXCollections fx:factory="observableArrayList">
                               <String fx:value="RegularEmployee" />
@@ -70,14 +70,15 @@
                   </ChoiceBox>
                   <HBox alignment="CENTER" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onAddEmployeeButtonClick" text="Add Employee" />
-                        <Button mnemonicParsing="false" onAction="#onUpdateEmployeeButtonClick" text="Update Employee" />
-                        <Button mnemonicParsing="false" onAction="#onDeleteEmployeeButtonClick" text="Delete Employee" />
+                        <Button mnemonicParsing="false" onAction="#onAddEmployeeButtonClick" style="-fx-background-color: #337C2D; " text="Add Employee" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#onUpdateEmployeeButtonClick" style="-fx-background-color: #337C2D;" text="Update Employee" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#onDeleteEmployeeButtonClick" style="-fx-background-color: #337C2D;" text="Delete Employee" textFill="WHITE" />
                      </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </HBox>
+                  <Label fx:id="errorLabel" textFill="RED" />
                </children>
                <GridPane.margin>
                   <Insets />
@@ -85,19 +86,19 @@
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding></VBox>
-            <TableView fx:id="employeesTableView" style="-fx-background-color: #DEDEDE;" onMouseClicked="#onNewSelect" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+            <TableView fx:id="employeesTableView" style="-fx-background-color: #DEDEDE;" stylesheets="@style-dashboard.css" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
               <columns>
                   <TableColumn prefWidth="50.0" text="Id">
                       <cellValueFactory>
                           <PropertyValueFactory property="id" />
                       </cellValueFactory>
                   </TableColumn>
-                <TableColumn prefWidth="100.0" text="Naam">
+                <TableColumn minWidth="200.0" prefWidth="100.0" text="Naam">
                     <cellValueFactory>
                         <PropertyValueFactory property="name" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="100.0" text="Rol">
+                <TableColumn minWidth="120.0" prefWidth="100.0" text="Rol">
                     <cellValueFactory>
                         <PropertyValueFactory property="role" />
                     </cellValueFactory>

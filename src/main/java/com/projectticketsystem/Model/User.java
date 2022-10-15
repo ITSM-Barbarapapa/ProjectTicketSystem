@@ -1,6 +1,6 @@
 package com.projectticketsystem.Model;
 
-public class User {
+public class User implements Comparable<User> {
 
     private int id;
     private String name;
@@ -50,5 +50,10 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.id - o.id;
     }
 }
