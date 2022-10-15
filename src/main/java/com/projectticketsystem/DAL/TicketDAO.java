@@ -53,13 +53,14 @@ public class TicketDAO extends BaseDAO
         Ticket ticket = new Ticket(
                 found.getString("Name"),
                 found.getString("Contact"),
-                found.getString("Impact"),
-                found.getString("Urgency"),
-                found.getString("Priority"),
                 LocalDate.parse(found.getString("Date")),
                 TicketStatus.valueOf(found.getString("Status")),
                 found.getInteger("TicketID"));
 
+
+        ticket.setTicketImpact(found.getString("Impact"));
+        ticket.setTicketUrgency(found.getString("Urgency"));
+        ticket.setTicketPriority(found.getString("Priority"));
         ticket.setTicketSummary(found.getString("Summary"));
         ticket.setTicketCategory(found.getString("Category"));
         ticket.setTicketDescription(found.getString("Description"));

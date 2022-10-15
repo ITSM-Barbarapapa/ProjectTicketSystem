@@ -3,14 +3,19 @@ package com.projectticketsystem.UI;
 import com.projectticketsystem.Model.Ticket;
 import com.projectticketsystem.Model.User;
 import com.projectticketsystem.Service.TicketService;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,7 +58,7 @@ public class TicketController extends BaseController implements Initializable {
         ticketStatusLabel.setText(ticket.getTicketStatus().toString());
     }
 
-    public void OnHomeButtonClick(MouseEvent event) throws IOException {
+   /* public void OnHomeButtonClick(MouseEvent event) throws IOException {
         // Go to next window
         // get current Stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -62,6 +67,17 @@ public class TicketController extends BaseController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         stage.setScene(new Scene(loader.load()));
         stage.show();
+    }*/
+
+    public void OnReactButtonClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("react-ticket-view.fxml"));
+        loader.setController(new ReactTicketController(ticket));
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 

@@ -6,9 +6,9 @@ public class Ticket {
     private final int ticketID;
     private final String name;
     private final String contact;
-    private final String impact;
-    private final String urgency;
-    private final String priority;
+    private String impact;
+    private String urgency;
+    private String priority;
     private String ticketCategory;
     private String ticketSummary;
     private String ticketDescription;
@@ -17,12 +17,9 @@ public class Ticket {
     private final LocalDate date;
 
 
-    public Ticket(String name, String contact, String impact, String urgency, String priority, LocalDate date, TicketStatus ticketStatus, int id) {
+    public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;
         this.contact = contact;
-        this.impact = impact;
-        this.urgency = urgency;
-        this.priority = priority;
         this.ticketStatus = ticketStatus;
         this.date = date;
         this.ticketID = id;
@@ -47,6 +44,9 @@ public class Ticket {
     public void setTicketCategory(String category) {this.ticketCategory = category;}
     public void setTicketSummary(String summary){this.ticketSummary = summary;}
     public void setTicketDescription(String description) {this.ticketDescription = description;}
+    public void setTicketImpact(String impact) {this.impact = impact;}
+    public void setTicketUrgency(String urgency) {this.urgency = urgency;}
+    public void setTicketPriority(String priority) {this.priority = priority;}
     public String getName() {
         return name;
     }

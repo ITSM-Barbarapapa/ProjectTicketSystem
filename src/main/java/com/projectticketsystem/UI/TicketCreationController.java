@@ -40,9 +40,9 @@ public class TicketCreationController extends BaseController implements Initiali
     public ImageView homeButton;
 
 
-    public TicketCreationController(User user){
+    public TicketCreationController(){
         ticketService = new TicketService();
-        this.user = user;
+        //this.user = user;
     }
 
     private void CheckUser(){
@@ -79,7 +79,7 @@ public class TicketCreationController extends BaseController implements Initiali
             return;
         }
 
-        Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), urgencyChoiceBox.getValue(), impactChoiceBox.getValue(), calculatePriorityTextBox.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
+        Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
         FillInTicketWithInformation(ticket);
         ticketService.AddTicket(ticket);
 
@@ -102,6 +102,19 @@ public class TicketCreationController extends BaseController implements Initiali
         if (!Objects.equals(descriptionTextField.getText(), "")){
             ticket.setTicketDescription(descriptionTextField.getText());
         }
+
+        if (impactChoiceBox.getValue() != null){
+            ticket.setTicketImpact(impactChoiceBox.getValue());
+        }
+
+        if (urgencyChoiceBox.getValue() != null){
+            ticket.setTicketUrgency(urgencyChoiceBox.getValue());
+        }
+
+        if (!Objects.equals(calculatePriorityTextBox.getText(), "")){
+            ticket.setTicketPriority(calculatePriorityTextBox.getText());
+        }
+
     }
 
     private boolean Requirements(){

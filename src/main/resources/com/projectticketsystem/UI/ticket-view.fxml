@@ -19,7 +19,7 @@
     <children>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
             <children>
-                <ImageView fx:id="homeButton" fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" onMouseClicked="#OnHomeButtonClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="homeButton" fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/Home-button-img.png" />
                     </image>
@@ -70,14 +70,9 @@
                         <Insets bottom="10.0" left="20.0" right="10.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="categoryLabel" layoutY="89.0" text="(Category placeholder text)">
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="10.0" />
-                     </padding>
-                  </Label>
-                  <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="116.0" prefHeight="240.0" prefWidth="520.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
+                  <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0" prefHeight="268.0" prefWidth="520.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
                   <Line endX="-100.0" endY="296.0" layoutX="664.0" layoutY="75.0" startX="-100.0" startY="-66.0" />
-                  <VBox alignment="CENTER" layoutX="565.0" layoutY="9.0" prefHeight="210.0" prefWidth="180.0">
+                  <VBox alignment="CENTER_LEFT" layoutX="565.0" layoutY="9.0" prefHeight="210.0" prefWidth="180.0">
                      <children>
                         <HBox prefHeight="20.0" prefWidth="180.0">
                            <children>
@@ -94,48 +89,6 @@
                            </children>
                         </HBox>
                          <HBox prefHeight="20.0" prefWidth="180.0">
-                           <children>
-                              <Label text="Impact: ">
-                                 <padding>
-                                    <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="impactLabel" text="(2-Midden)">
-                                 <padding>
-                                    <Insets bottom="10.0" right="5.0" top="10.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </HBox>
-                         <HBox prefHeight="20.0" prefWidth="180.0">
-                             <children>
-                                 <Label text="Urgency: ">
-                                     <padding>
-                                         <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
-                                     </padding>
-                                 </Label>
-                                 <Label fx:id="urgencyLabel" text="(2-Midden)">
-                                     <padding>
-                                         <Insets bottom="10.0" right="5.0" top="10.0" />
-                                     </padding>
-                                 </Label>
-                             </children>
-                         </HBox>
-                         <HBox prefHeight="20.0" prefWidth="180.0">
-                             <children>
-                                 <Label text="Priority: ">
-                                     <padding>
-                                         <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
-                                     </padding>
-                                 </Label>
-                                 <Label fx:id="priorityLabel" text="(3)">
-                                     <padding>
-                                         <Insets bottom="10.0" right="5.0" top="10.0" />
-                                     </padding>
-                                 </Label>
-                             </children>
-                         </HBox>
-                         <HBox prefHeight="20.0" prefWidth="180.0">
                              <children>
                                  <Label text="Date: ">
                                      <padding>
@@ -151,18 +104,92 @@
                          </HBox>
                          <HBox prefHeight="20.0" prefWidth="180.0">
                              <children>
-                                 <Label text="Status: ">
+                                 <Label text="Category: ">
                                      <padding>
                                          <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
                                      </padding>
                                  </Label>
-                                 <Label fx:id="ticketStatusLabel" text="Open">
+                                 <Label fx:id="categoryLabel" text="(category)">
                                      <padding>
                                          <Insets bottom="10.0" right="5.0" top="10.0" />
                                      </padding>
                                  </Label>
                              </children>
                          </HBox>
+                         <HBox prefHeight="20.0" prefWidth="180.0">
+                             <children>
+                                 <Label text="Status: ">
+                                     <padding>
+                                         <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                                 <Label fx:id="ticketStatusLabel" text="(status)">
+                                     <padding>
+                                         <Insets bottom="10.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                             </children>
+                         </HBox>
+                         <HBox prefHeight="20.0" prefWidth="180.0">
+                           <children>
+                              <Label text="Impact: ">
+                                 <padding>
+                                    <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="impactLabel" text="(impact)">
+                                 <padding>
+                                    <Insets bottom="10.0" right="5.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                         <HBox prefHeight="20.0" prefWidth="180.0">
+                             <children>
+                                 <Label text="Urgency: ">
+                                     <padding>
+                                         <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                                 <Label fx:id="urgencyLabel" text="(urgency)">
+                                     <padding>
+                                         <Insets bottom="10.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                             </children>
+                         </HBox>
+                         <HBox prefHeight="20.0" prefWidth="180.0">
+                             <children>
+                                 <Label text="Priority: ">
+                                     <padding>
+                                         <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                                 <Label fx:id="priorityLabel" text="(priority)">
+                                     <padding>
+                                         <Insets bottom="10.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                             </children>
+                         </HBox>
+                         <HBox prefHeight="20.0" prefWidth="180.0">
+                             <children>
+                                 <Label text="Employee: ">
+                                     <padding>
+                                         <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                                 <Label fx:id="employeeLabel" text="(employee)">
+                                     <padding>
+                                         <Insets bottom="10.0" right="5.0" top="10.0" />
+                                     </padding>
+                                 </Label>
+                             </children>
+                         </HBox>
+                        <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" text="Reageer">
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin></Button>
                      </children>
                   </VBox>
                </children>

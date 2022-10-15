@@ -1,0 +1,30 @@
+
+_
+java:S1192+"IDefine a constant instead of duplicating this literal "TicketID" 5 times.(ƒ¹éú
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚ßäè
+b
+java:S2259U"LA "NullPointerException" could be thrown; "GetCollection()" can return null.(Ç©‡´
+—
+java:S1186Y"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(§œÍª
+œ
+java:S1186^"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğÏ¹”ùÿÿÿÿ
+c	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•¯Œ
+N	java:S106$"9Replace this use of System.out or System.err by a logger.(Ş›áŒ
+S	java:S106."9Replace this use of System.out or System.err by a logger.(ŸÇ¸Íùÿÿÿÿ
+S	java:S1062"9Replace this use of System.out or System.err by a logger.(‚­ÒÆÿÿÿÿÿ
+S	java:S1063"9Replace this use of System.out or System.err by a logger.(ò•ØÒşÿÿÿÿ
+M	java:S106V"9Replace this use of System.out or System.err by a logger.(õı­C
+X
+java:S1128";Remove this unused import 'com.mongodb.client.MongoCursor'.(ïª¢¨8§×Á®½0
+c
+java:S1128"ARemove this unused import 'com.mongodb.client.model.Projections'.(±Ûî­ùÿÿÿÿ8§×Á®½0
+\
+java:S1128	"?Remove this unused import 'com.projectticketsystem.Model.Role'.(è¡â³8§×Á®½0
+a
+java:S1128"?Remove this unused import 'com.projectticketsystem.Model.User'.(ÏòƒÛşÿÿÿÿ8¨×Á®½0
+X
+java:S1128"6Remove this unused import 'org.bson.conversions.Bson'.(ŠŸ‰…úÿÿÿÿ8¨×Á®½0
+]
+java:S1128"@Remove this unused import 'com.mongodb.client.model.Filters.eq'.(©§›8¨×Á®½0
+]
+java:S1128"@Remove this unused import 'com.mongodb.client.model.Filters.lt'.(—øÙÂ8¨×Á®½0
