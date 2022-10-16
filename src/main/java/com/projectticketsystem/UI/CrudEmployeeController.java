@@ -51,17 +51,14 @@ public class CrudEmployeeController extends BaseController implements Initializa
     public void initialize(URL url, ResourceBundle resourceBundle) {
         employeesTableView.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
             selectedUser = employeesTableView.getSelectionModel().getSelectedItem();
-            nameField.setText(selectedUser.getName());
-            passwordField.setText("");
-            roleChoiceBox.setValue(selectedUser.getRole().toString());
+            if (selectedUser != null) {
+                nameField.setText(selectedUser.getName());
+                passwordField.setText("");
+                roleChoiceBox.setValue(selectedUser.getRole().toString());
+            }
         });
         loadTableView();
         usernameLabel.setText(user.getName());
-    }
-
-    private void loadTableView() {
-        Collections.sort(users);
-        employeesTableView.setItems(users);
     }
 
     @FXML
@@ -73,11 +70,40 @@ public class CrudEmployeeController extends BaseController implements Initializa
         String name = nameField.getText();
         String role = roleChoiceBox.getValue();
 
-
+        //add new Employee
         User newUser = new User(userService.getNextUserId(), name, hashPassword(), Role.valueOf(role));
         userService.addUser(newUser);
         users.add(newUser);
         loadTableView();
+        employeesTableView.getSelectionModel().select(newUser);
+        nameField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        passwordField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        roleChoiceBox.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        errorLabel.setText("");
+    }
+
+    @FXML
+    public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        actionEvent.consume();
+        if (employeesTableView.getSelectionModel().getSelectedItem() == null) {
+            errorLabel.setText("Please select an employee");
+            return;
+        }
+
+        //set the new data
+        User updatedUser = selectedUser;
+        updatedUser.setPassword(hashPassword());
+        updatedUser.setName(nameField.getText());
+        updatedUser.setRole(Role.valueOf(roleChoiceBox.getValue()));
+
+        //remove selected user from tableview
+        users.remove(selectedUser);
+
+        //update the user
+        userService.updateUser(updatedUser);
+        users.add(updatedUser);
+        loadTableView();
+        employeesTableView.getSelectionModel().select(updatedUser);
     }
 
     @FXML
@@ -90,32 +116,9 @@ public class CrudEmployeeController extends BaseController implements Initializa
         userService.deleteUser(selectedUser);
         users.remove(selectedUser);
         loadTableView();
+        employeesTableView.getSelectionModel().clearSelection();
     }
 
-    @FXML
-    public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        actionEvent.consume();
-        if (employeesTableView.getSelectionModel().getSelectedItem() == null) {
-            errorLabel.setText("Please select an employee");
-            return;
-        }
-
-        User updatedUser = selectedUser;
-
-
-        //set the new data
-        updatedUser.setPassword(hashPassword());
-        updatedUser.setName(nameField.getText());
-        updatedUser.setRole(Role.valueOf(roleChoiceBox.getValue()));
-
-        //remove selected user from tableview
-        users.remove(selectedUser);
-
-        //update the user
-        userService.updateUser(updatedUser);
-        users.add(updatedUser);
-        loadTableView();
-    }
 
     private HashedPassword hashPassword() throws NoSuchAlgorithmException, InvalidKeySpecException {
         //create salt
@@ -131,15 +134,19 @@ public class CrudEmployeeController extends BaseController implements Initializa
         return new HashedPassword(hash, salt);
     }
 
-
     private boolean checkEmptyFields() {
         if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null) {
-            errorLabel.setText("Please fill in all fields");
             checkField(nameField);
             checkField(passwordField);
+            errorLabel.setText("Please fill in all fields");
             return true;
         }
         return false;
+    }
+
+    private void loadTableView() {
+        Collections.sort(users);
+        employeesTableView.setItems(users);
     }
 
     private void checkField(TextField field) {

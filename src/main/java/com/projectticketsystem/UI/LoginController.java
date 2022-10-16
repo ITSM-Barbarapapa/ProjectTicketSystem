@@ -1,9 +1,11 @@
 package com.projectticketsystem.UI;
 
+import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.User;
 import com.projectticketsystem.Service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -15,42 +17,37 @@ import java.security.spec.KeySpec;
 import java.util.Arrays;
 
 public class LoginController extends BaseController {
-    private User user;
     @FXML
     public TextField userIdField;
-
     @FXML
     public VBox vBoxLogin;
-
+    @FXML
+    public Label errorLabel;
     @FXML
     public PasswordField passwordField;
+    private User user;
 
     @FXML
     private void onLoginButtonClicked(ActionEvent event) throws IOException {
         System.out.println("Username: " + userIdField.getText());
         System.out.println("Password: " + passwordField.getText());
 
-        if (checkPassword()){
-            System.out.println("Login successful");
+        if (checkPassword()) {
             //Check if user is admin or regular employee or Service Desk employee
-            switch (user.getRole()) {
-                case Administrator, ServiceDeskEmployee ->
-                    //Load service desk employee view
-                    //Load admin view
-                        loadNextStage("login-view.fxml", null, event);
-                case RegularEmployee ->
-                    //Load regular employee view
-                        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
+            if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {
+                loadNextStage("dashboard-view.fxml", null, event);
+            } else if (user.getRole() == Role.RegularEmployee) {
+                loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
             }
-        }else {
-            System.out.println("Login failed");
+        } else {
+            errorLabel.setText("Gebruikerscode of wachtwoord is onjuist");
         }
     }
 
     private boolean checkPassword() {
         int userID = tryParseInt(userIdField.getText());
 
-        if (userID == -1){
+        if (userID == -1) {
             return false;
         }
 
@@ -70,15 +67,16 @@ public class LoginController extends BaseController {
             //check if hashes are equal
             return Arrays.equals(hash, hash2);
         } catch (Exception e) {
-            System.out.println("An error occurred when checking the password" + e.getMessage());
+            errorLabel.setText("Er is iets fout gegaan bij het checken van uw wachtwoord");
             return false;
         }
     }
 
-    private int tryParseInt(String value){
-        try{
+    private int tryParseInt(String value) {
+        try {
             return Integer.parseInt(value);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
+            errorLabel.setText("Gebruikerscode is geen nummer");
             return -1;
         }
     }
