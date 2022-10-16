@@ -1,10 +1,0 @@
-
-`
-java:S1301$"KReplace this "switch" statement by "if" statements to increase readability.(µ•¡s
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(æäÙ«üÿÿÿÿ
-N	java:S106"9Replace this use of System.out or System.err by a logger.(•Ëèõ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(Ñ¥úÿÿÿÿ
-S	java:S106""9Replace this use of System.out or System.err by a logger.(†–»Óøÿÿÿÿ
-m	java:S131$"YComplete cases by adding the missing enum constants or add a default case to this switch.(µ•¡s
-S	java:S106."9Replace this use of System.out or System.err by a logger.(ïÌüÿÿÿÿ
-S	java:S106K"9Replace this use of System.out or System.err by a logger.(Š©ş»øÿÿÿÿ
