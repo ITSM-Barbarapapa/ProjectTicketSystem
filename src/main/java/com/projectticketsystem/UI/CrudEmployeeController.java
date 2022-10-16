@@ -25,18 +25,25 @@ import java.util.ResourceBundle;
 
 public class CrudEmployeeController extends BaseController implements Initializable {
 
-    private User selectedUser;
     private static final UserService userService = new UserService();
-    public TextField nameField;
-    public PasswordField passwordField;
-    public ChoiceBox<String> roleChoiceBox;
+    private final User user;
     private final ObservableList<User> users;
     @FXML
-    TableView<User> employeesTableView;
+    public TextField nameField;
+    @FXML
+    public PasswordField passwordField;
+    @FXML
+    public ChoiceBox<String> roleChoiceBox;
     @FXML
     public Label errorLabel;
+    @FXML
+    public Label usernameLabel;
+    @FXML
+    TableView<User> employeesTableView;
+    private User selectedUser;
 
-    public CrudEmployeeController(){
+    public CrudEmployeeController(User user) {
+        this.user = user;
         users = FXCollections.observableArrayList(userService.getAllUsers());
     }
 
@@ -49,9 +56,10 @@ public class CrudEmployeeController extends BaseController implements Initializa
             roleChoiceBox.setValue(selectedUser.getRole().toString());
         });
         loadTableView();
+        usernameLabel.setText(user.getName());
     }
 
-    private void loadTableView(){
+    private void loadTableView() {
         Collections.sort(users);
         employeesTableView.setItems(users);
     }
@@ -59,24 +67,23 @@ public class CrudEmployeeController extends BaseController implements Initializa
     @FXML
     public void onAddEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
         actionEvent.consume();
-        if (checkEmptyFields()){
+        if (checkEmptyFields()) {
             return;
         }
         String name = nameField.getText();
         String role = roleChoiceBox.getValue();
 
 
-        User user = new User(userService.getNextUserId(), name, hashPassword(), Role.valueOf(role));
-        userService.addUser(user);
-        users.add(user);
+        User newUser = new User(userService.getNextUserId(), name, hashPassword(), Role.valueOf(role));
+        userService.addUser(newUser);
+        users.add(newUser);
         loadTableView();
     }
 
     @FXML
     public void onDeleteEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
-        if (selectedUser == null){
-            System.out.println("Please select an employee");
+        if (selectedUser == null) {
             errorLabel.setText("Please select an employee");
             return;
         }
@@ -88,14 +95,12 @@ public class CrudEmployeeController extends BaseController implements Initializa
     @FXML
     public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
         actionEvent.consume();
-        if (employeesTableView.getSelectionModel().getSelectedItem() == null){
-            System.out.println("Please select an employee");
+        if (employeesTableView.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setText("Please select an employee");
             return;
         }
 
         User updatedUser = selectedUser;
-
 
 
         //set the new data
@@ -127,9 +132,8 @@ public class CrudEmployeeController extends BaseController implements Initializa
     }
 
 
-    private boolean checkEmptyFields(){
-        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null){
-            System.out.println("Please fill in all fields");
+    private boolean checkEmptyFields() {
+        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null) {
             errorLabel.setText("Please fill in all fields");
             checkField(nameField);
             checkField(passwordField);
@@ -138,8 +142,8 @@ public class CrudEmployeeController extends BaseController implements Initializa
         return false;
     }
 
-    private void checkField(TextField field){
-        if (field.getText().isEmpty() ){
+    private void checkField(TextField field) {
+        if (field.getText().isEmpty()) {
             field.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         } else {
             field.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));

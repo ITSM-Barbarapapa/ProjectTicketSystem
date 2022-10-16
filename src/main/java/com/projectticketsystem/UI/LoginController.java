@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
                         loadNextStage("login-view.fxml", null, event);
                 case RegularEmployee ->
                     //Load regular employee view
-                        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(), event);
+                        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
             }
         }else {
             System.out.println("Login failed");
@@ -48,8 +48,6 @@ public class LoginController extends BaseController {
     }
 
     private boolean checkPassword() {
-        //password = "Wachtwoord"
-
         int userID = tryParseInt(userIdField.getText());
 
         if (userID == -1){

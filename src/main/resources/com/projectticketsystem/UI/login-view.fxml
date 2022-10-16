@@ -51,10 +51,9 @@
             <Insets />
          </GridPane.margin>
       </VBox>
-      <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-         <image>
-            <Image url="@../../../img/green-desk.png" />
-         </image>
-      </ImageView>
+       <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
+                  GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+           <Image url="@../../../img/green-desk.png"/>
+       </ImageView>
    </children>
 </GridPane>

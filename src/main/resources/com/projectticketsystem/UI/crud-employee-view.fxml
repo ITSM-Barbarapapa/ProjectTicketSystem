@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="940.0" prefWidth="100.0" />
@@ -29,7 +29,7 @@
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
             <children>
                 <Circle fill="#d9d9d9" layoutX="911.0" layoutY="30.0" radius="22.0" stroke="#d9d9d9" strokeType="INSIDE" />
-                <Label layoutX="797.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
+                <Label fx:id="usernameLabel" layoutX="797.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
                     <font>
                         <Font size="18.0" />
                     </font>

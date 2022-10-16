@@ -11,12 +11,7 @@ import java.io.IOException;
 public class StartApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("ticket-view.fxml"));
-        TicketDAO ticketDAO = new TicketDAO();
-
-
-
-        fxmlLoader.setController(new TicketController(ticketDAO.getTicketByID(3)));
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Green Desk");
         stage.setResizable(false);
