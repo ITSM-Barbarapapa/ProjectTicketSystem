@@ -1,9 +1,9 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.Model.HashedPassword;
-import com.projectticketsystem.Model.Role;
-import com.projectticketsystem.Model.User;
-import com.projectticketsystem.Service.UserService;
+import com.projectticketsystem.model.HashedPassword;
+import com.projectticketsystem.model.Role;
+import com.projectticketsystem.model.User;
+import com.projectticketsystem.service.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

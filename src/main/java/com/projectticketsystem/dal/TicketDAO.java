@@ -3,8 +3,8 @@ package com.projectticketsystem.dal;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Sorts;
-import com.projectticketsystem.Model.Ticket;
-import com.projectticketsystem.Model.TicketStatus;
+import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.TicketStatus;
 import org.bson.Document;
 
 import java.time.LocalDate;

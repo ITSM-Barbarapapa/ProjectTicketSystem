@@ -1,4 +1,4 @@
-package com.projectticketsystem.Model;
+package com.projectticketsystem.model;
 
 public class User implements Comparable<User> {
 

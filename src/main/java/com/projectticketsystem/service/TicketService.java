@@ -1,7 +1,7 @@
-package com.projectticketsystem.Service;
+package com.projectticketsystem.service;
 
 import com.projectticketsystem.dal.TicketDAO;
-import com.projectticketsystem.Model.*;
+import com.projectticketsystem.model.*;
 
 import java.util.List;
 

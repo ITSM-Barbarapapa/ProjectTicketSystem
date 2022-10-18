@@ -1,8 +1,8 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.Model.Role;
-import com.projectticketsystem.Model.User;
-import com.projectticketsystem.Service.UserService;
+import com.projectticketsystem.model.Role;
+import com.projectticketsystem.model.User;
+import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

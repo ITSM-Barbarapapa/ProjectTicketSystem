@@ -1,8 +1,7 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.Model.Ticket;
+import com.projectticketsystem.model.Ticket;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 

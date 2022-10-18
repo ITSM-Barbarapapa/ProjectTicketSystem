@@ -1,10 +1,9 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.Model.Role;
-import com.projectticketsystem.Model.Ticket;
-import com.projectticketsystem.Model.TicketStatus;
-import com.projectticketsystem.Model.User;
-import com.projectticketsystem.Service.TicketService;
+import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.TicketStatus;
+import com.projectticketsystem.model.User;
+import com.projectticketsystem.service.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

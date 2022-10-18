@@ -1,7 +1,7 @@
-package com.projectticketsystem.Service;
+package com.projectticketsystem.service;
 
 import com.projectticketsystem.dal.UserDAO;
-import com.projectticketsystem.Model.User;
+import com.projectticketsystem.model.User;
 
 import java.util.List;
 

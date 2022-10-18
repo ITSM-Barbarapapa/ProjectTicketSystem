@@ -1,7 +1,7 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.Model.Ticket;
-import com.projectticketsystem.Service.TicketService;
+import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.service.TicketService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;

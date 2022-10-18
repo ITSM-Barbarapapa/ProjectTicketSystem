@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ProjectTicketSystem</groupId>
-    <artifactId>ProjectTicketSystem</artifactId>
+    <groupId>com.Project</groupId>
+    <artifactId>TicketSystem</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>ProjectTicketSystem</name>
 
@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.projectticketsystem.projectticketsystem/com.projectticketsystem.UI.StartApplication
+                                com.Project.TicketSystem/com.projectticketsystem.UI.StartApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

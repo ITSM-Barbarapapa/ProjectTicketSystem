@@ -1,27 +1,20 @@
 package com.projectticketsystem.UI;
 
-import com.projectticketsystem.Model.Ticket;
-import com.projectticketsystem.Model.User;
-import com.projectticketsystem.Service.TicketService;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
+import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.service.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TicketController extends BaseController implements Initializable {
