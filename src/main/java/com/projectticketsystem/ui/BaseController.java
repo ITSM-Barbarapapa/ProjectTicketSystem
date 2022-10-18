@@ -1,4 +1,4 @@
-package com.projectticketsystem.UI;
+package com.projectticketsystem.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package com.projectticketsystem.UI;
+package com.projectticketsystem.ui;
 
 import com.projectticketsystem.model.HashedPassword;
 import com.projectticketsystem.model.Role;

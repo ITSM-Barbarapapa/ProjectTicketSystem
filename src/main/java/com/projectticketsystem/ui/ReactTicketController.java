@@ -1,4 +1,4 @@
-package com.projectticketsystem.UI;
+package com.projectticketsystem.ui;
 
 import com.projectticketsystem.model.Ticket;
 import javafx.event.ActionEvent;

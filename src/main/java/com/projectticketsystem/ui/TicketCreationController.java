@@ -1,4 +1,4 @@
-package com.projectticketsystem.UI;
+package com.projectticketsystem.ui;
 
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;

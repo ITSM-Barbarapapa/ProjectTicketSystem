@@ -1,14 +1,11 @@
-package com.projectticketsystem.UI;
+package com.projectticketsystem.ui;
 
-import com.dlsc.formsfx.model.util.ResourceBundleService;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;

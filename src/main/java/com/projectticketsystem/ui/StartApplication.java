@@ -1,4 +1,4 @@
-package com.projectticketsystem.UI;
+package com.projectticketsystem.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
