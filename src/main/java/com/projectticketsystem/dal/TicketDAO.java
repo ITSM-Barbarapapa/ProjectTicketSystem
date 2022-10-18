@@ -1,8 +1,7 @@
-package com.projectticketsystem.DAL;
+package com.projectticketsystem.dal;
 
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 import com.projectticketsystem.Model.Ticket;
 import com.projectticketsystem.Model.TicketStatus;
@@ -15,11 +14,10 @@ import java.util.Objects;
 
 public class TicketDAO extends BaseDAO
 {
-    MongoDatabase database;
 
     public TicketDAO()
     {
-        database = ConnectDatabase();
+        super();
     }
 
     private MongoCollection<Document> GetCollection()

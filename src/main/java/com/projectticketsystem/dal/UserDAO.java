@@ -1,7 +1,6 @@
-package com.projectticketsystem.DAL;
+package com.projectticketsystem.dal;
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.projectticketsystem.Model.Role;
@@ -19,14 +18,13 @@ import static com.mongodb.client.model.Filters.type;
 
 public class UserDAO extends BaseDAO
 {
-    MongoDatabase database;
 
     public UserDAO()
     {
-        database = ConnectDatabase();
+        super();
     }
 
-    private MongoCollection<Document> GetCollection()
+    private MongoCollection<Document> getCollection()
     {
         try {
             return database.getCollection("Users");
@@ -38,7 +36,7 @@ public class UserDAO extends BaseDAO
 
    public User getUser(int userID)
     {
-        Document found = GetCollection().find(new Document("UserID", userID)).first();
+        Document found = getCollection().find(new Document("UserID", userID)).first();
         if (found == null)
         {
             System.out.println("User not found");
@@ -61,7 +59,7 @@ public class UserDAO extends BaseDAO
     {
         List<User> users = new ArrayList<>();
         Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)));
-        for (Document found : GetCollection().find(filter))
+        for (Document found : getCollection().find(filter))
         {
             users.add(new User(
                     found.getInteger("UserID"),
@@ -80,13 +78,13 @@ public class UserDAO extends BaseDAO
                 .append("Password", user.getPassword().getHashPassword())
                 .append("Salt", user.getPassword().getSalt())
                 .append("Role", user.getRole().toString());
-        GetCollection().insertOne(document);
+        getCollection().insertOne(document);
         System.out.println("User added");
     }
 
     public void updateUser(User user)
     {
-        Document found = GetCollection().find(new Document().append("UserID", user.getId())).first();
+        Document found = getCollection().find(new Document().append("UserID", user.getId())).first();
         if (found == null)
         {
             System.out.println("User not found in database");
@@ -102,20 +100,20 @@ public class UserDAO extends BaseDAO
 
         UpdateOptions options = new UpdateOptions().upsert(true);
 
-        GetCollection().updateOne(found, updatedValues, options);
+        getCollection().updateOne(found, updatedValues, options);
         System.out.println("User updated");
     }
 
     public void deleteUser(User user)
     {
-        GetCollection().deleteOne(new Document("UserID", user.getId()));
+        getCollection().deleteOne(new Document("UserID", user.getId()));
         System.out.println("User deleted");
     }
 
     public int getNextUserId()
     {
         int nextId;
-        Document found = GetCollection().find().sort(new Document("UserID", -1)).first();
+        Document found = getCollection().find().sort(new Document("UserID", -1)).first();
         assert found != null;
         nextId = found.getInteger("UserID");
         return nextId + 1;
