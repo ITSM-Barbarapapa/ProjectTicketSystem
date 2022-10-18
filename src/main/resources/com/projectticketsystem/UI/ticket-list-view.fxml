@@ -51,9 +51,9 @@
           <RowConstraints maxHeight="489.0" minHeight="10.0" prefHeight="489.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+             <TableView fx:id="ticketTable" prefHeight="489.0" prefWidth="940.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="579.0" />
-            <Button mnemonicParsing="false" text="Button" alignment="CENTER_RIGHT" />
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button" />
          </children>
       </GridPane>
     </children>

@@ -2,24 +2,16 @@ package com.projectticketsystem.DAL;
 
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
-import com.projectticketsystem.Model.Role;
 import com.projectticketsystem.Model.Ticket;
 import com.projectticketsystem.Model.TicketStatus;
-import com.projectticketsystem.Model.User;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.lt;
 
 public class TicketDAO extends BaseDAO
 {
@@ -52,22 +44,7 @@ public class TicketDAO extends BaseDAO
         System.out.println("Ticket found");
         System.out.println(found.toJson());
 
-        Ticket ticket = new Ticket(
-                found.getString("Name"),
-                found.getString("Contact"),
-                LocalDate.parse(found.getString("Date")),
-                TicketStatus.valueOf(found.getString("Status")),
-                found.getInteger("TicketID"));
-
-
-        ticket.setTicketImpact(found.getString("Impact"));
-        ticket.setTicketUrgency(found.getString("Urgency"));
-        ticket.setTicketPriority(found.getString("Priority"));
-        ticket.setTicketSummary(found.getString("Summary"));
-        ticket.setTicketCategory(found.getString("Category"));
-        ticket.setTicketDescription(found.getString("Description"));
-
-        return ticket;
+        return generateTicket(found);
     }
 
     public void addTicket(Ticket ticket)
@@ -118,22 +95,27 @@ public class TicketDAO extends BaseDAO
         }
         for (Document document : found)
         {
-            Ticket ticket = new Ticket(
-                    document.getString("Name"),
-                    document.getString("Contact"),
-                    LocalDate.parse(document.getString("Date")),
-                    TicketStatus.valueOf(document.getString("Status")),
-                    document.getInteger("TicketID"));
-
-            ticket.setTicketImpact(document.getString("Impact"));
-            ticket.setTicketUrgency(document.getString("Urgency"));
-            ticket.setTicketPriority(document.getString("Priority"));
-            ticket.setTicketSummary(document.getString("Summary"));
-            ticket.setTicketCategory(document.getString("Category"));
-            ticket.setTicketDescription(document.getString("Description"));
-
+            Ticket ticket = generateTicket(document);
             tickets.add(ticket);
+            System.out.println("Ticket Converted");
         }
         return tickets;
+    }
+
+    private Ticket generateTicket(Document document) {
+        Ticket ticket = new Ticket(
+                document.getString("Name"),
+                document.getString("Contact"),
+                LocalDate.parse(document.getString("Date")),
+                TicketStatus.valueOf(document.getString("Status")),
+                document.getInteger("TicketID"));
+
+        ticket.setTicketImpact(document.getString("Impact"));
+        ticket.setTicketUrgency(document.getString("Urgency"));
+        ticket.setTicketPriority(document.getString("Priority"));
+        ticket.setTicketSummary(document.getString("Summary"));
+        ticket.setTicketCategory(document.getString("Category"));
+        ticket.setTicketDescription(document.getString("Description"));
+        return ticket;
     }
 }
