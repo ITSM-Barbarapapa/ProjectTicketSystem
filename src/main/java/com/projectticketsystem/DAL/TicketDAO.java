@@ -14,6 +14,8 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -102,5 +104,36 @@ public class TicketDAO extends BaseDAO
                 .first();
 
         return Objects.requireNonNull(doc).getInteger("TicketID");
+    }
+
+    // This method collects all tickets from the database and returns them as a list
+    public List<Ticket> getAllTickets()
+    {
+        List<Ticket> tickets = new ArrayList<>();
+        List<Document> found = GetCollection().find().into(new ArrayList<>());
+        if (found == null)
+        {
+            System.out.println("Something went wrong while getting all tickets...");
+            return null;
+        }
+        for (Document document : found)
+        {
+            Ticket ticket = new Ticket(
+                    document.getString("Name"),
+                    document.getString("Contact"),
+                    LocalDate.parse(document.getString("Date")),
+                    TicketStatus.valueOf(document.getString("Status")),
+                    document.getInteger("TicketID"));
+
+            ticket.setTicketImpact(document.getString("Impact"));
+            ticket.setTicketUrgency(document.getString("Urgency"));
+            ticket.setTicketPriority(document.getString("Priority"));
+            ticket.setTicketSummary(document.getString("Summary"));
+            ticket.setTicketCategory(document.getString("Category"));
+            ticket.setTicketDescription(document.getString("Description"));
+
+            tickets.add(ticket);
+        }
+        return tickets;
     }
 }
