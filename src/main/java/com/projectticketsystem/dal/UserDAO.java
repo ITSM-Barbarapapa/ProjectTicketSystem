@@ -59,16 +59,7 @@ public class UserDAO extends BaseDAO
     {
         List<User> users = new ArrayList<>();
         Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)));
-        for (Document found : getCollection().find(filter))
-        {
-            users.add(new User(
-                    found.getInteger("UserID"),
-                    found.getString("Username"),
-                    found.get("Password", Binary.class).getData(),
-                    found.get("Salt", Binary.class).getData(),
-                    Role.valueOf(found.getString("Role"))));
-        }
-        return users;
+        return AddFoundUsersToList(users, filter);
     }
 
     public void addUser(User user)
@@ -123,6 +114,25 @@ public class UserDAO extends BaseDAO
     {
         return false; // Temporary return condition. Change when implemented.
          // TODO make function to check password
+    }
+
+    public List<User> getUsersByRole(Role role) {
+        List<User> users = new ArrayList<>();
+        Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)), new Document("Role", role.toString()));
+        return AddFoundUsersToList(users, filter);
+    }
+
+    private List<User> AddFoundUsersToList(List<User> users, Bson filter) {
+        for (Document found : getCollection().find(filter))
+        {
+            users.add(new User(
+                    found.getInteger("UserID"),
+                    found.getString("Username"),
+                    found.get("Password", Binary.class).getData(),
+                    found.get("Salt", Binary.class).getData(),
+                    Role.valueOf(found.getString("Role"))));
+        }
+        return users;
     }
 }
 
