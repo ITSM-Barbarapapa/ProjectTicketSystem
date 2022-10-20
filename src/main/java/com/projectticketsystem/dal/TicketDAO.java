@@ -12,42 +12,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.mongodb.client.model.Filters.eq;
+import static java.lang.System.*;
+
 public class TicketDAO extends BaseDAO
 {
-
+    static final String TICKET_ID = "TicketID";
+    
     public TicketDAO()
     {
         super();
     }
 
-    private MongoCollection<Document> GetCollection()
+    private MongoCollection<Document> getCollection()
     {
         try {
             return database.getCollection("Tickets");
         } catch (Exception e) {
-            System.out.println("An error occurred when getting the collection" + e.getMessage());
+            out.println("An error occurred when getting the collection" + e.getMessage());
             return null;
         }
     }
 
     public Ticket getTicketByID(int ticketID)
     {
-        Document found = Objects.requireNonNull(GetCollection()).find(new Document("TicketID", ticketID)).first();
+        Document found = Objects.requireNonNull(getCollection()).find(new Document(TICKET_ID, ticketID)).first();
         if (found == null)
         {
-            System.out.println("Ticket not found");
+            out.println("Ticket not found");
             return null;
         }
 
-        System.out.println("Ticket found");
-        System.out.println(found.toJson());
+        out.println("Ticket found");
+        out.println(found.toJson());
 
         return generateTicket(found);
     }
 
     public void addTicket(Ticket ticket)
     {
-        Document document = new Document("TicketID", ticket.getTicketId())
+        Document document = new Document(TICKET_ID, ticket.getTicketId())
                 .append("Name", ticket.getName())
                 .append("Contact", ticket.getContact())
                 .append("Impact", ticket.getImpact())
@@ -59,43 +63,37 @@ public class TicketDAO extends BaseDAO
                 .append("Date", ticket.getDate().toString())
                 .append("Status", ticket.getTicketStatus().toString());
 
-        GetCollection().insertOne(document);
-        System.out.println("Ticket added");
+        getCollection().insertOne(document);
+        out.println("Ticket added");
     }
 
     public void updateTicket(Ticket ticket)
     {
-
+        // TODO create an update function
     }
 
     public void deleteTicket(Ticket ticket)
     {
-
+        // TODO make an archive so tickets can't be deleted but kept in a pool
     }
 
     public int getHighestTicketID() {
-        Document doc = Objects.requireNonNull(GetCollection()).find()
-                .sort(Sorts.descending("TicketID"))
+        Document doc = Objects.requireNonNull(getCollection()).find()
+                .sort(Sorts.descending(TICKET_ID))
                 .first();
-
-        return Objects.requireNonNull(doc).getInteger("TicketID");
+        return Objects.requireNonNull(doc).getInteger(TICKET_ID);
     }
 
     // This method collects all tickets from the database and returns them as a list
     public List<Ticket> getAllTickets()
     {
         List<Ticket> tickets = new ArrayList<>();
-        List<Document> found = GetCollection().find().into(new ArrayList<>());
-        if (found == null)
-        {
-            System.out.println("Something went wrong while getting all tickets...");
-            return null;
-        }
+        List<Document> found = getCollection().find().into(new ArrayList<>());
         for (Document document : found)
         {
             Ticket ticket = generateTicket(document);
             tickets.add(ticket);
-            System.out.println("Ticket Converted");
+            out.println("Ticket Converted");
         }
         return tickets;
     }
@@ -106,7 +104,7 @@ public class TicketDAO extends BaseDAO
                 document.getString("Contact"),
                 LocalDate.parse(document.getString("Date")),
                 TicketStatus.valueOf(document.getString("Status")),
-                document.getInteger("TicketID"));
+                document.getInteger(TICKET_ID));
 
         ticket.setTicketImpact(document.getString("Impact"));
         ticket.setTicketUrgency(document.getString("Urgency"));
@@ -115,5 +113,22 @@ public class TicketDAO extends BaseDAO
         ticket.setTicketCategory(document.getString("Category"));
         ticket.setTicketDescription(document.getString("Description"));
         return ticket;
+    }
+
+    public List<Ticket> getTicketsByFilter(String filter, String value)
+    {
+        List<Ticket> tickets = new ArrayList<>();
+        List<Document> found = Objects.requireNonNull(getCollection()).find(eq(filter, value)).into(new ArrayList<>());
+        for (Document document : found)
+            tickets.add(generateTicket(document));
+        return tickets;
+    }
+
+    public Ticket getTicketByFilter(String filter, String value)
+    {
+        Document found = Objects.requireNonNull(getCollection()).find(eq(filter, value)).first();
+        if (found == null)
+            return null;
+        return generateTicket(found);
     }
 }

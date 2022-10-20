@@ -15,6 +15,7 @@ import java.util.List;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.type;
+import static java.lang.System.out;
 
 public class UserDAO extends BaseDAO
 {
@@ -29,7 +30,7 @@ public class UserDAO extends BaseDAO
         try {
             return database.getCollection("Users");
         } catch (Exception e) {
-            System.out.println("An error occurred when getting the collection" + e.getMessage());
+            out.println("An error occurred when getting the collection" + e.getMessage());
             throw e;
         }
     }
@@ -39,12 +40,12 @@ public class UserDAO extends BaseDAO
         Document found = getCollection().find(new Document("UserID", userID)).first();
         if (found == null)
         {
-            System.out.println("User not found");
+            out.println("User not found");
             return null;
         }
 
-        System.out.println("User found");
-        System.out.println(found.toJson());
+        out.println("User found");
+        out.println(found.toJson());
 
         return new User(
                 found.getInteger("UserID"),
@@ -52,7 +53,6 @@ public class UserDAO extends BaseDAO
                 found.get("Password", Binary.class).getData(),
                 found.get("Salt", Binary.class).getData(),
                 Role.valueOf(found.getString("Role")));
-
     }
 
     public List<User> getAllUsers()
@@ -79,7 +79,7 @@ public class UserDAO extends BaseDAO
                 .append("Salt", user.getPassword().getSalt())
                 .append("Role", user.getRole().toString());
         getCollection().insertOne(document);
-        System.out.println("User added");
+        out.println("User added");
     }
 
     public void updateUser(User user)
@@ -87,8 +87,8 @@ public class UserDAO extends BaseDAO
         Document found = getCollection().find(new Document().append("UserID", user.getId())).first();
         if (found == null)
         {
-            System.out.println("User not found in database");
-            System.out.println("Could not update user");
+            out.println("User not found in database");
+            out.println("Could not update user");
             return;
         }
 
@@ -101,13 +101,13 @@ public class UserDAO extends BaseDAO
         UpdateOptions options = new UpdateOptions().upsert(true);
 
         getCollection().updateOne(found, updatedValues, options);
-        System.out.println("User updated");
+        out.println("User updated");
     }
 
     public void deleteUser(User user)
     {
         getCollection().deleteOne(new Document("UserID", user.getId()));
-        System.out.println("User deleted");
+        out.println("User deleted");
     }
 
     public int getNextUserId()
@@ -119,8 +119,10 @@ public class UserDAO extends BaseDAO
         return nextId + 1;
     }
 
-    /* public boolean checkPassword(String password, User user){
+    public boolean checkPassword(String password, User user)
+    {
+        return false; // Temporary return condition. Change when implemented.
          // TODO make function to check password
-    }*/
+    }
 }
 

@@ -28,9 +28,8 @@ public class TicketListViewController extends BaseController implements Initiali
         List<Ticket> tickets = ticketService.getAllTickets();
 
         for (Ticket ticket : tickets)
-        {
             ticketTable.getItems().add(ticket);
-        }
+
 
         ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
         ticketNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

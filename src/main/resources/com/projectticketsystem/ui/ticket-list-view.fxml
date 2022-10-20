@@ -15,32 +15,23 @@
         <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="540.0" prefHeight="100.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <children>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
-            <children>
                 <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../img/Home-button-img.png" />
-                    </image>
+                    <Image url="@../../../img/Home-button-img.png" />
                 </ImageView>
-            </children></Pane>
+        </Pane>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
-            <children>
-                <Circle fill="#d9d9d9" layoutX="911.0" layoutY="30.0" radius="22.0" stroke="#d9d9d9" strokeType="INSIDE" />
-                <Label layoutX="797.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Label>
-            </children></Pane>
+            <Circle fill="#d9d9d9" layoutX="911.0" layoutY="30.0" radius="22.0" stroke="#d9d9d9" strokeType="INSIDE" />
+            <Label layoutX="797.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Label>
+        </Pane>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;">
-            <children>
-                <ImageView fitHeight="97.0" fitWidth="146.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../img/green-desk.png" />
-                    </image>
-                </ImageView>
-            </children>
+            <ImageView fitHeight="97.0" fitWidth="146.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../img/green-desk.png" />
+            </ImageView>
         </Pane>
       <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
@@ -50,11 +41,8 @@
           <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="489.0" minHeight="10.0" prefHeight="489.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
-             <TableView fx:id="ticketTable" prefHeight="489.0" prefWidth="940.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TableView fx:id="ticketTable" prefHeight="489.0" prefWidth="940.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="579.0" />
             <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button" />
-         </children>
       </GridPane>
-    </children>
 </GridPane>
