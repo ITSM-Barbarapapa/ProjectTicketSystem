@@ -1,6 +1,5 @@
 package com.projectticketsystem.ui;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,16 +10,23 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class BaseController {
-    protected void loadNextStage(String fxmlFileName, BaseController controller, Event event) throws IOException {
+    protected void loadNextStage(String fxmlFileName, BaseController controller, Event event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        if (controller != null){
+        if (controller != null) {
             loader.setController(controller);
         }
-        Parent root = loader.load();
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot run " + fxmlFileName + "\n" + e);
+        }
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+
+        event.consume();
     }
 }
 

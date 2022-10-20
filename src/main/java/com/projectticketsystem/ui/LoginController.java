@@ -1,6 +1,5 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.UserService;
@@ -10,12 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.io.IOException;
-import java.security.spec.KeySpec;
-import java.util.Arrays;
 
 public class LoginController extends BaseController {
     @FXML
@@ -29,7 +22,7 @@ public class LoginController extends BaseController {
     private User user;
 
     @FXML
-    private void onLoginButtonClicked(ActionEvent event) throws IOException {
+    private void onLoginButtonClicked(ActionEvent event) {
         System.out.println("Username: " + userIdField.getText());
         System.out.println("Password: " + passwordField.getText());
 
@@ -43,6 +36,7 @@ public class LoginController extends BaseController {
         } else {
             errorLabel.setText("Gebruikerscode of wachtwoord is onjuist");
         }
+        event.consume();
     }
 
     private boolean checkPassword() {
@@ -57,16 +51,8 @@ public class LoginController extends BaseController {
         user = userService.getUser(userID);
 
         try {
-            //get hash password
-            byte[] salt = user.getPassword().getSalt();
-            byte[] hash = user.getPassword().getHashPassword();
-
-            KeySpec spec = new PBEKeySpec(passwordField.getText().toCharArray(), salt, 65536, 128);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            byte[] hash2 = factory.generateSecret(spec).getEncoded();
-
             //check if hashes are equal
-            return Arrays.equals(hash, hash2);
+            return user.getPassword().checkPassword(passwordField.getText());
         } catch (Exception e) {
             errorLabel.setText("Er is iets fout gegaan bij het checken van uw wachtwoord");
             return false;

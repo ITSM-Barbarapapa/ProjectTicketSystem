@@ -10,16 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
@@ -62,7 +57,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
     }
 
     @FXML
-    public void onAddEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public void onAddEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         if (checkEmptyFields()) {
             return;
@@ -71,11 +66,15 @@ public class CrudEmployeeController extends BaseController implements Initializa
         String role = roleChoiceBox.getValue();
 
         //add new Employee
-        User newUser = new User(userService.getNextUserId(), name, hashPassword(), Role.valueOf(role));
+        User newUser = new User(userService.getNextUserId(), name, new HashedPassword(passwordField.getText()), Role.valueOf(role));
         userService.addUser(newUser);
         users.add(newUser);
         loadTableView();
         employeesTableView.getSelectionModel().select(newUser);
+        resetFields();
+    }
+
+    private void resetFields() {
         nameField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         passwordField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         roleChoiceBox.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -83,7 +82,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
     }
 
     @FXML
-    public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         if (employeesTableView.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setText("Please select an employee");
@@ -92,7 +91,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
 
         //set the new data
         User updatedUser = selectedUser;
-        updatedUser.setPassword(hashPassword());
+        updatedUser.setPassword(new HashedPassword(passwordField.getText()));
         updatedUser.setName(nameField.getText());
         updatedUser.setRole(Role.valueOf(roleChoiceBox.getValue()));
 
@@ -119,21 +118,6 @@ public class CrudEmployeeController extends BaseController implements Initializa
         employeesTableView.getSelectionModel().clearSelection();
     }
 
-
-    private HashedPassword hashPassword() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        //create salt
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
-        //hash password
-        KeySpec spec = new PBEKeySpec(passwordField.getText().toCharArray(), salt, 65536, 128);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] hash = factory.generateSecret(spec).getEncoded();
-
-        return new HashedPassword(hash, salt);
-    }
-
     private boolean checkEmptyFields() {
         if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null) {
             checkField(nameField);
@@ -155,5 +139,11 @@ public class CrudEmployeeController extends BaseController implements Initializa
         } else {
             field.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         }
+    }
+
+    @FXML
+    public void onHouseIconClick(MouseEvent mouseEvent) {
+        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        mouseEvent.consume();
     }
 }
