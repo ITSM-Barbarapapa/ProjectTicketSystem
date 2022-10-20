@@ -10,4 +10,5 @@ module com.Project.TicketSystem {
     opens com.projectticketsystem.ui to javafx.fxml;
     opens com.projectticketsystem.model to javafx.base;
     exports com.projectticketsystem.ui;
+    exports com.projectticketsystem.model;
 }
