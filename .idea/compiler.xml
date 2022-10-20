@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="TicketSystem" />
         <module name="ProjectTicketSystem" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ProjectTicketSystem" target="17" />
+      <module name="TicketSystem" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
