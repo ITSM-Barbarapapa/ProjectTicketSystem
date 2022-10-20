@@ -1,5 +1,6 @@
 package com.projectticketsystem.ui;
 
+import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.UserService;
@@ -35,7 +36,7 @@ public class LoginController extends BaseController {
         if (checkPassword()) {
             //Check if user is admin or regular employee or Service Desk employee
             if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {
-                loadNextStage("dashboard-view.fxml", null, event);
+                loadNextStage("ticketcreation-view.fxml", new TicketCreationController(user), event);
             } else if (user.getRole() == Role.RegularEmployee) {
                 loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
             }

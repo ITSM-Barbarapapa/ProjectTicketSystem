@@ -1,12 +1,18 @@
 package com.projectticketsystem.ui;
 
+import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
+import com.projectticketsystem.service.UserService;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -15,28 +21,47 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TicketController extends BaseController implements Initializable {
-    public TicketController(Ticket ticket){
+    @FXML
+    public ChoiceBox impactChoicebox;
+    @FXML
+    public ChoiceBox urgencyChoicebox;
+    @FXML
+    public ChoiceBox statusChoicebox;
+    @FXML
+    public ChoiceBox employeeChoicebox;
+    @FXML
+    public TextArea ReactionTextfield;
+
+    public TicketController(Ticket ticket, User user){
         ticketService = new TicketService();
+        userService = new UserService();
         this.ticket = ticket;
-        //this.user = user;
+        this.user = user;
     }
+    @FXML
     public ImageView homeButton;
+    @FXML
     public Label summaryLabel;
+    @FXML
     public Label nameAndContactLabel;
+    @FXML
     public Label categoryLabel;
+    @FXML
     public TextArea descriptionTextField;
+    @FXML
     public Label ticketIDLabel;
-    public Label impactLabel;
-    public Label urgencyLabel;
+    @FXML
     public Label priorityLabel;
+    @FXML
     public Label dateLabel;
-    public Label ticketStatusLabel;
     private final TicketService ticketService;
     private final Ticket ticket;
-    //private final User user;
+    private final UserService userService;
+    private final User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,11 +70,15 @@ public class TicketController extends BaseController implements Initializable {
         categoryLabel.setText(ticket.getTicketCategory());
         descriptionTextField.setText(ticket.getTicketDescription());
         ticketIDLabel.setText(String.valueOf(ticket.getTicketId()));
-        impactLabel.setText(ticket.getImpact());
-        urgencyLabel.setText(ticket.getUrgency());
         priorityLabel.setText(ticket.getPriority());
         dateLabel.setText(ticket.getDate().toString());
-        ticketStatusLabel.setText(ticket.getTicketStatus().toString());
+
+        loadEmployeeChoiceBox();
+    }
+
+    private void loadEmployeeChoiceBox() {
+        List<User> users = userService.getUsersByRole(Role.ServiceDeskEmployee);
+        employeeChoicebox.setItems(FXCollections.observableList(users));
     }
 
    /* public void OnHomeButtonClick(MouseEvent event) throws IOException {

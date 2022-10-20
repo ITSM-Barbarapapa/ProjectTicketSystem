@@ -1,6 +1,7 @@
 package com.projectticketsystem.service;
 
 import com.projectticketsystem.dal.UserDAO;
+import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class UserService {
     public List<User> getAllUsers(){
         return userDAO.getAllUsers();
     }
+
+    public List<User> getUsersByRole(Role role){return userDAO.getUsersByRole(role);}
 
     /*public boolean checkPassword(String password, User user){
         // TODO return userDAO.checkPassword(password, user);

@@ -7,6 +7,8 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -158,6 +160,13 @@
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
+                                     <items>
+                                         <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="1-Hoog" />
+                                             <String fx:value="2-Midden" />
+                                             <String fx:value="3-Laag" />
+                                         </FXCollections>
+                                     </items>
                                  </ChoiceBox>
                                  <ChoiceBox fx:id="urgencyChoicebox" prefWidth="130.0">
                                      <HBox.margin>
@@ -166,11 +175,25 @@
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
+                                     <items>
+                                         <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="1-Hoog" />
+                                             <String fx:value="2-Midden" />
+                                             <String fx:value="3-Laag" />
+                                         </FXCollections>
+                                     </items>
                                  </ChoiceBox>
                                  <ChoiceBox fx:id="statusChoicebox" prefHeight="25.0" prefWidth="130.0">
                                      <HBox.margin>
                                          <Insets top="5.0" />
                                      </HBox.margin>
+                                     <items>
+                                         <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="Open" />
+                                             <String fx:value="Resolved" />
+                                             <String fx:value="ClosedWithoutResolve" />
+                                         </FXCollections>
+                                     </items>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>

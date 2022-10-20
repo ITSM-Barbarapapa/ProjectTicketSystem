@@ -120,7 +120,6 @@
                           </FXCollections>
                       </items>
                   </ChoiceBox>
-                  <Label fx:id="vereistLabel" layoutX="454.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
                   <Label fx:id="urgentieLabel" layoutX="616.0" layoutY="19.0" text="Urgentie">
                      <padding>
                         <Insets left="5.0" />
@@ -135,7 +134,6 @@
                         </FXCollections>
                       </items>
                   </ChoiceBox>
-                  <Label fx:id="vereistLabel1" layoutX="669.0" layoutY="19.0" text="(vereist)" textFill="#2eae03" />
                   <Label fx:id="berekendePrioriteitLabel" layoutX="408.0" layoutY="66.0" text="Berekende prioriteit">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
