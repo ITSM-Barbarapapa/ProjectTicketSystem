@@ -1,5 +1,6 @@
 package com.projectticketsystem.ui;
 
+import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
@@ -20,58 +21,63 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TicketCreationController extends BaseController implements Initializable {
+
     private final TicketService ticketService;
+    @FXML
     public Label impactLabel;
+    @FXML
     public Label urgentieLabel;
+    @FXML
     public Label berekendePrioriteitLabel;
-    public Label vereistLabel;
-    public Label vereistLabel1;
     private User user;
+    @FXML
     public TextArea descriptionTextField;
+    @FXML
     public TextField summaryTextField;
+    @FXML
     public ChoiceBox<String> categoryChoiceBox;
+    @FXML
     public ChoiceBox<String> impactChoiceBox;
+    @FXML
     public TextField nameTextField;
+    @FXML
     public TextField contactTextField;
+    @FXML
     public TextField calculatePriorityTextBox;
+    @FXML
     public ChoiceBox<String> urgencyChoiceBox;
+    @FXML
     public Button addTicketButton;
+    @FXML
     public ImageView homeButton;
 
 
-    public TicketCreationController(){
+    public TicketCreationController(User user){
         ticketService = new TicketService();
-        //this.user = user;
+        this.user = user;
     }
 
     private void CheckUser(){
-
+        if(user.getRole().equals(Role.ServiceDeskEmployee)) {
             HidePriorityBoxes();
+        }
     }
 
     private void HidePriorityBoxes() {
-        impactChoiceBox.hide();
-        urgencyChoiceBox.hide();
-        calculatePriorityTextBox.isDisabled();
-        impactLabel.isDisabled();
-        urgentieLabel.isDisabled();
-        berekendePrioriteitLabel.isDisabled();
-        vereistLabel.isDisabled();
-        vereistLabel1.isDisabled();
+        impactChoiceBox.setVisible(false);
+        urgencyChoiceBox.setVisible(false);
+        calculatePriorityTextBox.setVisible(false);
+        impactLabel.setVisible(false);
+        urgentieLabel.setVisible(false);
+        berekendePrioriteitLabel.setVisible(false);
     }
 
     @FXML
     private void OnHomeButtonClick(MouseEvent event) throws IOException {
-        // Go to next window
-        // get current Stage
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // load new scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-        stage.setScene(new Scene(loader.load()));
-        stage.show();
+        loadNextStage("dashboard-view.fxml", null, event);
     }
 
+    @FXML
     public void AddTicket(ActionEvent actionEvent){
         if (!Requirements()){
             System.out.println("not all info is there");
@@ -130,6 +136,7 @@ public class TicketCreationController extends BaseController implements Initiali
         return requirementsCheck;
     }
 
+    @FXML
     public void itemChange(ActionEvent actionEvent) {
         String impactValue = impactChoiceBox.getValue();
         String urgencyValue = urgencyChoiceBox.getValue();

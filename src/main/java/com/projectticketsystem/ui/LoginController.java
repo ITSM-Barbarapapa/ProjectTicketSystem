@@ -33,12 +33,10 @@ public class LoginController extends BaseController {
         System.out.println("Username: " + userIdField.getText());
         System.out.println("Password: " + passwordField.getText());
 
-        TicketDAO ticketDAO = new TicketDAO();
-
         if (checkPassword()) {
             //Check if user is admin or regular employee or Service Desk employee
             if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {
-                loadNextStage("ticket-view.fxml", new TicketController(ticketDAO.getTicketByID(3), user), event);
+                loadNextStage("ticketcreation-view.fxml", new TicketCreationController(user), event);
             } else if (user.getRole() == Role.RegularEmployee) {
                 loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
             }
