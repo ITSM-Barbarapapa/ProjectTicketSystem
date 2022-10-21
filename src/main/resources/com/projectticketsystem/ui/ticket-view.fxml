@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -7,8 +9,6 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,7 +21,7 @@
     <children>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
             <children>
-                <ImageView fx:id="homeButton" fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="homeButton" fitHeight="44.0" fitWidth="44.0" layoutX="12.0" layoutY="14.0" onMouseClicked="#OnHomeButtonClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/Home-button-img.png" />
                     </image>
@@ -59,7 +59,7 @@
             <children>
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DEDEDE;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="summaryLabel" prefHeight="62.0" prefWidth="540.0" text="(Ticket summary placeholder text)">
+                  <Label fx:id="summaryLabel" prefHeight="62.0" prefWidth="510.0" text="(Ticket summary placeholder text)">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -72,9 +72,9 @@
                         <Insets bottom="10.0" left="20.0" right="10.0" />
                      </padding>
                   </Label>
-                  <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0" prefHeight="130.0" prefWidth="520.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
-                  <Line endX="-100.0" endY="296.0" layoutX="664.0" layoutY="75.0" startX="-100.0" startY="-66.0" />
-                  <HBox alignment="CENTER_LEFT" layoutX="565.0" layoutY="9.0" prefHeight="321.0" prefWidth="214.0">
+                  <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0" prefHeight="130.0" prefWidth="490.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
+                  <Line endX="-100.0" endY="296.0" layoutX="629.0" layoutY="75.0" startX="-100.0" startY="-66.0" />
+                  <HBox alignment="CENTER_LEFT" layoutX="529.0" layoutY="9.0" prefHeight="332.0" prefWidth="250.0">
                      <children>
                         <VBox prefHeight="20.0" prefWidth="130.0">
                            <children>
@@ -118,7 +118,7 @@
                                        <Insets bottom="10.0" left="15.0" right="5.0" top="12.0" />
                                    </padding>
                                </Label>
-                               <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" text="Reageer">
+                               <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" prefHeight="40.0" text="Reageer">
                                    <HBox.margin>
                                        <Insets left="15.0" />
                                    </HBox.margin>
@@ -128,7 +128,7 @@
                                </Button>
                            </children>
                         </VBox>
-                         <VBox prefHeight="20.0" prefWidth="180.0">
+                         <VBox prefHeight="332.0" prefWidth="217.0">
                              <children>
                                  <Label fx:id="ticketIDLabel" text="(ticket ID)">
                                      <padding>
@@ -153,7 +153,7 @@
                                     <Insets />
                                  </VBox.margin>
                                  </Label>
-                                 <ChoiceBox fx:id="impactChoicebox" prefWidth="130.0">
+                                 <ChoiceBox fx:id="impactChoicebox" prefWidth="165.0" onAction="#itemChange">
                                      <HBox.margin>
                                          <Insets top="5.0" />
                                      </HBox.margin>
@@ -168,7 +168,7 @@
                                          </FXCollections>
                                      </items>
                                  </ChoiceBox>
-                                 <ChoiceBox fx:id="urgencyChoicebox" prefWidth="130.0">
+                                 <ChoiceBox fx:id="urgencyChoicebox" prefWidth="165.0" onAction="#itemChange">
                                      <HBox.margin>
                                          <Insets top="5.0" />
                                      </HBox.margin>
@@ -183,7 +183,7 @@
                                          </FXCollections>
                                      </items>
                                  </ChoiceBox>
-                                 <ChoiceBox fx:id="statusChoicebox" prefHeight="25.0" prefWidth="130.0">
+                                 <ChoiceBox fx:id="statusChoicebox" prefHeight="25.0" prefWidth="165.0">
                                      <HBox.margin>
                                          <Insets top="5.0" />
                                      </HBox.margin>
@@ -198,7 +198,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
                                  </ChoiceBox>
-                                 <ChoiceBox fx:id="employeeChoicebox" prefHeight="25.0" prefWidth="130.0">
+                                 <ChoiceBox fx:id="employeeChoicebox" prefHeight="25.0" prefWidth="165.0">
                                      <HBox.margin>
                                          <Insets top="5.0" />
                                      </HBox.margin>
@@ -206,7 +206,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
                                  </ChoiceBox>
-                                 <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="25.0" prefWidth="130.0" text="Save">
+                                 <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="40.0" prefWidth="165.0" text="Save">
                                      <HBox.margin>
                                          <Insets left="15.0" />
                                      </HBox.margin>
@@ -218,7 +218,7 @@
                          </VBox>
                      </children>
                   </HBox>
-                  <TextArea fx:id="ReactionTextfield" editable="false" layoutX="18.0" layoutY="236.0" prefHeight="130.0" prefWidth="520.0" promptText="(Answer)" />
+                  <TextArea fx:id="reactionTextarea" editable="false" layoutX="18.0" layoutY="236.0" prefHeight="130.0" prefWidth="490.0" promptText="(Answer)" />
                </children>
                 </Pane>
             </children>
