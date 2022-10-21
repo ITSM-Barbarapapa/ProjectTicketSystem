@@ -72,6 +72,7 @@ public class TicketDAO extends BaseDAO
 
     public void updateTicket(Ticket ticket)
     {
+        //TODO: if ticket has no 'User' it needs to create one or add one so ErrorHandling
         Document found = getCollection().find(new Document().append("TicketID", ticket.getTicketID())).first();
         if (found == null)
         {
