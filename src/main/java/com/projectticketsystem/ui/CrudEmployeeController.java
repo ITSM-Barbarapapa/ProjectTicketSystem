@@ -49,11 +49,13 @@ public class CrudEmployeeController extends BaseController implements Initializa
             if (selectedUser != null) {
                 nameField.setText(selectedUser.getName());
                 passwordField.setText("");
-                roleChoiceBox.setValue(selectedUser.getRole().toString());
+                roleChoiceBox.setValue(selectedUser.getRole().name);
             }
         });
         loadTableView();
         usernameLabel.setText(user.getName());
+        roleChoiceBox.setItems(FXCollections.observableArrayList(Role.RegularEmployee.name, Role.ServiceDeskEmployee.name, Role.Administrator.name));
+        roleChoiceBox.setValue(Role.RegularEmployee.name);
     }
 
     @FXML
@@ -63,10 +65,10 @@ public class CrudEmployeeController extends BaseController implements Initializa
             return;
         }
         String name = nameField.getText();
-        String role = roleChoiceBox.getValue();
+        Role role = Role.valueOf(Role.values()[roleChoiceBox.getItems().indexOf(roleChoiceBox.getValue())].toString());
 
         //add new Employee
-        User newUser = new User(userService.getNextUserId(), name, new HashedPassword(passwordField.getText()), Role.valueOf(role));
+        User newUser = new User(userService.getNextUserId(), name, new HashedPassword(passwordField.getText()), role);
         userService.addUser(newUser);
         users.add(newUser);
         loadTableView();
@@ -85,7 +87,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
     public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         if (employeesTableView.getSelectionModel().getSelectedItem() == null) {
-            errorLabel.setText("Please select an employee");
+            errorLabel.setText("Selecteer een medewerker");
             return;
         }
 
@@ -93,7 +95,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
         User updatedUser = selectedUser;
         updatedUser.setPassword(new HashedPassword(passwordField.getText()));
         updatedUser.setName(nameField.getText());
-        updatedUser.setRole(Role.valueOf(roleChoiceBox.getValue()));
+        updatedUser.setRole(Role.valueOf(Role.values()[roleChoiceBox.getItems().indexOf(roleChoiceBox.getValue())].toString()));
 
         //remove selected user from tableview
         users.remove(selectedUser);
@@ -109,7 +111,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
     public void onDeleteEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         if (selectedUser == null) {
-            errorLabel.setText("Please select an employee");
+            errorLabel.setText("selecteer een medewerker");
             return;
         }
         userService.deleteUser(selectedUser);
@@ -122,7 +124,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
         if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoiceBox.getValue() == null) {
             checkField(nameField);
             checkField(passwordField);
-            errorLabel.setText("Please fill in all fields");
+            errorLabel.setText("Vul alle velden in");
             return true;
         }
         return false;
