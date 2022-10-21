@@ -51,7 +51,7 @@ public class TicketDAO extends BaseDAO
 
     public void addTicket(Ticket ticket)
     {
-        Document document = new Document(TICKET_ID, ticket.getTicketId())
+        Document document = new Document(TICKET_ID, ticket.getTicketID())
                 .append("Name", ticket.getName())
                 .append("Contact", ticket.getContact())
                 .append("Impact", ticket.getImpact())
