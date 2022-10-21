@@ -15,26 +15,34 @@ import java.util.ResourceBundle;
 
 public class TicketListViewController extends BaseController implements Initializable
 {
-    @FXML
-    private TableView ticketTable = new TableView<Ticket>();
-    private TableColumn ticketIDColumn = new TableColumn("Ticket ID");
-    private TableColumn ticketNameColumn = new TableColumn("Name");
-    private TableColumn ticketContactColumn = new TableColumn("Contact");
+    @FXML private TableView<Ticket> ticketTable;
+    @FXML private TableColumn<Ticket, Integer> ticketIDColumn;
+    @FXML private TableColumn<Ticket, String> subjectColumn;
+    @FXML private TableColumn<Ticket, String> priorityColumn;
+    @FXML private TableColumn<Ticket, String> assigneeColumn;
+    @FXML private TableColumn<Ticket, String> statusColumn;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
+        priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        assigneeColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("ticketStatus"));
+
+        ticketTable.getItems().addAll(getAllTickets());
+    }
+
+    private static List<Ticket> getAllTickets()
     {
         TicketService ticketService = new TicketService();
-        List<Ticket> tickets = ticketService.getAllTickets();
-
-        for (Ticket ticket : tickets)
-            ticketTable.getItems().add(ticket);
-
-
-        ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
-        ticketNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        ticketContactColumn.setCellValueFactory(new PropertyValueFactory<>("contact"));
-
-        ticketTable.getColumns().addAll(ticketIDColumn, ticketNameColumn, ticketContactColumn);
+        return ticketService.getAllTickets();
     }
+
+    //TODO: Make a search function for the ticket table
+    //TODO: Make a filter function for the ticket table
+
+    //TODO: Research how to add a combobox to the table view
+    //TODO: Implement the combobox to change the status of the ticket
 }

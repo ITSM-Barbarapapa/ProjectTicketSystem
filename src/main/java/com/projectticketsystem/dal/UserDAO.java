@@ -38,21 +38,7 @@ public class UserDAO extends BaseDAO
    public User getUser(int userID)
     {
         Document found = getCollection().find(new Document("UserID", userID)).first();
-        if (found == null)
-        {
-            out.println("User not found");
-            return null;
-        }
-
-        out.println("User found");
-        out.println(found.toJson());
-
-        return new User(
-                found.getInteger("UserID"),
-                found.getString("Username"),
-                found.get("Password", Binary.class).getData(),
-                found.get("Salt", Binary.class).getData(),
-                Role.valueOf(found.getString("Role")));
+        return getUser(found);
     }
 
     public List<User> getAllUsers()
@@ -133,6 +119,29 @@ public class UserDAO extends BaseDAO
                     Role.valueOf(found.getString("Role"))));
         }
         return users;
+    }
+
+    public User getUserByName(String userName) {
+        Document found = getCollection().find(new Document("Username", userName)).first();
+        return getUser(found);
+    }
+
+    private User getUser(Document found) {
+        if (found == null)
+        {
+            out.println("User not found");
+            return null;
+        }
+
+        out.println("User found");
+        out.println(found.toJson());
+
+        return new User(
+                found.getInteger("UserID"),
+                found.getString("Username"),
+                found.get("Password", Binary.class).getData(),
+                found.get("Salt", Binary.class).getData(),
+                Role.valueOf(found.getString("Role")));
     }
 }
 

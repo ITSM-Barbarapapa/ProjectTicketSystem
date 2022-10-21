@@ -3,9 +3,12 @@ package com.projectticketsystem.dal;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class TicketDAO extends BaseDAO
 
     public void addTicket(Ticket ticket)
     {
-        Document document = new Document(TICKET_ID, ticket.getTicketId())
+        Document document = new Document(TICKET_ID, ticket.getTicketID())
                 .append("Name", ticket.getName())
                 .append("Contact", ticket.getContact())
                 .append("Impact", ticket.getImpact())
@@ -69,7 +72,27 @@ public class TicketDAO extends BaseDAO
 
     public void updateTicket(Ticket ticket)
     {
-        // TODO create an update function
+        //TODO: if ticket has no 'User' it needs to create one or add one so ErrorHandling
+        Document found = getCollection().find(new Document().append("TicketID", ticket.getTicketID())).first();
+        if (found == null)
+        {
+            out.println("Ticket not found in database");
+            out.println("Could not update ticket");
+            return;
+        }
+
+        Bson updatedValues = Updates.combine(
+                Updates.set("Impact", ticket.getImpact()),
+                Updates.set("Urgency", ticket.getUrgency()),
+                Updates.set("Status", ticket.getTicketStatus().toString()),
+                Updates.set("Priority", ticket.getPriority()),
+                Updates.set("User", ticket.getUser()),
+                Updates.set("Reaction", ticket.getTicketReaction()));
+
+        UpdateOptions options = new UpdateOptions().upsert(true);
+
+        getCollection().updateOne(found, updatedValues, options);
+        out.println("Ticket updated");
     }
 
     public void deleteTicket(Ticket ticket)

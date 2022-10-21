@@ -12,7 +12,7 @@ public class TicketService {
         ticketDAO = new TicketDAO();
     }
 
-    public void AddTicket(Ticket ticket){
+    public void addTicket(Ticket ticket){
         ticketDAO.addTicket(ticket);
     }
 
@@ -24,9 +24,10 @@ public class TicketService {
         return ticketDAO.getAllTickets();
     }
 
-    public List<Ticket> getTicketsByFilter()
+    public void getTicketsByFilter()
     {
         //TODO: implement filter logic here
-        return null;
     }
+
+    public void updateTicket(Ticket ticket) {ticketDAO.updateTicket(ticket);}
 }

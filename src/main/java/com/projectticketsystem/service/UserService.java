@@ -40,4 +40,5 @@ public class UserService {
         return userDAO.getNextUserId();
     }
 
+    public User getUserByName(String value) {return userDAO.getUserByName(value);}
 }
