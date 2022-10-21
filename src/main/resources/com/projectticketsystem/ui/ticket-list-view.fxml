@@ -50,7 +50,7 @@
             <TableColumn fx:id="assigneeColumn" prefWidth="120.0" text="Werknemer" />
             <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
          </columns></TableView>
-            <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="579.0" GridPane.halignment="RIGHT">
+            <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="84.0" promptText="Ticket Nummer" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets right="50.0" />
          </GridPane.margin></TextField>
@@ -63,22 +63,22 @@
          </font></Button>
       <ComboBox prefWidth="150.0">
          <GridPane.margin>
-            <Insets left="50.0" />
+            <Insets left="55.0" />
          </GridPane.margin>
       </ComboBox>
-      <Label text="Priority:">
+      <Label text="Prioriteit:">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>
       </Label>
       <ComboBox layoutX="60.0" layoutY="23.0" prefWidth="150.0">
          <GridPane.margin>
-            <Insets left="265.0" />
+            <Insets left="277.0" />
          </GridPane.margin>
       </ComboBox>
-      <Label layoutX="10.0" layoutY="27.0" text="Employee:">
+      <Label layoutX="10.0" layoutY="27.0" text="Werknemer:">
          <padding>
-            <Insets left="5.0" />
+            <Insets left="10.0" />
          </padding>
          <GridPane.margin>
             <Insets left="200.0" />

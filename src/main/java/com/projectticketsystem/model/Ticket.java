@@ -3,8 +3,6 @@ package com.projectticketsystem.model;
 import java.time.LocalDate;
 
 public class Ticket {
-
-
     private final int ticketID;
     private final String name;
     private final String contact;
@@ -17,13 +15,7 @@ public class Ticket {
     private String ticketReaction;
     private User user;
     private TicketStatus ticketStatus;
-
-    public void setTicketStatus(TicketStatus ticketStatus) {
-        this.ticketStatus = ticketStatus;
-    }
-
     private final LocalDate date;
-
 
     public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;
@@ -42,9 +34,10 @@ public class Ticket {
         this.user = user;
     }
 
-    public TicketStatus getTicketStatus() {
-        return ticketStatus;
-    }
+    public String getTicketStatus() {return this.ticketStatus.toString(); }
+
+    public void setTicketStatus(TicketStatus ticketStatus) { this.ticketStatus = ticketStatus; }
+
 
     public LocalDate getDate() {
         return date;

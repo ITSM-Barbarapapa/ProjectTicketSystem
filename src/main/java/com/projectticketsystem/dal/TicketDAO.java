@@ -116,7 +116,6 @@ public class TicketDAO extends BaseDAO
         {
             Ticket ticket = generateTicket(document);
             tickets.add(ticket);
-            out.println("Ticket Converted");
         }
         return tickets;
     }
