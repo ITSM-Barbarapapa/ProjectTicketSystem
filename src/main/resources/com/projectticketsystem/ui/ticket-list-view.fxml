@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -41,8 +42,47 @@
           <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="489.0" minHeight="10.0" prefHeight="489.0" vgrow="SOMETIMES" />
         </rowConstraints>
-            <TableView fx:id="ticketTable" prefHeight="489.0" prefWidth="940.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="579.0" />
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button" />
+            <TableView fx:id="ticketTable" prefHeight="489.0" prefWidth="940.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <columns>
+            <TableColumn fx:id="ticketIDColumn" prefWidth="120.0" text="Ticket Nummer" />
+            <TableColumn fx:id="subjectColumn" prefWidth="460.0" text="Onderwerp" />
+            <TableColumn fx:id="priorityColumn" minWidth="0.0" prefWidth="120.0" text="Prioriteit" />
+            <TableColumn fx:id="assigneeColumn" prefWidth="120.0" text="Werknemer" />
+            <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
+         </columns></TableView>
+            <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="579.0" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="50.0" />
+         </GridPane.margin></TextField>
+      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="Zoek" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="11.0" />
+         </font></Button>
+      <ComboBox prefWidth="150.0">
+         <GridPane.margin>
+            <Insets left="50.0" />
+         </GridPane.margin>
+      </ComboBox>
+      <Label text="Priority:">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </Label>
+      <ComboBox layoutX="60.0" layoutY="23.0" prefWidth="150.0">
+         <GridPane.margin>
+            <Insets left="265.0" />
+         </GridPane.margin>
+      </ComboBox>
+      <Label layoutX="10.0" layoutY="27.0" text="Employee:">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets left="200.0" />
+         </GridPane.margin>
+      </Label>
       </GridPane>
 </GridPane>
