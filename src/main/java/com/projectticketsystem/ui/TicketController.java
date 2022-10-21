@@ -76,10 +76,6 @@ public class TicketController extends BaseController implements Initializable {
         impactChoicebox.setValue(ticket.getImpact());
         urgencyChoicebox.setValue(ticket.getUrgency());
         statusChoicebox.setValue(ticket.getTicketStatus().toString());
-       /* if (ticket.getTicketReaction() != null) {
-            reactionTextarea.setText(ticket.getTicketReaction());
-        }*/
-
     }
 
     private List<String> getUserList(List<User> employees) {
