@@ -62,7 +62,7 @@ public class TicketController extends BaseController implements Initializable {
         nameAndContactLabel.setText(ticket.getName() + " | " + ticket.getContact());
         categoryLabel.setText(ticket.getTicketCategory());
         descriptionTextField.setText(ticket.getTicketDescription());
-        ticketIDLabel.setText(String.valueOf(ticket.getTicketId()));
+        ticketIDLabel.setText(String.valueOf(ticket.getTicketID()));
         priorityLabel.setText(ticket.getPriority());
         dateLabel.setText(ticket.getDate().toString());
         List<String> userNames = getUserList(userService.getUsersByRole(Role.ServiceDeskEmployee));

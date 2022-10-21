@@ -3,6 +3,8 @@ package com.projectticketsystem.model;
 import java.time.LocalDate;
 
 public class Ticket {
+
+
     private final int ticketID;
     private final String name;
     private final String contact;
@@ -26,6 +28,7 @@ public class Ticket {
         this.ticketID = id;
     }
 
+    public int getTicketID() { return ticketID; }
     public User getUser() {
         return user;
     }
@@ -80,15 +83,20 @@ public class Ticket {
         return ticketDescription;
     }
 
-    public int getTicketId() {
-        return ticketID;
-    }
-
     public String getTicketReaction() {
         return ticketReaction;
     }
 
     public void setTicketReaction(String ticketReaction) {
         this.ticketReaction = ticketReaction;
+    }
+    @Override public String toString() {
+        return "Ticket{" +
+                "ticketID=" + ticketID +
+                ", name='" + name + '\'' +
+                ", priority='" + priority + '\'' +
+                ", user=" + user +
+                ", ticketStatus=" + ticketStatus +
+                '}';
     }
 }

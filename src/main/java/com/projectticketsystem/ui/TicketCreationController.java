@@ -7,18 +7,17 @@ import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;;import java.io.IOException;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static java.lang.System.out;
 
 public class TicketCreationController extends BaseController implements Initializable {
 
@@ -80,13 +79,13 @@ public class TicketCreationController extends BaseController implements Initiali
     @FXML
     public void AddTicket(ActionEvent actionEvent){
         if (!Requirements()){
-            System.out.println("not all info is there");
+            out.println("not all info is there");
             return;
         }
 
         Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
         FillInTicketWithInformation(ticket);
-        ticketService.AddTicket(ticket);
+        ticketService.addTicket(ticket);
 
     }
 
@@ -125,10 +124,10 @@ public class TicketCreationController extends BaseController implements Initiali
     private boolean Requirements(){
         boolean requirementsCheck = true;
 
-        System.out.println(nameTextField.getText());
-        System.out.println(contactTextField.getText());
-        System.out.println(urgencyChoiceBox.getValue());
-        System.out.println(impactChoiceBox.getValue());
+        out.println(nameTextField.getText());
+        out.println(contactTextField.getText());
+        out.println(urgencyChoiceBox.getValue());
+        out.println(impactChoiceBox.getValue());
 
         if (Objects.equals(nameTextField.getText(), "") || Objects.equals(nameTextField.getText(), "") || urgencyChoiceBox.getValue() == null || impactChoiceBox.getValue() == null)
             requirementsCheck = false;
