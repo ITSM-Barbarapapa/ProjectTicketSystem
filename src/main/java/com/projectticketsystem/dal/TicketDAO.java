@@ -69,7 +69,7 @@ public class TicketDAO extends BaseDAO
 
     public void updateTicket(Ticket ticket)
     {
-        // TODO create an update function
+
     }
 
     public void deleteTicket(Ticket ticket)

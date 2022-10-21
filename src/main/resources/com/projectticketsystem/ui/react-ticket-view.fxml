@@ -4,13 +4,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="306.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="264.0" prefWidth="306.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-   <children>
-      <Label text="Reactie" />
-      <TextArea fx:id="reactionTextfield" prefHeight="149.0" prefWidth="266.0" promptText="(reactie)" />
-      <Button fx:id="addReactionButton" mnemonicParsing="false" onAction="#OnAddReactionButtonClick" text="Voeg toe" />
-   </children>
+    <children>
+        <Label text="Reactie"/>
+        <TextArea fx:id="reactionTextfield" prefHeight="149.0" prefWidth="266.0" promptText="(reactie)"/>
+        <Button fx:id="addReactionButton" mnemonicParsing="false" onAction="#OnAddReactionButtonClick" text="Voeg toe"/>
+    </children>
 </VBox>

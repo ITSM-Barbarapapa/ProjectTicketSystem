@@ -16,7 +16,12 @@ public class Ticket {
     private String ticketDescription;
     private String ticketReaction;
     private User user;
-    private final TicketStatus ticketStatus;
+    private TicketStatus ticketStatus;
+
+    public void setTicketStatus(TicketStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
     private final LocalDate date;
 
 

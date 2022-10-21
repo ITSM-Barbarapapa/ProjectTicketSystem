@@ -1,8 +1,11 @@
 package com.projectticketsystem.ui;
 
+import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
+import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -30,12 +33,15 @@ public class TicketController extends BaseController implements Initializable {
     public ChoiceBox<String> employeeChoicebox;
     @FXML
     public TextArea reactionTextarea;
+    private TicketService ticketService;
 
-    public TicketController(Ticket ticket, User user){
+    public TicketController(Ticket ticket, User user) {
         userService = new UserService();
+        ticketService = new TicketService();
         this.ticket = ticket;
         this.user = user;
     }
+
     @FXML
     public ImageView homeButton;
     @FXML
@@ -76,26 +82,49 @@ public class TicketController extends BaseController implements Initializable {
 
     }
 
-    private List<String> getUserList(List<User> employees){
+    private List<String> getUserList(List<User> employees) {
         List<String> userNames = new ArrayList<>();
-        for (User u: employees) {
-             userNames.add(u.getName());
+        for (User u : employees) {
+            userNames.add(u.getName());
         }
-        return  userNames;
+        return userNames;
     }
 
     @FXML
-   public void OnHomeButtonClick(MouseEvent event){
+    public void OnHomeButtonClick(MouseEvent event) {
         loadNextStage("ticketCreation-view.fxml", new TicketCreationController(user), event);
     }
 
     @FXML
-    public void OnSaveButtonClickUpdate(ActionEvent event){
-        // TODO update ticket
+    public void OnSaveButtonClickUpdate(ActionEvent event) {
+        if(CheckIfEmpty(impactChoicebox.getValue())) {
+            ticket.setTicketImpact(impactChoicebox.getValue());
+        }
+        if (CheckIfEmpty(urgencyChoicebox.getValue())) {
+            ticket.setTicketUrgency(urgencyChoicebox.getValue());
+        }
+        if (CheckIfEmpty(statusChoicebox.getValue())) {
+            ticket.setTicketStatus(TicketStatus.valueOf(statusChoicebox.getValue()));
+        }
+        if (CheckIfEmpty(employeeChoicebox.getValue())) {
+            ticket.setUser(userService.getUserByName(employeeChoicebox.getValue()));
+        }
+        if (CheckIfEmpty(reactionTextarea.getText())) {
+            ticket.setTicketReaction(reactionTextarea.getText());
+        }
+        if (CheckIfEmpty(priorityLabel.getText())){
+            ticket.setTicketPriority(priorityLabel.getText());
+        }
+        ticketService.updateTicket(ticket);
+
+    }
+
+    private boolean CheckIfEmpty(String s) {
+        return s != null && !s.isEmpty();
     }
 
     @FXML
-    public void OnReactButtonClick(ActionEvent event){
+    public void OnReactButtonClick(ActionEvent event) {
         loadNextStage("react-ticket-view.fxml", new ReactTicketController(ticket, user), event);
     }
 
@@ -103,7 +132,7 @@ public class TicketController extends BaseController implements Initializable {
     public void itemChange(ActionEvent actionEvent) {
         String impactValue = impactChoicebox.getValue();
         String urgencyValue = urgencyChoicebox.getValue();
-        if (impactValue == null || urgencyValue == null){
+        if (impactValue == null || urgencyValue == null) {
             return;
         }
 
@@ -113,7 +142,7 @@ public class TicketController extends BaseController implements Initializable {
         priorityLabel.setText(String.valueOf(CalculatePriority(impactNumber, urgencyNumber)));
     }
 
-    private int CalculatePriority(int impact, int urgency){
+    private int CalculatePriority(int impact, int urgency) {
 
         return impact + urgency - 1;
     }

@@ -28,4 +28,6 @@ public class TicketService {
     {
         //TODO: implement filter logic here
     }
+
+    public void updateTicket(Ticket ticket) {ticketDAO.updateTicket(ticket);}
 }
