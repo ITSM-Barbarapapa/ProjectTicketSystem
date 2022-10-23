@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mongodb.client.model.Filters.*;
-import static java.lang.System.out;
+import static com.mongodb.client.model.Filters.eq;
+import static java.lang.System.*;
 
 public class TicketDAO extends BaseDAO
 {
@@ -64,7 +64,9 @@ public class TicketDAO extends BaseDAO
                 .append("Summary", ticket.getTicketSummary())
                 .append("Description", ticket.getTicketDescription())
                 .append("Date", ticket.getDate().toString())
-                .append("Status", ticket.getTicketStatus());
+                .append("UserID", ticket.getUser().getId())
+                .append("Status", ticket.getTicketStatus())
+                .append("Reaction", ticket.getTicketReaction());
 
         getCollection().insertOne(document);
         out.println("Ticket added");
@@ -84,7 +86,7 @@ public class TicketDAO extends BaseDAO
         Bson updatedValues = Updates.combine(
                 Updates.set("Impact", ticket.getImpact()),
                 Updates.set("Urgency", ticket.getUrgency()),
-                Updates.set("Status", ticket.getTicketStatus()),
+                Updates.set("Status", ticket.getTicketStatus().toString()),
                 Updates.set("Priority", ticket.getPriority()),
                 Updates.set("User", ticket.getUser()),
                 Updates.set("Reaction", ticket.getTicketReaction()));
@@ -98,7 +100,6 @@ public class TicketDAO extends BaseDAO
     private void deleteTicket(Document ticket) {
         Objects.requireNonNull(getCollection()).deleteOne(ticket);
     }
-
 
     public int getHighestTicketID() {
         Document doc = Objects.requireNonNull(getCollection()).find()
@@ -133,7 +134,10 @@ public class TicketDAO extends BaseDAO
         ticket.setTicketPriority(document.getString("Priority"));
         ticket.setTicketSummary(document.getString("Summary"));
         ticket.setTicketCategory(document.getString("Category"));
+        ticket.setUser(new UserDAO().getUser(document.getInteger("UserID")));
         ticket.setTicketDescription(document.getString("Description"));
+        ticket.setTicketReaction(document.getString("Reaction"));
+
         return ticket;
     }
 
@@ -146,7 +150,8 @@ public class TicketDAO extends BaseDAO
         return tickets;
     }
 
-    public Ticket getTicketByFilter(String filter, String value) {
+    public Ticket getTicketByFilter(String filter, String value)
+    {
         Document found = Objects.requireNonNull(getCollection()).find(eq(filter, value)).first();
         if (found == null)
             return null;

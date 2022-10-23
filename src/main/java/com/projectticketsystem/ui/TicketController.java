@@ -73,9 +73,9 @@ public class TicketController extends BaseController implements Initializable {
         dateLabel.setText(ticket.getDate().toString());
         List<String> userNames = getUserList(userService.getUsersByRole(Role.ServiceDeskEmployee));
         employeeChoicebox.setItems(FXCollections.observableList(userNames));
-        impactChoicebox.setValue(ticket.getImpact());
-        urgencyChoicebox.setValue(ticket.getUrgency());
-        statusChoicebox.setValue(ticket.getTicketStatus().toString());
+        //impactChoicebox.setValue(ticket.getImpact());
+        //urgencyChoicebox.setValue(ticket.getUrgency());
+        statusChoicebox.setValue(ticket.getTicketStatus());
     }
 
     private List<String> getUserList(List<User> employees) {

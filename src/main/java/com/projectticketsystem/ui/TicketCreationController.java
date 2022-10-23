@@ -95,6 +95,15 @@ public class TicketCreationController extends BaseController implements Initiali
     }
 
     private void FillInTicketWithInformation(Ticket ticket) {
+        ticket.setTicketImpact("");
+        ticket.setTicketUrgency("");
+        ticket.setTicketSummary("");
+        ticket.setTicketDescription("");
+        ticket.setTicketCategory("");
+        ticket.setTicketReaction("");
+        ticket.setTicketPriority("");
+        ticket.setUser(user);
+
         if(categoryChoiceBox.getValue() != null){
             ticket.setTicketCategory(categoryChoiceBox.getValue());
         }
@@ -126,10 +135,9 @@ public class TicketCreationController extends BaseController implements Initiali
 
         out.println(nameTextField.getText());
         out.println(contactTextField.getText());
-        out.println(urgencyChoiceBox.getValue());
-        out.println(impactChoiceBox.getValue());
 
-        if (Objects.equals(nameTextField.getText(), "") || Objects.equals(nameTextField.getText(), "") || urgencyChoiceBox.getValue() == null || impactChoiceBox.getValue() == null)
+
+        if (Objects.equals(nameTextField.getText(), "") || Objects.equals(contactTextField.getText(), ""))
             requirementsCheck = false;
 
         return requirementsCheck;
