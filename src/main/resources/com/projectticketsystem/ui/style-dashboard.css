@@ -14,7 +14,7 @@
 
 
 
-/* tableview crud employees */
+/* tableview */
 .table-view {
     -fx-text-fill: white;
 }
@@ -50,7 +50,7 @@
     -fx-padding: 0.0em;
 }
 
-/* choice box crud employees */
+/* choice box */
 .choice-box {
     -fx-background-color: #93C98E;
     -fx-text-fill: white;
@@ -68,9 +68,15 @@
 }
 
 .choice-box .menu-item:focused {
-   -fx-background-color: #93C98E;
+    -fx-background-color: #93C98E;
 }
 
 .choice-box .menu-item > .label {
+    -fx-text-fill: white;
+}
+
+/* Button */
+.button {
+    -fx-background-color: #337C2D;
     -fx-text-fill: white;
 }

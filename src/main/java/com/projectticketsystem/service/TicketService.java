@@ -1,7 +1,8 @@
 package com.projectticketsystem.service;
 
 import com.projectticketsystem.dal.TicketDAO;
-import com.projectticketsystem.model.*;
+import com.projectticketsystem.model.Ticket;
+import org.bson.Document;
 
 import java.util.List;
 
@@ -20,14 +21,19 @@ public class TicketService {
         return ticketDAO.getHighestTicketID();
     }
 
-    public List<Ticket> getAllTickets(){
+    public List<Ticket> getAllTickets() {
         return ticketDAO.getAllTickets();
     }
 
-    public void getTicketsByFilter()
-    {
+    public void getTicketsByFilter() {
         //TODO: implement filter logic here
     }
 
-    public void updateTicket(Ticket ticket) {ticketDAO.updateTicket(ticket);}
+    public void updateTicket(Ticket ticket) {
+        ticketDAO.updateTicket(ticket);
+    }
+
+    public List<Document> getTicketsToArchive() {
+        return ticketDAO.getTicketsToArchive();
+    }
 }

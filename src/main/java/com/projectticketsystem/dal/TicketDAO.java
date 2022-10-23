@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 import static java.lang.System.*;
 
 public class TicketDAO extends BaseDAO
@@ -97,9 +97,8 @@ public class TicketDAO extends BaseDAO
         out.println("Ticket updated");
     }
 
-    public void deleteTicket(Ticket ticket)
-    {
-        // TODO make an archive so tickets can't be deleted but kept in a pool
+    private void deleteTicket(Document ticket) {
+        Objects.requireNonNull(getCollection()).deleteOne(ticket);
     }
 
     public int getHighestTicketID() {
@@ -157,5 +156,23 @@ public class TicketDAO extends BaseDAO
         if (found == null)
             return null;
         return generateTicket(found);
+    }
+
+    public List<Document> getTicketsToArchive() {
+        //Date 2 years ago
+        LocalDate date = LocalDate.now().minusYears(2);
+
+        //Get all tickets older than 2 years and with status Resolved or ClosedWithoutResolved
+        Bson filter = and(or(eq("Status", "Resolved"), eq("Status", "ClosedWithoutResolved")), lt("Date", date.toString()));
+
+        //Get all documents that match the filter
+        List<Document> tickets = Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>());
+
+        //delete documents from current collection
+        for (Document ticket : tickets) {
+            deleteTicket(ticket);
+        }
+
+        return tickets;
     }
 }

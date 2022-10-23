@@ -48,10 +48,6 @@ public class UserService {
 
     public List<User> getUsersByRole(Role role){return userDAO.getUsersByRole(role);}
 
-    /*public boolean checkPassword(String password, User user){
-        // TODO return userDAO.checkPassword(password, user);
-    }*/
-
     public int getNextUserId(){
         return userDAO.getNextUserId();
     }
