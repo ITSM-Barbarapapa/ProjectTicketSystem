@@ -18,6 +18,7 @@ public class Ticket {
     private String ticketDescription;
     private String ticketReaction;
     private User user;
+    private String username;
 
     public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;
@@ -32,6 +33,9 @@ public class Ticket {
         return user;
     }
 
+    public String getUsername() {
+        return user.getName();
+    }
     public void setUser(User user) {
         this.user = user;
     }
