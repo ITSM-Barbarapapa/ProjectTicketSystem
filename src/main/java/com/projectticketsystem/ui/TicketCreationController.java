@@ -57,7 +57,7 @@ public class TicketCreationController extends BaseController implements Initiali
     }
 
     private void CheckUser(){
-        if(user.getRole().equals(Role.ServiceDeskEmployee)) {
+        if(user.getRole().equals(Role.RegularEmployee)) {
             HidePriorityBoxes();
         }
     }

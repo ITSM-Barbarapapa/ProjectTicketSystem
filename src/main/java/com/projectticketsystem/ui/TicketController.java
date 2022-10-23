@@ -73,8 +73,9 @@ public class TicketController extends BaseController implements Initializable {
         dateLabel.setText(ticket.getDate().toString());
         List<String> userNames = getUserList(userService.getUsersByRole(Role.ServiceDeskEmployee));
         employeeChoicebox.setItems(FXCollections.observableList(userNames));
-        //impactChoicebox.setValue(ticket.getImpact());
-        //urgencyChoicebox.setValue(ticket.getUrgency());
+        //  impactChoicebox.setValue(ticket.getImpact());
+        //    urgencyChoicebox.setValue(ticket.getUrgency());
+        employeeChoicebox.setValue(ticket.getUsername());
         statusChoicebox.setValue(ticket.getTicketStatus());
     }
 
@@ -93,7 +94,7 @@ public class TicketController extends BaseController implements Initializable {
 
     @FXML
     public void OnSaveButtonClickUpdate(ActionEvent event) {
-        if(CheckIfEmpty(impactChoicebox.getValue())) {
+        if (CheckIfEmpty(impactChoicebox.getValue())) {
             ticket.setTicketImpact(impactChoicebox.getValue());
         }
         if (CheckIfEmpty(urgencyChoicebox.getValue())) {
@@ -108,7 +109,7 @@ public class TicketController extends BaseController implements Initializable {
         if (CheckIfEmpty(reactionTextarea.getText())) {
             ticket.setTicketReaction(reactionTextarea.getText());
         }
-        if (CheckIfEmpty(priorityLabel.getText())){
+        if (CheckIfEmpty(priorityLabel.getText())) {
             ticket.setTicketPriority(priorityLabel.getText());
         }
         ticketService.updateTicket(ticket);
