@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ArchivedTicketDAO extends BaseDAO {
+public class ArchivedTicketDao extends BaseDAO {
 
-    public ArchivedTicketDAO() {
+    public ArchivedTicketDao() {
         super();
     }
 

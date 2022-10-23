@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class ArchiveDatabaseController extends BaseController implements Initializable {
     private final User user;
     private final ArchivedTicketService archivedTicketService;
-    private final ObservableList<Ticket> archivedTickets;
+    private ObservableList<Ticket> archivedTickets;
     @FXML
     public Label usernameLabel;
     @FXML
@@ -57,6 +57,9 @@ public class ArchiveDatabaseController extends BaseController implements Initial
     public void onArchiveButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         archivedTicketService.archiveTickets();
+
+        archivedTickets = FXCollections.observableList(archivedTicketService.getAllArchivedTickets());
+        archivedTicketsTableView.setItems(archivedTickets);
     }
 
     @FXML
@@ -67,8 +70,7 @@ public class ArchiveDatabaseController extends BaseController implements Initial
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
-        //TODO Add right controller and view for my tickets
-        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        loadNextStage("myTickets-view.fxml", null, mouseEvent);
         mouseEvent.consume();
     }
 
