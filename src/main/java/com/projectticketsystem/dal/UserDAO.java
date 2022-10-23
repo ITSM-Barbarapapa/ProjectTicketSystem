@@ -57,7 +57,7 @@ public class UserDAO extends BaseDAO
 
     public void addUser(User user)
     {
-        Document document = new Document("UserID", user.getId())
+        Document document = new Document("UserID", user.getID())
                 .append("Username", user.getName())
                 .append("Password", user.getPassword().getHashPassword())
                 .append("Salt", user.getPassword().getSalt())
@@ -68,7 +68,7 @@ public class UserDAO extends BaseDAO
 
     public void updateUser(User user)
     {
-        Document found = getCollection().find(new Document().append("UserID", user.getId())).first();
+        Document found = getCollection().find(new Document().append("UserID", user.getID())).first();
         if (found == null)
         {
             out.println("User not found in database");
@@ -90,7 +90,7 @@ public class UserDAO extends BaseDAO
 
     public void deleteUser(User user)
     {
-        getCollection().deleteOne(new Document("UserID", user.getId()));
+        getCollection().deleteOne(new Document("UserID", user.getID()));
         out.println("User deleted");
     }
 
