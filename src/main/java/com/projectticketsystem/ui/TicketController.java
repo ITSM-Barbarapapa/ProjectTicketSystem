@@ -7,15 +7,21 @@ import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,6 +64,8 @@ public class TicketController extends BaseController implements Initializable {
     public Label priorityLabel;
     @FXML
     public Label dateLabel;
+    @FXML
+    public Button saveTicketButton;
     private final Ticket ticket;
     private final UserService userService;
     private final User user;
@@ -73,10 +81,26 @@ public class TicketController extends BaseController implements Initializable {
         dateLabel.setText(ticket.getDate().toString());
         List<String> userNames = getUserList(userService.getUsersByRole(Role.ServiceDeskEmployee));
         employeeChoicebox.setItems(FXCollections.observableList(userNames));
-        //  impactChoicebox.setValue(ticket.getImpact());
-        //    urgencyChoicebox.setValue(ticket.getUrgency());
+        impactChoicebox.setValue(ticket.getImpact());
+        urgencyChoicebox.setValue(ticket.getUrgency());
         employeeChoicebox.setValue(ticket.getUsername());
         statusChoicebox.setValue(ticket.getTicketStatus());
+        reactionTextarea.setText(ticket.getTicketReaction());
+        CheckUser();
+    }
+
+    private void CheckUser() {
+        if (user.getRole().equals(Role.RegularEmployee)) {
+            HideServiceDeskTools();
+        }
+    }
+
+    private void HideServiceDeskTools() {
+        impactChoicebox.setDisable(true);
+        urgencyChoicebox.setDisable(true);
+        employeeChoicebox.setDisable(true);
+        statusChoicebox.setDisable(true);
+        saveTicketButton.setDisable(true);
     }
 
     private List<String> getUserList(List<User> employees) {
@@ -129,9 +153,10 @@ public class TicketController extends BaseController implements Initializable {
     public void itemChange(ActionEvent actionEvent) {
         String impactValue = impactChoicebox.getValue();
         String urgencyValue = urgencyChoicebox.getValue();
-        if (impactValue == null || urgencyValue == null) {
+        if (impactValue == null || urgencyValue == null || impactValue.isEmpty() || urgencyValue.isEmpty()) {
             return;
         }
+
 
         int impactNumber = Integer.parseInt(String.valueOf(impactValue.toCharArray()[0]));
         int urgencyNumber = Integer.parseInt(String.valueOf(urgencyValue.toCharArray()[0]));
