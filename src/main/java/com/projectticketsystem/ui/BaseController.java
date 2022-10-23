@@ -11,17 +11,7 @@ import java.io.IOException;
 
 public class BaseController {
     protected void loadNextStage(String fxmlFileName, BaseController controller, Event event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        if (controller != null) {
-            loader.setController(controller);
-        }
-        Parent root;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot run " + fxmlFileName + "\n" + e);
-        }
-        Scene scene = new Scene(root);
+        Scene scene = loadScene(fxmlFileName, controller);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
@@ -30,6 +20,16 @@ public class BaseController {
     }
 
     protected void loadNextInNewStage(String fxmlFileName, BaseController controller, Event event) {
+        Scene scene = loadScene(fxmlFileName, controller);
+        Stage stage = new Stage();
+        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
+
+        event.consume();
+    }
+
+    private Scene loadScene(String fxmlFileName, BaseController controller) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
         if (controller != null) {
             loader.setController(controller);
@@ -40,13 +40,8 @@ public class BaseController {
         } catch (IOException e) {
             throw new RuntimeException("Cannot run " + fxmlFileName + "\n" + e);
         }
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-
-        event.consume();
+        return new Scene(root);
     }
+
 }
 
