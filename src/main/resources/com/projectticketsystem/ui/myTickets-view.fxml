@@ -61,25 +61,26 @@
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.2" minWidth="10.0" prefWidth="368.8" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.2" minWidth="10.0" prefWidth="187.59999999999997" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.4" minWidth="10.0" prefWidth="134.99999999999994" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.39999999999998" minWidth="10.0" prefWidth="151.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.4" minWidth="10.0" prefWidth="160.20000000000005" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.39999999999998" minWidth="10.0" prefWidth="92.20000000000005" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.39999999999998" minWidth="10.0" prefWidth="181.39999999999998" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Prioriteit" GridPane.columnIndex="2" />
-                  <Label text="Datum" GridPane.columnIndex="1" />
-                  <Label text="Status" GridPane.columnIndex="3" />
+                  <Label text="Sorteren op:" GridPane.columnIndex="3" />
                   <ChoiceBox fx:id="choiceBox" prefWidth="150.0" GridPane.columnIndex="4" />
                </children>
             </GridPane>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-               <content>
-                  <VBox fx:id="ticketsView" prefHeight="426.0" prefWidth="938.0" />
-               </content>
-            </ScrollPane>
+            <TableView fx:id="myTicketView" onMouseClicked="#clickedTicket" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+              <columns>
+                <TableColumn fx:id="columnTicketID" prefWidth="100.0" text="Ticket ID" />
+                <TableColumn fx:id="columnSubject" prefWidth="500.0" text="Onderwerp" />
+                  <TableColumn fx:id="columnPriority" prefWidth="180.0" text="Prioriteit" />
+                  <TableColumn fx:id="columnStatus" prefWidth="183.0" text="Status" />
+              </columns>
+            </TableView>
          </children>
       </GridPane>
     </children>

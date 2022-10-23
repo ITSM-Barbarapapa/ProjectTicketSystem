@@ -1,6 +1,7 @@
 package com.projectticketsystem.ui;
 
 import com.projectticketsystem.model.TicketStatus;
+import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -9,12 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DashboardController implements Initializable
+public class DashboardController extends BaseController implements Initializable
 {
     double perOpen = 0;
     double perResolved = 0;
@@ -30,12 +32,19 @@ public class DashboardController implements Initializable
     public Label countResolved;
     public Label countClosed;
 
+    private final User user;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         FillStatusChart();
     }
-    public void FillStatusChart()
+    public DashboardController(User user)
+    {
+        this.user = user;
+
+    }
+    private void FillStatusChart()
     {
         CalculateChart();
 
@@ -104,6 +113,34 @@ public class DashboardController implements Initializable
                     break;
             }
         }
+    }
+    @FXML
+    public void onHouseIconClick(MouseEvent mouseEvent) {
+        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        mouseEvent.consume();
+    }
 
+    @FXML
+    public void onMyTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("myTickets-view.fxml", null, mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onAllTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onArchiveTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onCRUDEmployeeIconClick(MouseEvent mouseEvent) {
+        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), mouseEvent);
+        mouseEvent.consume();
     }
 }

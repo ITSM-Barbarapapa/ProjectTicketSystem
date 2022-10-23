@@ -3,6 +3,7 @@ package com.projectticketsystem.service;
 import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
+import com.projectticketsystem.model.User;
 import org.bson.Document;
 
 import java.util.List;
@@ -39,4 +40,6 @@ public class TicketService {
     public List<Document> getTicketsToArchive() {
         return ticketDAO.getTicketsToArchive();
     }
+
+    public List<Ticket> getMyTickets(User user){return ticketDAO.getMyTickets(user);}
 }

@@ -9,6 +9,7 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
+import com.projectticketsystem.model.User;
 import org.bson.BsonType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -197,13 +198,11 @@ public class TicketDAO extends BaseDAO
 
         return ticketStatus;
     }
-    public List<Ticket> getMyTickets(int userId)
+    public List<Ticket> getMyTickets(User user)
     {
         List<Ticket> myTickets = new ArrayList<>();
 
-        //int id = User.getId();
-
-        Bson filter = eq("UserID", userId);
+        Bson filter = eq("UserID", user.getID());
         FindIterable<Document> results = getCollection().find(filter);
 
         for ( Document d : results)
@@ -212,18 +211,15 @@ public class TicketDAO extends BaseDAO
             {
                 return null;
             }
-//TODO ticket better
-            /*Ticket ticket = new Ticket(
+
+            Ticket ticket = new Ticket(
                     d.getString("Name"),
                     d.getString("Contact"),
-                    d.getString("Impact"),
-                    d.getString("Urgency"),
-                    d.getString("Priority"),
                     LocalDate.parse(d.getString("Date")),
                     TicketStatus.valueOf(d.getString("Status")),
-                    d.getInteger("TicketID"));
+                    d.getInteger(TICKET_ID));
 
-            myTickets.add(ticket);*/
+            myTickets.add(ticket);
         }
 
         return myTickets;
