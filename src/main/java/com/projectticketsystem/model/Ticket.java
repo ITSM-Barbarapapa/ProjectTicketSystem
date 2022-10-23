@@ -6,6 +6,8 @@ public class Ticket {
     private final int ticketID;
     private final String name;
     private final String contact;
+    private TicketStatus ticketStatus;
+    private final LocalDate date;
     private String impact;
     private String urgency;
     private String priority;
@@ -14,8 +16,6 @@ public class Ticket {
     private String ticketDescription;
     private String ticketReaction;
     private User user;
-    private TicketStatus ticketStatus;
-    private final LocalDate date;
 
     public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;

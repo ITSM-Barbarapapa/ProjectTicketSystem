@@ -177,6 +177,7 @@
                                                     <String fx:value="1-Hoog"/>
                                                     <String fx:value="2-Midden"/>
                                                     <String fx:value="3-Laag"/>
+                                                    <String fx:value=""/>
                                                 </FXCollections>
                                             </items>
                                         </ChoiceBox>
@@ -192,6 +193,7 @@
                                                     <String fx:value="1-Hoog"/>
                                                     <String fx:value="2-Midden"/>
                                                     <String fx:value="3-Laag"/>
+                                                    <String fx:value=""/>
                                                 </FXCollections>
                                             </items>
                                         </ChoiceBox>
