@@ -12,14 +12,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ArchiveDatabaseController extends BaseController implements Initializable {
     @FXML
     public Label usernameLabel;
+    @FXML
+    public TextField searchField;
 
     private final User user;
     private final ArchivedTicketService archivedTicketService;
@@ -36,14 +41,19 @@ public class ArchiveDatabaseController extends BaseController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO Populate the tableview with the archived tickets
         usernameLabel.setText(user.getName());
         archivedTicketsTableView.setItems(archivedTickets);
-    }
 
-    @FXML
-    public void onSearchFieldTextChange(ActionEvent actionEvent) {
-        //TODO Change data in tableview based on search field
+        //add text changed event handler
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            List<Ticket> filteredTickets = new ArrayList<>();
+            archivedTickets.forEach(t -> {
+                if (t.getTicketSummary().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                    filteredTickets.add(t);
+                }
+            });
+            archivedTicketsTableView.setItems(FXCollections.observableList(filteredTickets));
+        });
     }
 
     @FXML
