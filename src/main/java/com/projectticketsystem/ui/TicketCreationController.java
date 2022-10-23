@@ -174,4 +174,35 @@ public class TicketCreationController extends BaseController implements Initiali
     public void onBackButtonClick(ActionEvent event) throws IOException {
         loadNextStage("dashboard-view.fxml", null, event);
     }
+
+    @FXML
+    public void onHouseIconClick(MouseEvent mouseEvent) {
+        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onMyTicketIconClick(MouseEvent mouseEvent) {
+        //TODO Add right controller and view for my tickets
+        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onAllTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onArchiveTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onCRUDEmployeeIconClick(MouseEvent mouseEvent) {
+        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), mouseEvent);
+        mouseEvent.consume();
+    }
 }
