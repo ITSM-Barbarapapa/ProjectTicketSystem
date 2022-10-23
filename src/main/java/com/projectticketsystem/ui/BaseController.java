@@ -28,5 +28,25 @@ public class BaseController {
 
         event.consume();
     }
+
+    protected void loadNextInNewStage(String fxmlFileName, BaseController controller, Event event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+        if (controller != null) {
+            loader.setController(controller);
+        }
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot run " + fxmlFileName + "\n" + e);
+        }
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
+
+        event.consume();
+    }
 }
 
