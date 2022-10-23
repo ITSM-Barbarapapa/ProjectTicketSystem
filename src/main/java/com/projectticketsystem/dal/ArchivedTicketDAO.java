@@ -36,8 +36,8 @@ public class ArchivedTicketDAO extends BaseDAO {
             Ticket ticket = new Ticket(
                     document.getString("Name"),
                     document.getString("Contact"),
-                    document.get("Date", LocalDate.class),
-                    document.get("Status", TicketStatus.class),
+                    LocalDate.parse(document.getString("Date")),
+                    TicketStatus.valueOf(document.getString("Status")),
                     document.getInteger("TicketID")
             );
             ticket.setTicketSummary(document.getString("Summary"));

@@ -1,5 +1,7 @@
 package com.projectticketsystem.ui;
 
+import com.projectticketsystem.model.HashedPassword;
+import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.ArchivedTicketService;
@@ -26,8 +28,8 @@ public class ArchiveDatabaseController extends BaseController implements Initial
     public TableView<Ticket> archivedTicketsTableView;
 
 
-    public ArchiveDatabaseController(User user) {
-        this.user = user;
+    public ArchiveDatabaseController(/*User user*/) {
+        this.user = new User(1, "test", new HashedPassword(new byte[5], new byte[5]), Role.Administrator); //user;
         archivedTicketService = new ArchivedTicketService();
         archivedTickets = FXCollections.observableList(archivedTicketService.getAllArchivedTickets());
     }
