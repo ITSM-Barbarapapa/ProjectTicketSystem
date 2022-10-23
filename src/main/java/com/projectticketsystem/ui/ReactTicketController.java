@@ -32,7 +32,8 @@ public class ReactTicketController extends BaseController {
     public void OnAddReactionButtonClick(ActionEvent event) throws IOException {
         ticket.setTicketReaction(user.getName() + " " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n" + reactionTextfield.getText() + "\n\n" + ticket.getTicketReaction());
         ticketService.updateTicket(ticket);
-        loadNextStage("ticket-view.fxml", new TicketController(ticket, user), event);
+        Stage stage = (Stage) reactionTextfield.getScene().getWindow();
+        stage.close();
     }
 
 }
