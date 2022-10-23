@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +41,16 @@ public class TicketController extends BaseController implements Initializable {
     @FXML
     public TextArea reactionTextarea;
     private TicketService ticketService;
+    private BaseController previousController;
+    private String previousViewFXML;
 
-    public TicketController(Ticket ticket, User user) {
+    public TicketController(Ticket ticket, User user, String fxmlFileName, BaseController controller) {
         userService = new UserService();
         ticketService = new TicketService();
         this.ticket = ticket;
         this.user = user;
+        previousViewFXML = fxmlFileName;
+        previousController = controller;
     }
 
     @FXML
@@ -66,6 +71,8 @@ public class TicketController extends BaseController implements Initializable {
     public Label dateLabel;
     @FXML
     public Button saveTicketButton;
+    @FXML
+    public Label usernameLabel;
     private final Ticket ticket;
     private final UserService userService;
     private final User user;
@@ -86,7 +93,13 @@ public class TicketController extends BaseController implements Initializable {
         employeeChoicebox.setValue(ticket.getUsername());
         statusChoicebox.setValue(ticket.getTicketStatus());
         reactionTextarea.setText(ticket.getTicketReaction());
+        usernameLabel.setText(user.getName());
         CheckUser();
+    }
+
+    @FXML
+    public void onBackButtonClick(ActionEvent event){
+        loadNextStage(previousViewFXML, previousController, event);
     }
 
     private void CheckUser() {

@@ -32,7 +32,7 @@ public class LoginController extends BaseController {
         if (checkPassword()) {
             //Check if user is admin or regular employee or Service Desk employee
             if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {
-                loadNextStage("ticket-view.fxml", new TicketController(ticketDAO.getTicketByID(5), user), event);
+                loadNextStage("ticket-view.fxml", new TicketController(ticketDAO.getTicketByID(5), user, "dashboard-view.fxml", null), event);
             } else if (user.getRole() == Role.RegularEmployee) {
                 loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
             }
