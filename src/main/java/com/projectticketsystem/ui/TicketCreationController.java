@@ -169,4 +169,9 @@ public class TicketCreationController extends BaseController implements Initiali
         CheckUser();
         usernameLabel.setText(user.getName());
     }
+
+    @FXML
+    public void onBackButtonClick(ActionEvent event) throws IOException {
+        loadNextStage("dashboard-view.fxml", null, event);
+    }
 }
