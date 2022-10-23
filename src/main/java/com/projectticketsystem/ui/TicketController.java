@@ -147,6 +147,7 @@ public class TicketController extends BaseController implements Initializable {
     @FXML
     public void OnReactButtonClick(ActionEvent event) {
         loadNextInNewStage("react-ticket-view.fxml", new ReactTicketController(ticket, user), event);
+        initialize(null, null);
     }
 
     @FXML
