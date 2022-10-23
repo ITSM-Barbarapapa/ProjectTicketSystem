@@ -24,7 +24,7 @@ public class BaseController {
         Stage stage = new Stage();
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
 
         event.consume();
     }
