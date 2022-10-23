@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -38,11 +39,6 @@ public class TicketListViewController extends BaseController implements Initiali
 
     private void initializeComboBoxes()
     {
-        ObservableList<String> priorities = FXCollections.observableArrayList();
-        ObservableList<String> statuses = FXCollections.observableArrayList();
-
-        priorityColumn.setCellFactory(ComboBoxTableCell.forTableColumn(priorities));
-        statusColumn.setCellFactory(ComboBoxTableCell.forTableColumn(statuses));
 
     }
 
@@ -52,10 +48,8 @@ public class TicketListViewController extends BaseController implements Initiali
         ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
         priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
-
-        // fill the assignee column with the list of users from the database if there is no assignee yet leave it empty
-        assigneeColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
-        assigneeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(userService.getEmployeeNames()));
+        assigneeColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        assigneeColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(userService.getEmployeeNames()));
         assigneeColumn.setOnEditCommit(event -> {
             Ticket ticket = event.getRowValue();
             ticket.assignNewEmployeeToTicket(event.getNewValue().toString());

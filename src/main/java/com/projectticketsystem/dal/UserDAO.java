@@ -103,6 +103,12 @@ public class UserDAO extends BaseDAO
         return nextId + 1;
     }
 
+    public User getUserByID(int userID)
+    {
+        Document found = getCollection().find(new Document("UserID", userID)).first();
+        return getUser(found);
+    }
+
     public boolean checkPassword(String password, User user)
     {
         return false; // Temporary return condition. Change when implemented.
