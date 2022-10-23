@@ -2,6 +2,7 @@ package com.projectticketsystem.service;
 
 import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.TicketStatus;
 import org.bson.Document;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class TicketService {
     public int getHighestTicketID(){
         return ticketDAO.getHighestTicketID();
     }
+
+    public List<TicketStatus> getAllTicketStatus(){return ticketDAO.getAllTicketStatus();}
 
     public List<Ticket> getAllTickets() {
         return ticketDAO.getAllTickets();

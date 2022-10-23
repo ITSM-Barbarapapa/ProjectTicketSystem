@@ -9,9 +9,5 @@
         <module name="TicketSystem" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ProjectTicketSystem" target="17" />
-      <module name="TicketSystem" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

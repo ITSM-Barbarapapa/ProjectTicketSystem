@@ -1,27 +1,35 @@
 package com.projectticketsystem.dal;
 
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
+import org.bson.BsonType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static com.mongodb.client.model.Filters.*;
 import static java.lang.System.out;
+import static com.mongodb.client.model.Aggregates.match;
+import static com.mongodb.client.model.Filters.*;
 
 public class TicketDAO extends BaseDAO
 {
     static final String TICKET_ID = "TicketID";
-    
+
     public TicketDAO()
     {
         super();
@@ -175,4 +183,50 @@ public class TicketDAO extends BaseDAO
 
         return tickets;
     }
+    public List<TicketStatus> getAllTicketStatus()
+    {
+        List<TicketStatus> ticketStatus = new ArrayList<>();
+
+        Bson filter = type("Status", BsonType.STRING);
+        FindIterable<Document> results = getCollection().find(filter);
+
+        for ( Document d : results)
+        {
+            ticketStatus.add(TicketStatus.valueOf(d.getString("Status")));
+        }
+
+        return ticketStatus;
+    }
+    public List<Ticket> getMyTickets(int userId)
+    {
+        List<Ticket> myTickets = new ArrayList<>();
+
+        //int id = User.getId();
+
+        Bson filter = eq("UserID", userId);
+        FindIterable<Document> results = getCollection().find(filter);
+
+        for ( Document d : results)
+        {
+            if (d == null)
+            {
+                return null;
+            }
+//TODO ticket better
+            /*Ticket ticket = new Ticket(
+                    d.getString("Name"),
+                    d.getString("Contact"),
+                    d.getString("Impact"),
+                    d.getString("Urgency"),
+                    d.getString("Priority"),
+                    LocalDate.parse(d.getString("Date")),
+                    TicketStatus.valueOf(d.getString("Status")),
+                    d.getInteger("TicketID"));
+
+            myTickets.add(ticket);*/
+        }
+
+        return myTickets;
+    }
+
 }

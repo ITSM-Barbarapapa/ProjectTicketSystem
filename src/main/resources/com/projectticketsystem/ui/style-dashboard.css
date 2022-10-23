@@ -11,6 +11,9 @@
     -fx-stroke: #565656;
     -fx-fill: #565656;
 }
+.chart-pie {
+    -fx-border-width: 0px;
+}
 
 
 
