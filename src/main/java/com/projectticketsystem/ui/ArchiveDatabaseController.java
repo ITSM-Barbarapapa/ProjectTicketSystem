@@ -1,7 +1,5 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.model.HashedPassword;
-import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.ArchivedTicketService;
@@ -21,20 +19,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ArchiveDatabaseController extends BaseController implements Initializable {
-    @FXML
-    public Label usernameLabel;
-    @FXML
-    public TextField searchField;
-
     private final User user;
     private final ArchivedTicketService archivedTicketService;
     private final ObservableList<Ticket> archivedTickets;
     @FXML
+    public Label usernameLabel;
+    @FXML
+    public TextField searchField;
+    @FXML
     public TableView<Ticket> archivedTicketsTableView;
 
 
-    public ArchiveDatabaseController(/*User user*/) {
-        this.user = new User(1, "test", new HashedPassword(new byte[5], new byte[5]), Role.Administrator); //user;
+    public ArchiveDatabaseController(User user) {
+        this.user = user;
         archivedTicketService = new ArchivedTicketService();
         archivedTickets = FXCollections.observableList(archivedTicketService.getAllArchivedTickets());
     }
@@ -67,4 +64,30 @@ public class ArchiveDatabaseController extends BaseController implements Initial
         loadNextStage("dashboard-view.fxml", null, mouseEvent);
         mouseEvent.consume();
     }
+
+    @FXML
+    public void onMyTicketIconClick(MouseEvent mouseEvent) {
+        //TODO Add right controller and view for my tickets
+        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onAllTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onArchiveTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onCRUDEmployeeIconClick(MouseEvent mouseEvent) {
+        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
 }

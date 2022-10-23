@@ -34,7 +34,7 @@ public class LoginController extends BaseController {
             if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {
                 loadNextStage("ticket-view.fxml", new TicketController(ticketDAO.getTicketByID(5), user, "dashboard-view.fxml", null), event);
             } else if (user.getRole() == Role.RegularEmployee) {
-                loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), event);
+                loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), event);
             }
         } else {
             errorLabel.setText("Gebruikerscode of wachtwoord is onjuist");

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.mongodb.client.model.Filters.*;
-import static java.lang.System.*;
+import static java.lang.System.out;
 
 public class TicketDAO extends BaseDAO
 {
@@ -86,7 +86,7 @@ public class TicketDAO extends BaseDAO
         Bson updatedValues = Updates.combine(
                 Updates.set("Impact", ticket.getImpact()),
                 Updates.set("Urgency", ticket.getUrgency()),
-                Updates.set("Status", ticket.getTicketStatus().toString()),
+                Updates.set("Status", ticket.getTicketStatus()),
                 Updates.set("Priority", ticket.getPriority()),
                 Updates.set("UserID", ticket.getUser().getID()),
                 Updates.set("Reaction", ticket.getTicketReaction()));
@@ -163,7 +163,7 @@ public class TicketDAO extends BaseDAO
         LocalDate date = LocalDate.now().minusYears(2);
 
         //Get all tickets older than 2 years and with status Resolved or ClosedWithoutResolved
-        Bson filter = and(or(eq("Status", "Resolved"), eq("Status", "ClosedWithoutResolved")), lt("Date", date.toString()));
+        Bson filter = and(or(eq("Status", "Resolved"), eq("Status", "ClosedWithoutResolve")), lt("Date", date.toString()));
 
         //Get all documents that match the filter
         List<Document> tickets = Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>());
