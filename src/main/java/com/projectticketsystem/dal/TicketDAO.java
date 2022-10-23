@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mongodb.client.model.Filters.eq;
-import static java.lang.System.*;
+import static com.mongodb.client.model.Filters.*;
+import static java.lang.System.out;
 
 public class TicketDAO extends BaseDAO
 {
@@ -64,7 +64,7 @@ public class TicketDAO extends BaseDAO
                 .append("Summary", ticket.getTicketSummary())
                 .append("Description", ticket.getTicketDescription())
                 .append("Date", ticket.getDate().toString())
-                .append("Status", ticket.getTicketStatus().toString());
+                .append("Status", ticket.getTicketStatus());
 
         getCollection().insertOne(document);
         out.println("Ticket added");
@@ -84,7 +84,7 @@ public class TicketDAO extends BaseDAO
         Bson updatedValues = Updates.combine(
                 Updates.set("Impact", ticket.getImpact()),
                 Updates.set("Urgency", ticket.getUrgency()),
-                Updates.set("Status", ticket.getTicketStatus().toString()),
+                Updates.set("Status", ticket.getTicketStatus()),
                 Updates.set("Priority", ticket.getPriority()),
                 Updates.set("User", ticket.getUser()),
                 Updates.set("Reaction", ticket.getTicketReaction()));
@@ -95,10 +95,10 @@ public class TicketDAO extends BaseDAO
         out.println("Ticket updated");
     }
 
-    public void deleteTicket(Ticket ticket)
-    {
-        // TODO make an archive so tickets can't be deleted but kept in a pool
+    private void deleteTicket(Document ticket) {
+        Objects.requireNonNull(getCollection()).deleteOne(ticket);
     }
+
 
     public int getHighestTicketID() {
         Document doc = Objects.requireNonNull(getCollection()).find()
@@ -146,11 +146,28 @@ public class TicketDAO extends BaseDAO
         return tickets;
     }
 
-    public Ticket getTicketByFilter(String filter, String value)
-    {
+    public Ticket getTicketByFilter(String filter, String value) {
         Document found = Objects.requireNonNull(getCollection()).find(eq(filter, value)).first();
         if (found == null)
             return null;
         return generateTicket(found);
+    }
+
+    public List<Document> getTicketsToArchive() {
+        //Date 2 years ago
+        LocalDate date = LocalDate.now().minusYears(2);
+
+        //Get all tickets older than 2 years and with status Resolved or ClosedWithoutResolved
+        Bson filter = and(or(eq("Status", "Resolved"), eq("Status", "ClosedWithoutResolved")), lt("Date", date.toString()));
+
+        //Get all documents that match the filter
+        List<Document> tickets = Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>());
+
+        //delete documents from current collection
+        for (Document ticket : tickets) {
+            deleteTicket(ticket);
+        }
+
+        return tickets;
     }
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
@@ -74,15 +75,43 @@
                 <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2"
                       GridPane.rowIndex="1">
                     <children>
-                        <TableView stylesheets="@style-dashboard.css">
+                        <TableView fx:id="archivedTicketsTableView" stylesheets="@style-dashboard.css">
                             <columns>
-                                <TableColumn prefWidth="75.0" text="id"/>
-                                <TableColumn prefWidth="98.0" text="Naam"/>
-                                <TableColumn prefWidth="75.0" text="Status"/>
-                                <TableColumn prefWidth="75.0" text="Datum"/>
-                                <TableColumn prefWidth="75.0" text="Contact"/>
-                                <TableColumn prefWidth="75.0" text="Prioriteit"/>
-                                <TableColumn prefWidth="118.0" text="Samenvatting"/>
+                                <TableColumn prefWidth="75.0" text="id">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="ticketID"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="98.0" text="Naam">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="name"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="75.0" text="Status">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="ticketStatus"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="75.0" text="Datum">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="date"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="75.0" text="Contact">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="contact"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="75.0" text="Prioriteit">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="priority"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn prefWidth="118.0" text="Samenvatting">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="ticketSummary"/>
+                                    </cellValueFactory>
+                                </TableColumn>
                             </columns>
                         </TableView>
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
