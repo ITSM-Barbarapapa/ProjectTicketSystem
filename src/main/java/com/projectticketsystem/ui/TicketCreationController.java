@@ -49,6 +49,8 @@ public class TicketCreationController extends BaseController implements Initiali
     public Button addTicketButton;
     @FXML
     public ImageView homeButton;
+    @FXML
+    public Label usernameLabel;
 
 
     public TicketCreationController(User user){
@@ -165,5 +167,6 @@ public class TicketCreationController extends BaseController implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CheckUser();
+        usernameLabel.setText(user.getName());
     }
 }
