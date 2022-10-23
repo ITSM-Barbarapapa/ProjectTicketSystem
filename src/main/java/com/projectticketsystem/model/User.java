@@ -21,7 +21,7 @@ public class User implements Comparable<User> {
         this.role = valueOf;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
