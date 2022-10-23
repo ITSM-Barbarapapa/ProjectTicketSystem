@@ -48,6 +48,13 @@ public class UserDAO extends BaseDAO
         return AddFoundUsersToList(users, filter);
     }
 
+    public List<User> getAllEmployees()
+    {
+        List<User> users = new ArrayList<>();
+        Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)), new Document("Role", Role.ServiceDeskEmployee.toString()));
+        return AddFoundUsersToList(users, filter);
+    }
+
     public void addUser(User user)
     {
         Document document = new Document("UserID", user.getId())

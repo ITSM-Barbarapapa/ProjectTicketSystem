@@ -1,5 +1,7 @@
 package com.projectticketsystem.model;
 
+import com.projectticketsystem.dal.UserDAO;
+
 import java.time.LocalDate;
 
 public class Ticket {
@@ -88,13 +90,10 @@ public class Ticket {
     public void setTicketReaction(String ticketReaction) {
         this.ticketReaction = ticketReaction;
     }
-    @Override public String toString() {
-        return "Ticket{" +
-                "ticketID=" + ticketID +
-                ", name='" + name + '\'' +
-                ", priority='" + priority + '\'' +
-                ", user=" + user +
-                ", ticketStatus=" + ticketStatus +
-                '}';
+
+    public void assignNewEmployeeToTicket(String newEmployee)
+    {
+        UserDAO userDAO = new UserDAO();
+        this.setUser(userDAO.getUserByName(newEmployee));
     }
 }

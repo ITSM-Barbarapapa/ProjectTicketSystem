@@ -3,7 +3,10 @@ package com.projectticketsystem.service;
 import com.projectticketsystem.dal.UserDAO;
 import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
@@ -28,6 +31,19 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userDAO.getAllUsers();
+    }
+
+    public List<User> getAllEmployees()
+    {
+        return userDAO.getAllEmployees();
+    }
+
+    public ObservableList<String> getEmployeeNames()
+    {
+        ObservableList<String> employeeNames = FXCollections.observableArrayList();
+        for (User user : getAllEmployees())
+            employeeNames.add(user.getName());
+        return employeeNames;
     }
 
     public List<User> getUsersByRole(Role role){return userDAO.getUsersByRole(role);}
