@@ -1,16 +1,18 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.model.*;
+import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.TicketStatus;
+import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -20,23 +22,42 @@ import java.util.ResourceBundle;
 
 public class TicketListViewController extends BaseController implements Initializable
 {
+    private final User user;
     @FXML private TableView<Ticket> ticketTable;
     @FXML private TableColumn<Ticket, Integer> ticketIDColumn;
     @FXML private TableColumn<Ticket, String> subjectColumn;
     @FXML private TableColumn<Ticket, String> priorityColumn;
     @FXML private TableColumn<Ticket, String> assigneeColumn;
     @FXML private TableColumn<Ticket, String> statusColumn;
+    @FXML private ChoiceBox statusFilterChoicebox;
+    @FXML private ChoiceBox employeeFilterChoicebox;
+
+    UserService userService = new UserService();
+    TicketService ticketService = new TicketService();
+
+    public TicketListViewController (User user)
+    {
+        this.user = user;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeTableView();
+        initializeChoiceboxes();
         ticketTable.setEditable(true);
     }
 
+    private void initializeChoiceboxes()
+    {
+        statusFilterChoicebox.setValue("All");
+        statusFilterChoicebox.getItems().add(TicketStatus.getObservableList());
+
+        employeeFilterChoicebox.setValue("All");
+        employeeFilterChoicebox.getItems().add(userService.getEmployeeNames());
+    }
+
     private void initializeTableView() {
-        UserService userService = new UserService();
-        TicketService ticketService = new TicketService();
 
         ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
@@ -78,7 +99,14 @@ public class TicketListViewController extends BaseController implements Initiali
     {
 
     }
+
+    @FXML
+    private void onItemChange(ActionEvent event)
+    {
+        String statusFilter = statusFilterChoicebox.getValue().toString();
+        String employeeFilter = employeeFilterChoicebox.getValue().toString();
+        ticketTable.getItems().clear();
+        ticketTable.getItems().addAll(ticketService.getTicketsByFilter(statusFilter, employeeFilter));
+    }
     //TODO: Make a search function for the ticket table
-    //TODO: Make a filter function for the ticket table
-    //TODO: Implement the combobox to change the status of the ticket
 }

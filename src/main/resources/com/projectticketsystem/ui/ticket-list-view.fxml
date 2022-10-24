@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -7,7 +10,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectticketsystem.ui.TicketListViewController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="940.0" prefWidth="100.0" />
@@ -50,32 +53,11 @@
             <TableColumn fx:id="assigneeColumn" prefWidth="120.0" text="Werknemer" />
             <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
          </columns></TableView>
-            <TextField alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="84.0" promptText="Ticket Nummer" GridPane.halignment="RIGHT">
-         <GridPane.margin>
-            <Insets right="50.0" />
-         </GridPane.margin></TextField>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="Zoek" GridPane.halignment="RIGHT">
-         <GridPane.margin>
-            <Insets right="5.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="11.0" />
-         </font></Button>
-      <ComboBox prefWidth="150.0">
-         <GridPane.margin>
-            <Insets left="40.0" />
-         </GridPane.margin>
-      </ComboBox>
       <Label text="Filter:">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>
       </Label>
-      <ComboBox layoutX="60.0" layoutY="23.0" prefWidth="150.0">
-         <GridPane.margin>
-            <Insets left="262.0" />
-         </GridPane.margin>
-      </ComboBox>
       <Label layoutX="10.0" layoutY="27.0" text="Werknemer:">
          <padding>
             <Insets left="10.0" />
@@ -84,5 +66,26 @@
             <Insets left="185.0" />
          </GridPane.margin>
       </Label>
+      <ChoiceBox fx:id="employeeFilterChoicebox" layoutX="60.0" layoutY="23.0"  prefWidth="150.0" onAction="#onItemChange">
+         <GridPane.margin>
+            <Insets left="262.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox fx:id="statusFilterChoicebox" prefWidth="150.0" onAction="#onItemChange">
+          <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+            <TextField fx:id="searchTextField" alignment="CENTER_RIGHT" maxWidth="120" prefHeight="25.0" prefWidth="84.0" promptText="Ticket Nummer" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="50.0" />
+         </GridPane.margin></TextField>
+      <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="Zoek" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="11.0" />
+         </font></Button>
       </GridPane>
 </GridPane>

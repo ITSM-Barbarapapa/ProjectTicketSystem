@@ -10,6 +10,7 @@ import java.util.List;
 
 public class TicketService {
     private final TicketDAO ticketDAO;
+    UserService userService = new UserService();
 
     public TicketService(){
         ticketDAO = new TicketDAO();
@@ -29,10 +30,6 @@ public class TicketService {
         return ticketDAO.getAllTickets();
     }
 
-    public void getTicketsByFilter() {
-        //TODO: implement filter logic here
-    }
-
     public void updateTicket(Ticket ticket) {
         ticketDAO.updateTicket(ticket);
     }
@@ -42,4 +39,16 @@ public class TicketService {
     }
 
     public List<Ticket> getMyTickets(User user){return ticketDAO.getMyTickets(user);}
+
+
+    public List<Ticket> getTicketsByFilter(String statusFilter, String employeeFilter)
+    {
+        if (statusFilter.equals("All") && employeeFilter.equals("All"))
+            return ticketDAO.getAllTickets();
+        if (statusFilter.equals("All"))
+            return ticketDAO.getTicketsByEmployee(userService.getUserByName(employeeFilter).getID());
+        if (employeeFilter.equals("All"))
+            return ticketDAO.getTicketsByStatus(statusFilter);
+        return ticketDAO.getTicketsByStatusAndEmployee(statusFilter, userService.getUserByName(employeeFilter).getID());
+    }
 }
