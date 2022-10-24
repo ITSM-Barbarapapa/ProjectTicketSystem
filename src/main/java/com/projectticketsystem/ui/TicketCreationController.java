@@ -98,7 +98,7 @@ public class TicketCreationController extends BaseController implements Initiali
         ticket.setTicketDescription("");
         ticket.setTicketCategory("");
         ticket.setTicketReaction("");
-        ticket.setTicketPriority("");
+        ticket.setPriority("");
         ticket.setUser(user);
 
         if(categoryChoiceBox.getValue() != null){
@@ -122,7 +122,7 @@ public class TicketCreationController extends BaseController implements Initiali
         }
 
         if (!Objects.equals(calculatePriorityTextBox.getText(), "")){
-            ticket.setTicketPriority(calculatePriorityTextBox.getText());
+            ticket.setPriority(calculatePriorityTextBox.getText());
         }
 
     }

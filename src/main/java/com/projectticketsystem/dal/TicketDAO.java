@@ -140,7 +140,7 @@ public class TicketDAO extends BaseDAO
 
         ticket.setTicketImpact(document.getString("Impact"));
         ticket.setTicketUrgency(document.getString("Urgency"));
-        ticket.setTicketPriority(document.getString("Priority"));
+        ticket.setPriority(document.getString("Priority"));
         ticket.setTicketSummary(document.getString("Summary"));
         ticket.setTicketCategory(document.getString("Category"));
         ticket.setUser(new UserDAO().getUserByID((document.getInteger("UserID"))));

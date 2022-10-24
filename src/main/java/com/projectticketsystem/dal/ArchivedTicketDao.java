@@ -41,7 +41,7 @@ public class ArchivedTicketDao extends BaseDAO {
                     document.getInteger("TicketID")
             );
             ticket.setTicketSummary(document.getString("Summary"));
-            ticket.setTicketPriority(document.getString("Priority"));
+            ticket.setPriority(document.getString("Priority"));
             tickets.add(ticket);
         });
         return tickets;
