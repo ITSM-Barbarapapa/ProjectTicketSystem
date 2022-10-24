@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TicketService {
     private final TicketDAO ticketDAO;
+    UserService userService = new UserService();
 
     public TicketService(){
         ticketDAO = new TicketDAO();
@@ -30,10 +31,6 @@ public class TicketService {
         return ticketDAO.getAllTickets();
     }
 
-    public void getTicketsByFilter() {
-        //TODO: implement filter logic here
-    }
-
     public void updateTicket(Ticket ticket) {
         ticketDAO.updateTicket(ticket);
     }
@@ -43,4 +40,17 @@ public class TicketService {
     }
 
     public ObservableList<Ticket> getMyTickets(User user){return ticketDAO.getMyTickets(user);}
+
+
+    public List<Ticket> getTicketsByFilter(String statusFilter, String employeeFilter)
+    {
+        if ((statusFilter == "All" || statusFilter == null) && (employeeFilter == "All" || employeeFilter == null))
+            return ticketDAO.getAllTickets();
+        if (statusFilter == "All" || statusFilter == null)
+            return ticketDAO.getTicketsByEmployee(userService.getUserByName(employeeFilter).getID());
+        if (employeeFilter == "All" || employeeFilter == null)
+            return ticketDAO.getTicketsByStatus(statusFilter);
+        return ticketDAO.getTicketsByStatusAndEmployee(statusFilter, userService.getUserByName(employeeFilter).getID());
+    }
+
 }

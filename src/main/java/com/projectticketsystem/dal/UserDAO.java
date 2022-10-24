@@ -75,7 +75,6 @@ public class UserDAO extends BaseDAO
             out.println("Could not update user");
             return;
         }
-
         Bson updatedValues = Updates.combine(
                 Updates.set("Username", user.getName()),
                 Updates.set("Password", user.getPassword().getHashPassword()),
@@ -83,7 +82,6 @@ public class UserDAO extends BaseDAO
                 Updates.set("Role", user.getRole().toString()));
 
         UpdateOptions options = new UpdateOptions().upsert(true);
-
         getCollection().updateOne(found, updatedValues, options);
         out.println("User updated");
     }
@@ -139,10 +137,6 @@ public class UserDAO extends BaseDAO
             out.println("User not found");
             return null;
         }
-
-        out.println("User found");
-        out.println(found.toJson());
-
         return new User(
                 found.getInteger("UserID"),
                 found.getString("Username"),

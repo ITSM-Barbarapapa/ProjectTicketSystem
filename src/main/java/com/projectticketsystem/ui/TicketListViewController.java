@@ -1,17 +1,22 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.model.*;
+import com.projectticketsystem.model.Ticket;
+import com.projectticketsystem.model.TicketStatus;
+import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.List;
@@ -20,23 +25,48 @@ import java.util.ResourceBundle;
 
 public class TicketListViewController extends BaseController implements Initializable
 {
+    private final User user;
     @FXML private TableView<Ticket> ticketTable;
     @FXML private TableColumn<Ticket, Integer> ticketIDColumn;
     @FXML private TableColumn<Ticket, String> subjectColumn;
     @FXML private TableColumn<Ticket, String> priorityColumn;
     @FXML private TableColumn<Ticket, String> assigneeColumn;
     @FXML private TableColumn<Ticket, String> statusColumn;
+    @FXML private ChoiceBox<String> statusFilterChoicebox;
+    @FXML private ChoiceBox<String> employeeFilterChoicebox;
+    @FXML private Label usernameLabel;
+    UserService userService = new UserService();
+    TicketService ticketService = new TicketService();
+
+    public TicketListViewController(User user)
+    {
+        this.user = user;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeTableView();
+        initializeChoiceBoxes();
         ticketTable.setEditable(true);
+        usernameLabel.setText(user.getName());
     }
 
+    private void initializeChoiceBoxes()
+    {
+        List<String> statusList = TicketStatus.getObservableList();
+        statusList.add(0, "All");
+        statusFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(statusList));
+        statusFilterChoicebox.setValue("All");
+
+        List<String> employeeList = userService.getEmployeeNames();
+        employeeList.add(0, "All");
+        employeeFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(employeeList));
+        employeeFilterChoicebox.setValue("All");
+    }
+
+
     private void initializeTableView() {
-        UserService userService = new UserService();
-        TicketService ticketService = new TicketService();
 
         ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
@@ -67,18 +97,48 @@ public class TicketListViewController extends BaseController implements Initiali
     }
 
     @FXML
-    private void handleTicketTableClicked(ActionEvent event)
+    private void openTicket(MouseEvent event)
     {
         Ticket ticket = ticketTable.getSelectionModel().getSelectedItem();
         if (ticket != null)
-            openTicket(ticket, event);
+                loadNextStage("ticket-view.fxml", new TicketController(ticket, user, "ticket-list-view.fxml", new TicketListViewController(user)), event);
     }
 
-    private void openTicket(Ticket ticket, ActionEvent event)
+    @FXML
+    private void onItemChange(ActionEvent event)
     {
-
+        String statusFilter = statusFilterChoicebox.getValue();
+        String employeeFilter = employeeFilterChoicebox.getValue();
+        ticketTable.getItems().clear();
+        ticketTable.getItems().addAll(ticketService.getTicketsByFilter(statusFilter, employeeFilter));
     }
-    //TODO: Make a search function for the ticket table
-    //TODO: Make a filter function for the ticket table
-    //TODO: Implement the combobox to change the status of the ticket
+    @FXML
+    public void onHouseIconClick(MouseEvent mouseEvent) {
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onMyTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onAllTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onArchiveTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onCRUDEmployeeIconClick(MouseEvent mouseEvent) {
+        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), mouseEvent);
+        mouseEvent.consume();
+    }
 }

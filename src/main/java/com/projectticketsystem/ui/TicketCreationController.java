@@ -89,14 +89,13 @@ public class TicketCreationController extends BaseController implements Initiali
     @FXML
     public void AddTicket(ActionEvent actionEvent){
         if (!Requirements()){
-            out.println("not all info is there");
             return;
         }
 
         Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
         FillInTicketWithInformation(ticket);
         ticketService.addTicket(ticket);
-        loadNextStage("dashboard-view.fxml", new DashboardController(user), actionEvent);
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), actionEvent);
     }
 
     private int CreateID(){
@@ -198,7 +197,7 @@ public class TicketCreationController extends BaseController implements Initiali
 
     @FXML
     public void onAllTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("ticket-list-view.fxml", new TicketListViewController(), mouseEvent);
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(user), mouseEvent);
         mouseEvent.consume();
     }
 

@@ -151,13 +151,13 @@ public class CrudEmployeeController extends BaseController implements Initializa
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("myTickets-view.fxml", null, mouseEvent);
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), mouseEvent);
         mouseEvent.consume();
     }
 
     @FXML
     public void onAllTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("ticket-list-view.fxml", null, mouseEvent);
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(user), mouseEvent);
         mouseEvent.consume();
     }
 
