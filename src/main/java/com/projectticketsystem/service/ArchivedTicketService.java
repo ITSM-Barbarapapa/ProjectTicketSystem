@@ -1,16 +1,16 @@
 package com.projectticketsystem.service;
 
-import com.projectticketsystem.dal.ArchivedTicketDAO;
+import com.projectticketsystem.dal.ArchivedTicketDao;
 import com.projectticketsystem.model.Ticket;
 import org.bson.Document;
 
 import java.util.List;
 
 public class ArchivedTicketService {
-    private final ArchivedTicketDAO archivedTicketDAO;
+    private final ArchivedTicketDao archivedTicketDAO;
 
     public ArchivedTicketService() {
-        archivedTicketDAO = new ArchivedTicketDAO();
+        archivedTicketDAO = new ArchivedTicketDao();
     }
 
     public void archiveTickets() {

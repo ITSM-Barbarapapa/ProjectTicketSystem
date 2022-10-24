@@ -1,6 +1,5 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
@@ -73,6 +72,12 @@ public class TicketController extends BaseController implements Initializable {
     public Button saveTicketButton;
     @FXML
     public Label usernameLabel;
+    @FXML
+    public ImageView allTicketsIcon;
+    @FXML
+    public ImageView employeeIcon;
+    @FXML
+    public ImageView archiveIcon;
     private final Ticket ticket;
     private final UserService userService;
     private final User user;
@@ -105,7 +110,14 @@ public class TicketController extends BaseController implements Initializable {
     private void CheckUser() {
         if (user.getRole().equals(Role.RegularEmployee)) {
             HideServiceDeskTools();
+            HideSiteBalkIcons();
         }
+    }
+
+    private void HideSiteBalkIcons() {
+        allTicketsIcon.setVisible(false);
+        employeeIcon.setVisible(false);
+        archiveIcon.setVisible(false);
     }
 
     private void HideServiceDeskTools() {
@@ -122,11 +134,6 @@ public class TicketController extends BaseController implements Initializable {
             userNames.add(u.getName());
         }
         return userNames;
-    }
-
-    @FXML
-    public void OnHomeButtonClick(MouseEvent event) {
-        loadNextStage("ticketCreation-view.fxml", new TicketCreationController(user), event);
     }
 
     @FXML
@@ -147,7 +154,7 @@ public class TicketController extends BaseController implements Initializable {
             ticket.setTicketReaction(reactionTextarea.getText());
         }
         if (CheckIfEmpty(priorityLabel.getText())) {
-            ticket.setTicketPriority(priorityLabel.getText());
+            ticket.setPriority(priorityLabel.getText());
         }
         ticketService.updateTicket(ticket);
 
@@ -185,14 +192,14 @@ public class TicketController extends BaseController implements Initializable {
 
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
-        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
         mouseEvent.consume();
     }
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
         //TODO Add right controller and view for my tickets
-        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        loadNextStage("my-tickets-view.fxml", new MyTicketController(), mouseEvent);
         mouseEvent.consume();
     }
 

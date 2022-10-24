@@ -63,17 +63,17 @@
          </font></Button>
       <ComboBox prefWidth="150.0">
          <GridPane.margin>
-            <Insets left="55.0" />
+            <Insets left="40.0" />
          </GridPane.margin>
       </ComboBox>
-      <Label text="Prioriteit:">
+      <Label text="Filter:">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin>
       </Label>
       <ComboBox layoutX="60.0" layoutY="23.0" prefWidth="150.0">
          <GridPane.margin>
-            <Insets left="277.0" />
+            <Insets left="262.0" />
          </GridPane.margin>
       </ComboBox>
       <Label layoutX="10.0" layoutY="27.0" text="Werknemer:">
@@ -81,7 +81,7 @@
             <Insets left="10.0" />
          </padding>
          <GridPane.margin>
-            <Insets left="200.0" />
+            <Insets left="185.0" />
          </GridPane.margin>
       </Label>
       </GridPane>

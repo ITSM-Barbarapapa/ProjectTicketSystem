@@ -109,12 +109,6 @@ public class UserDAO extends BaseDAO
         return getUser(found);
     }
 
-    public boolean checkPassword(String password, User user)
-    {
-        return false; // Temporary return condition. Change when implemented.
-         // TODO make function to check password
-    }
-
     public List<User> getUsersByRole(Role role) {
         List<User> users = new ArrayList<>();
         Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)), new Document("Role", role.toString()));

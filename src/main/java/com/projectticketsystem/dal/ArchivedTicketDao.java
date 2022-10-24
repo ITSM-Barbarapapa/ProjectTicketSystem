@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ArchivedTicketDAO extends BaseDAO {
+public class ArchivedTicketDao extends BaseDAO {
 
-    public ArchivedTicketDAO() {
+    public ArchivedTicketDao() {
         super();
     }
 
@@ -41,7 +41,7 @@ public class ArchivedTicketDAO extends BaseDAO {
                     document.getInteger("TicketID")
             );
             ticket.setTicketSummary(document.getString("Summary"));
-            ticket.setTicketPriority(document.getString("Priority"));
+            ticket.setPriority(document.getString("Priority"));
             tickets.add(ticket);
         });
         return tickets;

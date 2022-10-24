@@ -52,6 +52,12 @@ public class TicketCreationController extends BaseController implements Initiali
     @FXML
     public Label usernameLabel;
 
+    @FXML
+    public ImageView allTicketsIcon;
+    @FXML
+    public ImageView employeeIcon;
+    @FXML
+    public ImageView archiveIcon;
 
     public TicketCreationController(User user){
         ticketService = new TicketService();
@@ -61,7 +67,14 @@ public class TicketCreationController extends BaseController implements Initiali
     private void CheckUser(){
         if(user.getRole().equals(Role.RegularEmployee)) {
             HidePriorityBoxes();
+            HideSiteBalkIcons();
         }
+    }
+
+    private void HideSiteBalkIcons() {
+        allTicketsIcon.setVisible(false);
+        employeeIcon.setVisible(false);
+        archiveIcon.setVisible(false);
     }
 
     private void HidePriorityBoxes() {
@@ -74,11 +87,6 @@ public class TicketCreationController extends BaseController implements Initiali
     }
 
     @FXML
-    private void OnHomeButtonClick(MouseEvent event) throws IOException {
-        loadNextStage("dashboard-view.fxml", null, event);
-    }
-
-    @FXML
     public void AddTicket(ActionEvent actionEvent){
         if (!Requirements()){
             out.println("not all info is there");
@@ -88,7 +96,7 @@ public class TicketCreationController extends BaseController implements Initiali
         Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
         FillInTicketWithInformation(ticket);
         ticketService.addTicket(ticket);
-
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), actionEvent);
     }
 
     private int CreateID(){
@@ -103,7 +111,7 @@ public class TicketCreationController extends BaseController implements Initiali
         ticket.setTicketDescription("");
         ticket.setTicketCategory("");
         ticket.setTicketReaction("");
-        ticket.setTicketPriority("");
+        ticket.setPriority("");
         ticket.setUser(user);
 
         if(categoryChoiceBox.getValue() != null){
@@ -127,7 +135,7 @@ public class TicketCreationController extends BaseController implements Initiali
         }
 
         if (!Objects.equals(calculatePriorityTextBox.getText(), "")){
-            ticket.setTicketPriority(calculatePriorityTextBox.getText());
+            ticket.setPriority(calculatePriorityTextBox.getText());
         }
 
     }
@@ -177,14 +185,14 @@ public class TicketCreationController extends BaseController implements Initiali
 
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
-        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
         mouseEvent.consume();
     }
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
         //TODO Add right controller and view for my tickets
-        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        loadNextStage("my-tickets-view.fxml", new MyTicketController(), mouseEvent);
         mouseEvent.consume();
     }
 
