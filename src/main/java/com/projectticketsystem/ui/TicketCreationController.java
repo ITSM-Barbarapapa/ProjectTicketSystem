@@ -175,11 +175,12 @@ public class TicketCreationController extends BaseController implements Initiali
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CheckUser();
         usernameLabel.setText(user.getName());
+        nameTextField.setText(user.getName());
     }
 
     @FXML
-    public void onBackButtonClick(ActionEvent event) throws IOException {
-        loadNextStage("dashboard-view.fxml", null, event);
+    public void onBackButtonClick(ActionEvent event) {
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), event);
     }
 
     @FXML
