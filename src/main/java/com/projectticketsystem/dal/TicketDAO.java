@@ -10,6 +10,8 @@ import com.mongodb.client.model.Updates;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.bson.BsonType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -198,9 +200,9 @@ public class TicketDAO extends BaseDAO
 
         return ticketStatus;
     }
-    public List<Ticket> getMyTickets(User user)
+    public ObservableList<Ticket> getMyTickets(User user)
     {
-        List<Ticket> myTickets = new ArrayList<>();
+        ObservableList<Ticket> myTickets = FXCollections.observableArrayList();
 
         Bson filter = eq("UserID", user.getID());
         FindIterable<Document> results = getCollection().find(filter);
