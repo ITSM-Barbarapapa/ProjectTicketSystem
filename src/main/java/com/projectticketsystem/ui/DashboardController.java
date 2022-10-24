@@ -10,11 +10,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static com.projectticketsystem.model.Role.RegularEmployee;
+import static java.text.NumberFormat.getPercentInstance;
 
 public class DashboardController extends BaseController implements Initializable
 {
@@ -33,17 +40,25 @@ public class DashboardController extends BaseController implements Initializable
     public Label countClosed;
 
     public Label labelUsername;
+    public ImageView AllTicketIcon;
+    public ImageView ArchiveTicketIcon;
+    public ImageView CRUDEmployeeIcon;
     private final User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         FillStatusChart();
+        if(user.getRole() == RegularEmployee)
+        {
+            AllTicketIcon.setVisible(false);
+            ArchiveTicketIcon.setVisible(false);
+            CRUDEmployeeIcon.setVisible(false);
+        }
     }
     public DashboardController(User user)
     {
         this.user = user;
-
     }
     private void FillStatusChart()
     {
@@ -72,7 +87,8 @@ public class DashboardController extends BaseController implements Initializable
             statusChartData.add(data);
         }
         statusChart.setData(statusChartData);
-        statusChartData.forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName()," ", data.pieValueProperty(), "%")));
+
+        statusChartData.forEach(data -> data.nameProperty().bind(Bindings.format(data.getName()+ " %.1f%%", data.pieValueProperty())));
         fillTable();
     }
     private void fillTable()

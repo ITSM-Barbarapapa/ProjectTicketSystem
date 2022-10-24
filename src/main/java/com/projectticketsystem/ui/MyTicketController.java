@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -19,6 +20,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static com.projectticketsystem.model.Role.RegularEmployee;
 
 public class MyTicketController extends BaseController implements Initializable {
 
@@ -30,6 +33,9 @@ public class MyTicketController extends BaseController implements Initializable 
     @FXML private TableColumn<Ticket, String> columnStatus;
 
     @FXML public Label labelUsername;
+    public ImageView AllTicketIcon;
+    public ImageView ArchiveTicketIcon;
+    public ImageView CRUDEmployeeIcon;
     private ObservableList<Ticket> myTickets;
     private User user;
 
@@ -39,6 +45,13 @@ public class MyTicketController extends BaseController implements Initializable 
         fillChoiceBox();
         myTicketsView();
         labelUsername.setText(user.getName());
+
+        if(user.getRole() == RegularEmployee)
+        {
+            AllTicketIcon.setVisible(false);
+            ArchiveTicketIcon.setVisible(false);
+            CRUDEmployeeIcon.setVisible(false);
+        }
     }
 
     public MyTicketController(User user)
@@ -82,6 +95,11 @@ public class MyTicketController extends BaseController implements Initializable 
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("ticketStatus"));
 
         myTicketView.getItems().addAll(myTickets);
+    }
+    @FXML
+    public void nieuwTicketButtonClick(Event event)
+    {
+        loadNextStage("ticketcreation-view.fxml", new TicketCreationController(user), event);
     }
     @FXML
     private void clickedTicket(Event event)

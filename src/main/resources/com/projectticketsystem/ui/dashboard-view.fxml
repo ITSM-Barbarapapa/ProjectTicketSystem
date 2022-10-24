@@ -54,18 +54,18 @@
                         <Image url="@../../../img/my-tickets-icon.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="44.0" fitWidth="44.0" onMouseClicked="#onAllTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="AllTicketIcon" fitHeight="44.0" fitWidth="44.0" onMouseClicked="#onAllTicketIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/all-tickets-icon.png" />
                     </image></ImageView>
-                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onArchiveTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="ArchiveTicketIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onArchiveTicketIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/archive-tickets-icon.png" />
                     </image>
                     <VBox.margin>
                         <Insets />
                     </VBox.margin></ImageView>
-                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onCRUDEmployeeIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="CRUDEmployeeIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onCRUDEmployeeIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/crud-employees-icon.png" />
                     </image></ImageView>
