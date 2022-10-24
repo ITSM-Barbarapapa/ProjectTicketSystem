@@ -5,8 +5,8 @@ import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -29,13 +29,13 @@ public class TicketListViewController extends BaseController implements Initiali
     @FXML private TableColumn<Ticket, String> priorityColumn;
     @FXML private TableColumn<Ticket, String> assigneeColumn;
     @FXML private TableColumn<Ticket, String> statusColumn;
-    @FXML private ChoiceBox statusFilterChoicebox;
-    @FXML private ChoiceBox employeeFilterChoicebox;
+    @FXML private ChoiceBox<String> statusFilterChoicebox;
+    @FXML private ChoiceBox<String> employeeFilterChoicebox;
 
     UserService userService = new UserService();
     TicketService ticketService = new TicketService();
 
-    public TicketListViewController (User user)
+    public TicketListViewController(User user)
     {
         this.user = user;
     }
@@ -44,18 +44,23 @@ public class TicketListViewController extends BaseController implements Initiali
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeTableView();
-        initializeChoiceboxes();
+        initializeChoiceBoxes();
         ticketTable.setEditable(true);
     }
 
-    private void initializeChoiceboxes()
+    private void initializeChoiceBoxes()
     {
+        List<String> statusList = TicketStatus.getObservableList();
+        statusList.add(0, "All");
+        statusFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(statusList));
         statusFilterChoicebox.setValue("All");
-        statusFilterChoicebox.getItems().add(TicketStatus.getObservableList());
 
+        List<String> employeeList = userService.getEmployeeNames();
+        employeeList.add(0, "All");
+        employeeFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(employeeList));
         employeeFilterChoicebox.setValue("All");
-        employeeFilterChoicebox.getItems().add(userService.getEmployeeNames());
     }
+
 
     private void initializeTableView() {
 
@@ -103,8 +108,8 @@ public class TicketListViewController extends BaseController implements Initiali
     @FXML
     private void onItemChange(ActionEvent event)
     {
-        String statusFilter = statusFilterChoicebox.getValue().toString();
-        String employeeFilter = employeeFilterChoicebox.getValue().toString();
+        String statusFilter = statusFilterChoicebox.getValue();
+        String employeeFilter = employeeFilterChoicebox.getValue();
         ticketTable.getItems().clear();
         ticketTable.getItems().addAll(ticketService.getTicketsByFilter(statusFilter, employeeFilter));
     }
