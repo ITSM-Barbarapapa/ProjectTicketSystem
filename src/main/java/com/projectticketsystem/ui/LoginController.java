@@ -1,7 +1,5 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.dal.TicketDAO;
-import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
@@ -25,14 +23,7 @@ public class LoginController extends BaseController {
     @FXML
     private void onLoginButtonClicked(ActionEvent event) {
         if (checkPassword()) {
-            //loadNextStage("dashboard-view.fxml", new DashboardController(user), event);
-            //TODO Delete if else underneath & uncomment line above
-            //Check if user is admin or regular employee or Service Desk employee
-            if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {
-                loadNextStage("ticket-view.fxml", new TicketController(new TicketDAO().getTicketByID(5), user, "dashboard-view.fxml", null), event);
-            } else if (user.getRole() == Role.RegularEmployee) {
-                loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), event);
-            }
+            loadNextStage("dashboard-view.fxml", new DashboardController(user), event);
         } else {
             errorLabel.setText("Gebruikerscode of wachtwoord is onjuist");
         }
