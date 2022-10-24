@@ -29,15 +29,16 @@ public class MyTicketController extends BaseController implements Initializable 
     @FXML private TableColumn<Ticket, String> columnPriority;
     @FXML private TableColumn<Ticket, String> columnStatus;
 
+    @FXML public Label labelUsername;
     private ObservableList<Ticket> myTickets;
     private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        //myTickets();
         fillChoiceBox();
         myTicketsView();
+        labelUsername.setText(user.getName());
     }
 
     public MyTicketController(User user)
