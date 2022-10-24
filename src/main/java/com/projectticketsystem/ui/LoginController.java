@@ -1,5 +1,7 @@
 package com.projectticketsystem.ui;
 
+import com.projectticketsystem.dal.TicketDAO;
+import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;

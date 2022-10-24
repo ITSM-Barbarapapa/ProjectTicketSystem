@@ -4,6 +4,7 @@ import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
+import javafx.collections.ObservableList;
 import org.bson.Document;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class TicketService {
         return ticketDAO.getTicketsToArchive();
     }
 
-    public List<Ticket> getMyTickets(User user){return ticketDAO.getMyTickets(user);}
+    public ObservableList<Ticket> getMyTickets(User user){return ticketDAO.getMyTickets(user);}
 
 
     public List<Ticket> getTicketsByFilter(String statusFilter, String employeeFilter)
@@ -51,4 +52,5 @@ public class TicketService {
             return ticketDAO.getTicketsByStatus(statusFilter);
         return ticketDAO.getTicketsByStatusAndEmployee(statusFilter, userService.getUserByName(employeeFilter).getID());
     }
+
 }

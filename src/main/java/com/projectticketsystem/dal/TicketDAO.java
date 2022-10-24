@@ -1,6 +1,7 @@
 package com.projectticketsystem.dal;
 
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Sorts;
@@ -9,6 +10,8 @@ import com.mongodb.client.model.Updates;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import com.projectticketsystem.service.UserService;
 import org.bson.BsonType;
 import org.bson.Document;
@@ -177,9 +180,9 @@ public class TicketDAO extends BaseDAO
             ticketStatus.add(TicketStatus.valueOf(d.getString("Status")));
         return ticketStatus;
     }
-    public List<Ticket> getMyTickets(User user)
+    public ObservableList<Ticket> getMyTickets(User user)
     {
-        List<Ticket> myTickets = new ArrayList<>();
+        ObservableList<Ticket> myTickets = FXCollections.observableArrayList();
 
         Bson filter = eq("UserID", user.getID());
         FindIterable<Document> results = getCollection().find(filter);
@@ -195,20 +198,20 @@ public class TicketDAO extends BaseDAO
         return myTickets;
     }
 
-    public List<Ticket> getTicketsByEmployee(int id) 
+    public List<Ticket> getTicketsByEmployee(int id)
     {
         Bson filter = eq("UserID", id);
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
- 
+
     }
 
-    public List<Ticket> getTicketsByStatus(String statusFilter) 
+    public List<Ticket> getTicketsByStatus(String statusFilter)
     {
         Bson filter = eq("Status", statusFilter);
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
     }
 
-    public List<Ticket> getTicketsByStatusAndEmployee(String statusFilter, int id) 
+    public List<Ticket> getTicketsByStatusAndEmployee(String statusFilter, int id)
     {
         Bson filter = and(eq("Status", statusFilter), eq("UserID", id));
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));

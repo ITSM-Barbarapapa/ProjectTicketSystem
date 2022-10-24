@@ -32,6 +32,7 @@ public class DashboardController extends BaseController implements Initializable
     public Label countResolved;
     public Label countClosed;
 
+    public Label labelUsername;
     private final User user;
 
     @Override
@@ -42,9 +43,12 @@ public class DashboardController extends BaseController implements Initializable
     public DashboardController(User user)
     {
         this.user = user;
+
     }
     private void FillStatusChart()
     {
+        labelUsername.setText(user.getName());
+
         perOpen = 0;
         perResolved = 0;
         perClosed = 0;
@@ -85,11 +89,11 @@ public class DashboardController extends BaseController implements Initializable
         countStatuses(statuses);
 
         if(statusOpen > 0)
-            perOpen = (100 / statuses.size()) * statusOpen;
+            perOpen = (100.00 / statuses.size()) * statusOpen;
         if(statusResolved > 0)
-            perResolved = (100 / statuses.size()  ) * statusResolved;
+            perResolved = (100.00 / statuses.size()) * statusResolved;
         if(statusClosedWithoutResolve > 0)
-            perClosed = (100 / statuses.size()) * statusClosedWithoutResolve;
+            perClosed = (100.00 / statuses.size()) * statusClosedWithoutResolve;
 
         statuses.clear();
     }
@@ -117,7 +121,7 @@ public class DashboardController extends BaseController implements Initializable
     }
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
-        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
         mouseEvent.consume();
     }
 
