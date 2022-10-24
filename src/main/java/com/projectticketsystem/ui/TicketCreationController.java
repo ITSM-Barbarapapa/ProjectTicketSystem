@@ -89,7 +89,6 @@ public class TicketCreationController extends BaseController implements Initiali
     @FXML
     public void AddTicket(ActionEvent actionEvent){
         if (!Requirements()){
-            out.println("not all info is there");
             return;
         }
 
