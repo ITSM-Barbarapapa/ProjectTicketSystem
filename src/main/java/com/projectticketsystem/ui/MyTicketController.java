@@ -101,7 +101,7 @@ public class MyTicketController extends BaseController implements Initializable 
     }
     @FXML
     public void onAllTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("ticket-list-view.fxml", new TicketListViewController(), mouseEvent);
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(user), mouseEvent);
         mouseEvent.consume();
     }
     @FXML
