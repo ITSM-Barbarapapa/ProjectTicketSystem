@@ -1,6 +1,5 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.dal.TicketDAO;
 import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
@@ -147,7 +146,7 @@ public class TicketController extends BaseController implements Initializable {
             ticket.setTicketReaction(reactionTextarea.getText());
         }
         if (CheckIfEmpty(priorityLabel.getText())) {
-            ticket.setTicketPriority(priorityLabel.getText());
+            ticket.setPriority(priorityLabel.getText());
         }
         ticketService.updateTicket(ticket);
 

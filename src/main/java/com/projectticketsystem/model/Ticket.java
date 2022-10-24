@@ -5,11 +5,11 @@ import com.projectticketsystem.dal.UserDAO;
 import java.time.LocalDate;
 
 public class Ticket {
-    private final int ticketID;
-    private final String name;
-    private final String contact;
+    private int ticketID;
+    private String name;
+    private String contact;
     private TicketStatus ticketStatus;
-    private final LocalDate date;
+    private LocalDate date;
     private String impact;
     private String urgency;
     private String priority;
@@ -18,7 +18,6 @@ public class Ticket {
     private String ticketDescription;
     private String ticketReaction;
     private User user;
-    private String username;
 
     public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;
@@ -26,6 +25,9 @@ public class Ticket {
         this.ticketStatus = ticketStatus;
         this.date = date;
         this.ticketID = id;
+    }
+
+    public Ticket() {
     }
 
     public int getTicketID() { return ticketID; }
@@ -54,7 +56,7 @@ public class Ticket {
     public void setTicketDescription(String description) {this.ticketDescription = description;}
     public void setTicketImpact(String impact) {this.impact = impact;}
     public void setTicketUrgency(String urgency) {this.urgency = urgency;}
-    public void setTicketPriority(String priority) {this.priority = priority;}
+    public void setPriority(String priority) {this.priority = priority;}
     public String getName() {
         return name;
     }
