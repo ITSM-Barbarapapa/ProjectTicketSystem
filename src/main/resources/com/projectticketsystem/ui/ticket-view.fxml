@@ -146,7 +146,7 @@
                                                 <Insets bottom="10.0" left="15.0" right="5.0" top="12.0" />
                                             </padding>
                                         </Label>
-                                        <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" prefHeight="40.0" text="Reageer">
+                                        <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" prefHeight="25.0" prefWidth="60.0" text="Reageer">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>
@@ -154,6 +154,7 @@
                                                 <Insets left="15.0" top="6.0" />
                                             </VBox.margin>
                                         </Button>
+                              <Button mnemonicParsing="false" text="Button" />
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="332.0" prefWidth="217.0">
@@ -236,7 +237,7 @@
                                                 <Insets bottom="5.0" top="5.0" />
                                             </VBox.margin>
                                         </ChoiceBox>
-                                        <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="40.0" prefWidth="165.0" text="Save">
+                                        <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="25.0" prefWidth="165.0" text="Save">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>

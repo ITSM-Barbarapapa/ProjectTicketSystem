@@ -125,11 +125,6 @@ public class TicketController extends BaseController implements Initializable {
     }
 
     @FXML
-    public void OnHomeButtonClick(MouseEvent event) {
-        loadNextStage("ticketCreation-view.fxml", new TicketCreationController(user), event);
-    }
-
-    @FXML
     public void OnSaveButtonClickUpdate(ActionEvent event) {
         if (CheckIfEmpty(impactChoicebox.getValue())) {
             ticket.setTicketImpact(impactChoicebox.getValue());
@@ -185,14 +180,14 @@ public class TicketController extends BaseController implements Initializable {
 
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
-        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
         mouseEvent.consume();
     }
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
         //TODO Add right controller and view for my tickets
-        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        loadNextStage("my-tickets-view.fxml", new MyTicketController(), mouseEvent);
         mouseEvent.consume();
     }
 

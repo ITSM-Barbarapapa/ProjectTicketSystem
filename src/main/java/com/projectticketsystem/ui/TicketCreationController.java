@@ -74,11 +74,6 @@ public class TicketCreationController extends BaseController implements Initiali
     }
 
     @FXML
-    private void OnHomeButtonClick(MouseEvent event) throws IOException {
-        loadNextStage("dashboard-view.fxml", null, event);
-    }
-
-    @FXML
     public void AddTicket(ActionEvent actionEvent){
         if (!Requirements()){
             out.println("not all info is there");
@@ -177,14 +172,14 @@ public class TicketCreationController extends BaseController implements Initiali
 
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
-        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
         mouseEvent.consume();
     }
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
         //TODO Add right controller and view for my tickets
-        loadNextStage("my-tickets-view.fxml", null, mouseEvent);
+        loadNextStage("my-tickets-view.fxml", new MyTicketController(), mouseEvent);
         mouseEvent.consume();
     }
 
