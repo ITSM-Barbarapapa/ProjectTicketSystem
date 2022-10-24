@@ -43,11 +43,11 @@ public class TicketService {
 
     public List<Ticket> getTicketsByFilter(String statusFilter, String employeeFilter)
     {
-        if (statusFilter.equals("All") && employeeFilter.equals("All"))
+        if ((statusFilter == "All" || statusFilter == null) && (employeeFilter == "All" || employeeFilter == null))
             return ticketDAO.getAllTickets();
-        if (statusFilter.equals("All"))
+        if (statusFilter == "All" || statusFilter == null)
             return ticketDAO.getTicketsByEmployee(userService.getUserByName(employeeFilter).getID());
-        if (employeeFilter.equals("All"))
+        if (employeeFilter == "All" || employeeFilter == null)
             return ticketDAO.getTicketsByStatus(statusFilter);
         return ticketDAO.getTicketsByStatusAndEmployee(statusFilter, userService.getUserByName(employeeFilter).getID());
     }
