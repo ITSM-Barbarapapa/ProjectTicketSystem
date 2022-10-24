@@ -64,7 +64,7 @@ public class ArchiveDatabaseController extends BaseController implements Initial
 
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
-        loadNextStage("dashboard-view.fxml", null, mouseEvent);
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
         mouseEvent.consume();
     }
 
@@ -76,7 +76,7 @@ public class ArchiveDatabaseController extends BaseController implements Initial
 
     @FXML
     public void onAllTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("ticket-list-view.fxml", new TicketListViewController(), mouseEvent);
+        loadNextStage("ticket-list-view.fxml", null, mouseEvent);
         mouseEvent.consume();
     }
 
