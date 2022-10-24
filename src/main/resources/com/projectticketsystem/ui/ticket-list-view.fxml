@@ -53,10 +53,13 @@
         </padding></VBox>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
             <Circle fill="#d9d9d9" layoutX="911.0" layoutY="30.0" radius="22.0" stroke="#d9d9d9" strokeType="INSIDE" />
-            <Label layoutX="797.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
+            <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="797.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username" textAlignment="RIGHT">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="16.0" />
                 </font>
+         <padding>
+            <Insets right="5.0" />
+         </padding>
             </Label>
         </Pane>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;">

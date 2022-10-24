@@ -11,6 +11,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
@@ -33,7 +34,7 @@ public class TicketListViewController extends BaseController implements Initiali
     @FXML private TableColumn<Ticket, String> statusColumn;
     @FXML private ChoiceBox<String> statusFilterChoicebox;
     @FXML private ChoiceBox<String> employeeFilterChoicebox;
-
+    @FXML private Label usernameLabel;
     UserService userService = new UserService();
     TicketService ticketService = new TicketService();
 
@@ -48,6 +49,7 @@ public class TicketListViewController extends BaseController implements Initiali
         initializeTableView();
         initializeChoiceBoxes();
         ticketTable.setEditable(true);
+        usernameLabel.setText(user.getName());
     }
 
     private void initializeChoiceBoxes()
