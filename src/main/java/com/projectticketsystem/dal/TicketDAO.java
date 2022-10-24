@@ -9,6 +9,7 @@ import com.mongodb.client.model.Updates;
 import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
+import com.projectticketsystem.service.UserService;
 import org.bson.BsonType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -24,6 +25,7 @@ import static java.lang.System.out;
 public class TicketDAO extends BaseDAO
 {
     static final String TICKET_ID = "TicketID";
+    static final UserDAO userDAO = new UserDAO();
 
     public TicketDAO()
     {
@@ -126,7 +128,7 @@ public class TicketDAO extends BaseDAO
         ticket.setPriority(document.getString("Priority"));
         ticket.setTicketSummary(document.getString("Summary"));
         ticket.setTicketCategory(document.getString("Category"));
-        ticket.setUser(new UserDAO().getUserByID((document.getInteger("UserID"))));
+        ticket.setUser(userDAO.getUserByID((document.getInteger("UserID"))));
         ticket.setTicketDescription(document.getString("Description"));
         ticket.setTicketReaction(document.getString("Reaction"));
 
@@ -161,24 +163,18 @@ public class TicketDAO extends BaseDAO
         List<Document> tickets = Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>());
 
         //delete documents from current collection
-        for (Document ticket : tickets) {
+        for (Document ticket : tickets)
             deleteTicket(ticket);
-        }
 
         return tickets;
     }
     public List<TicketStatus> getAllTicketStatus()
     {
         List<TicketStatus> ticketStatus = new ArrayList<>();
-
         Bson filter = type("Status", BsonType.STRING);
         FindIterable<Document> results = getCollection().find(filter);
-
         for ( Document d : results)
-        {
             ticketStatus.add(TicketStatus.valueOf(d.getString("Status")));
-        }
-
         return ticketStatus;
     }
     public List<Ticket> getMyTickets(User user)

@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.List;
@@ -113,5 +114,33 @@ public class TicketListViewController extends BaseController implements Initiali
         ticketTable.getItems().clear();
         ticketTable.getItems().addAll(ticketService.getTicketsByFilter(statusFilter, employeeFilter));
     }
-    //TODO: Make a search function for the ticket table
+    @FXML
+    public void onHouseIconClick(MouseEvent mouseEvent) {
+        loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onMyTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onAllTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("ticket-list-view.fxml", new TicketListViewController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onArchiveTicketIconClick(MouseEvent mouseEvent) {
+        loadNextStage("archive-database-view.fxml", new ArchiveDatabaseController(user), mouseEvent);
+        mouseEvent.consume();
+    }
+
+    @FXML
+    public void onCRUDEmployeeIconClick(MouseEvent mouseEvent) {
+        loadNextStage("crud-employee-view.fxml", new CrudEmployeeController(user), mouseEvent);
+        mouseEvent.consume();
+    }
 }
