@@ -18,13 +18,13 @@ import java.util.ResourceBundle;
 
 public class DashboardController extends BaseController implements Initializable
 {
-    double perOpen = 0;
-    double perResolved = 0;
-    double perClosed = 0;
+    double perOpen;
+    double perResolved;
+    double perClosed;
 
-    private int statusOpen = 0;
-    private int statusResolved = 0;
-    private int statusClosedWithoutResolve = 0;
+    private int statusOpen;
+    private int statusResolved;
+    private int statusClosedWithoutResolve;
     @FXML
     PieChart statusChart;
 
@@ -42,16 +42,15 @@ public class DashboardController extends BaseController implements Initializable
     public DashboardController(User user)
     {
         this.user = user;
-
     }
     private void FillStatusChart()
     {
-        CalculateChart();
+        perOpen = 0;
+        perResolved = 0;
+        perClosed = 0;
 
-        ObservableList<PieChart.Data> statusChartData = FXCollections.observableArrayList(
-                /*new PieChart.Data("Open", perOpen),
-                new PieChart.Data("Opgelost", perResolved),
-                new PieChart.Data("Gesloten zonder oplossing", perClosed)*/);
+        CalculateChart();
+        ObservableList<PieChart.Data> statusChartData = FXCollections.observableArrayList();
 
         if(perOpen > 0)
         {
@@ -68,12 +67,8 @@ public class DashboardController extends BaseController implements Initializable
             PieChart.Data data = new PieChart.Data("Gesloten zonder oplossing", perClosed);
             statusChartData.add(data);
         }
-
         statusChart.setData(statusChartData);
-
         statusChartData.forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName()," ", data.pieValueProperty(), "%")));
-
-
         fillTable();
     }
     private void fillTable()
@@ -90,14 +85,20 @@ public class DashboardController extends BaseController implements Initializable
         countStatuses(statuses);
 
         if(statusOpen > 0)
-            perOpen = (statuses.size() / statusOpen) * 100;
+            perOpen = (100 / statuses.size()) * statusOpen;
         if(statusResolved > 0)
-            perResolved = (statuses.size() / statusResolved) * 100;
+            perResolved = (100 / statuses.size()  ) * statusResolved;
         if(statusClosedWithoutResolve > 0)
-            perClosed = (statuses.size() / statusClosedWithoutResolve) * 100;
+            perClosed = (100 / statuses.size()) * statusClosedWithoutResolve;
+
+        statuses.clear();
     }
     private void countStatuses(List<TicketStatus> statuses)
     {
+        statusOpen =0;
+        statusResolved = 0;
+        statusClosedWithoutResolve = 0;
+
         for (TicketStatus status : statuses)
         {
             switch(status)
@@ -122,7 +123,7 @@ public class DashboardController extends BaseController implements Initializable
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("myTickets-view.fxml", null, mouseEvent);
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), mouseEvent);
         mouseEvent.consume();
     }
 

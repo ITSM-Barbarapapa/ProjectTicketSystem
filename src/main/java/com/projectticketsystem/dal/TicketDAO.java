@@ -205,23 +205,14 @@ public class TicketDAO extends BaseDAO
         Bson filter = eq("UserID", user.getID());
         FindIterable<Document> results = getCollection().find(filter);
 
-        for ( Document d : results)
+        for (Document d : results)
         {
             if (d == null)
             {
                 return null;
             }
-
-            Ticket ticket = new Ticket(
-                    d.getString("Name"),
-                    d.getString("Contact"),
-                    LocalDate.parse(d.getString("Date")),
-                    TicketStatus.valueOf(d.getString("Status")),
-                    d.getInteger(TICKET_ID));
-
-            myTickets.add(ticket);
+            myTickets.add(generateTicket(d));
         }
-
         return myTickets;
     }
 

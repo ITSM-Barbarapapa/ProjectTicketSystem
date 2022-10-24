@@ -29,6 +29,7 @@ public class LoginController extends BaseController {
 
         TicketDAO ticketDAO = new TicketDAO();
 
+
         if (checkPassword()) {
             //Check if user is admin or regular employee or Service Desk employee
             if (user.getRole() == Role.Administrator || user.getRole() == Role.ServiceDeskEmployee) {

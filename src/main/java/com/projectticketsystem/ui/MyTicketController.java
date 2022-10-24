@@ -21,9 +21,9 @@ public class MyTicketController extends BaseController implements Initializable 
     @FXML private ChoiceBox choiceBox;
     @FXML private TableView<Ticket> myTicketView;
     @FXML private TableColumn<Ticket, Integer> columnTicketID;
-    @FXML private TableColumn columnSubject;
-    @FXML private TableColumn columnPriority;
-    @FXML private TableColumn columnStatus;
+    @FXML private TableColumn<Ticket, String> columnSubject;
+    @FXML private TableColumn<Ticket, String> columnPriority;
+    @FXML private TableColumn<Ticket, String> columnStatus;
 
     private List<Ticket> myTickets;
     private User user;
@@ -31,12 +31,12 @@ public class MyTicketController extends BaseController implements Initializable 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        myTickets();
+        //myTickets();
         fillChoiceBox();
         sortTicketview();
         myTicketsView();
     }
-    private void myTickets()
+    public MyTicketController(User user)
     {
         TicketService ticketService = new TicketService();
         this.myTickets = ticketService.getMyTickets(user);
@@ -49,7 +49,7 @@ public class MyTicketController extends BaseController implements Initializable 
     {
         if(choiceBox.getValue() == "Ticket ID")
         {
-            columnTicketID.isSortable();
+            //columnTicketID.isSortable();
             columnTicketID.setSortType(TableColumn.SortType.ASCENDING);
 
             //myTicketView.setItems(sortedList);
@@ -68,9 +68,9 @@ public class MyTicketController extends BaseController implements Initializable 
     private void myTicketsView()
     {
         columnTicketID.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
-        columnSubject.setCellFactory(new PropertyValueFactory<>("ticketSummary"));
-        columnPriority.setCellFactory(new PropertyValueFactory<>("priority"));
-        columnStatus.setCellFactory(new PropertyValueFactory<>("ticketStatus"));
+        columnSubject.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
+        columnPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        columnStatus.setCellValueFactory(new PropertyValueFactory<>("ticketStatus"));
 
         myTicketView.getItems().addAll(myTickets);
     }
