@@ -70,7 +70,7 @@ public class ArchiveDatabaseController extends BaseController implements Initial
 
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
-        loadNextStage("myTickets-view.fxml", null, mouseEvent);
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), mouseEvent);
         mouseEvent.consume();
     }
 
