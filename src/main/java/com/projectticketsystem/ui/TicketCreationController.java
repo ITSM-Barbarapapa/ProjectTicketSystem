@@ -96,7 +96,7 @@ public class TicketCreationController extends BaseController implements Initiali
         Ticket ticket = new Ticket(nameTextField.getText(), contactTextField.getText(), LocalDate.now(), TicketStatus.Open, CreateID());
         FillInTicketWithInformation(ticket);
         ticketService.addTicket(ticket);
-        loadNextStage("dashboard-view.fxml", new DashboardController(user), actionEvent);
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), actionEvent);
     }
 
     private int CreateID(){
