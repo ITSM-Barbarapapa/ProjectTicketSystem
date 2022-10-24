@@ -32,18 +32,18 @@
                         <Image url="@../../../img/my-tickets-icon.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="44.0" fitWidth="44.0" onMouseClicked="#onAllTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="allTicketsIcon" fitHeight="44.0" fitWidth="44.0" onMouseClicked="#onAllTicketIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/all-tickets-icon.png" />
                     </image></ImageView>
-                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onArchiveTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="archiveIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onArchiveTicketIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/archive-tickets-icon.png" />
                     </image>
                     <VBox.margin>
                         <Insets />
                     </VBox.margin></ImageView>
-                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onCRUDEmployeeIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="employeeIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onCRUDEmployeeIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/crud-employees-icon.png" />
                     </image></ImageView>
@@ -146,7 +146,7 @@
                                                 <Insets bottom="10.0" left="15.0" right="5.0" top="12.0" />
                                             </padding>
                                         </Label>
-                                        <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" prefHeight="25.0" prefWidth="60.0" text="Reageer">
+                                        <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" prefHeight="30.0" prefWidth="60.0" text="Reageer">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>
@@ -154,7 +154,6 @@
                                                 <Insets left="15.0" top="6.0" />
                                             </VBox.margin>
                                         </Button>
-                              <Button mnemonicParsing="false" text="Button" />
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="332.0" prefWidth="217.0">
@@ -237,7 +236,7 @@
                                                 <Insets bottom="5.0" top="5.0" />
                                             </VBox.margin>
                                         </ChoiceBox>
-                                        <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="25.0" prefWidth="165.0" text="Save">
+                                        <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="30.0" prefWidth="165.0" text="Save">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>
@@ -252,7 +251,7 @@
                         <TextArea fx:id="reactionTextarea" editable="false" layoutX="18.0" layoutY="236.0" prefHeight="130.0" prefWidth="490.0" promptText="(Answer)" />
                     </children>
                 </Pane>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" text="Terug" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="30.0" text="Terug" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </children>

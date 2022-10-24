@@ -72,6 +72,12 @@ public class TicketController extends BaseController implements Initializable {
     public Button saveTicketButton;
     @FXML
     public Label usernameLabel;
+    @FXML
+    public ImageView allTicketsIcon;
+    @FXML
+    public ImageView employeeIcon;
+    @FXML
+    public ImageView archiveIcon;
     private final Ticket ticket;
     private final UserService userService;
     private final User user;
@@ -104,7 +110,14 @@ public class TicketController extends BaseController implements Initializable {
     private void CheckUser() {
         if (user.getRole().equals(Role.RegularEmployee)) {
             HideServiceDeskTools();
+            HideSiteBalkIcons();
         }
+    }
+
+    private void HideSiteBalkIcons() {
+        allTicketsIcon.setVisible(false);
+        employeeIcon.setVisible(false);
+        archiveIcon.setVisible(false);
     }
 
     private void HideServiceDeskTools() {

@@ -52,6 +52,12 @@ public class TicketCreationController extends BaseController implements Initiali
     @FXML
     public Label usernameLabel;
 
+    @FXML
+    public ImageView allTicketsIcon;
+    @FXML
+    public ImageView employeeIcon;
+    @FXML
+    public ImageView archiveIcon;
 
     public TicketCreationController(User user){
         ticketService = new TicketService();
@@ -61,7 +67,14 @@ public class TicketCreationController extends BaseController implements Initiali
     private void CheckUser(){
         if(user.getRole().equals(Role.RegularEmployee)) {
             HidePriorityBoxes();
+            HideSiteBalkIcons();
         }
+    }
+
+    private void HideSiteBalkIcons() {
+        allTicketsIcon.setVisible(false);
+        employeeIcon.setVisible(false);
+        archiveIcon.setVisible(false);
     }
 
     private void HidePriorityBoxes() {
