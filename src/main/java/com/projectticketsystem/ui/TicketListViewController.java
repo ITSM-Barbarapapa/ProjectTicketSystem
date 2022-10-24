@@ -7,9 +7,11 @@ import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
@@ -32,7 +34,7 @@ public class TicketListViewController extends BaseController implements Initiali
     @FXML private TableColumn<Ticket, String> statusColumn;
     @FXML private ChoiceBox<String> statusFilterChoicebox;
     @FXML private ChoiceBox<String> employeeFilterChoicebox;
-
+    @FXML private Label usernameLabel;
     UserService userService = new UserService();
     TicketService ticketService = new TicketService();
 
@@ -47,6 +49,7 @@ public class TicketListViewController extends BaseController implements Initiali
         initializeTableView();
         initializeChoiceBoxes();
         ticketTable.setEditable(true);
+        usernameLabel.setText(user.getName());
     }
 
     private void initializeChoiceBoxes()
@@ -94,16 +97,11 @@ public class TicketListViewController extends BaseController implements Initiali
     }
 
     @FXML
-    private void handleTicketTableClicked(ActionEvent event)
+    private void openTicket(MouseEvent event)
     {
         Ticket ticket = ticketTable.getSelectionModel().getSelectedItem();
         if (ticket != null)
-            openTicket(ticket, event);
-    }
-
-    private void openTicket(Ticket ticket, ActionEvent event)
-    {
-
+                loadNextStage("ticket-view.fxml", new TicketController(ticket, user, "ticket-list-view.fxml", new TicketListViewController(user)), event);
     }
 
     @FXML
