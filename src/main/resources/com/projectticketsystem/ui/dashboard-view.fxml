@@ -41,9 +41,9 @@
                </image>
             </ImageView>
             </children></Pane>
-        <VBox maxWidth="82.0" prefHeight="540.0" prefWidth="82.0" spacing="20.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
+        <VBox prefHeight="540.0" prefWidth="45.0" spacing="20.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
             <children>
-                <ImageView fitHeight="46.0" fitWidth="45.0" onMouseClicked="#onHouseIconClick" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+                <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#onHouseIconClick" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                     <Image url="@../../../img/Home-button-img.png" />
                     <VBox.margin>
                         <Insets />
@@ -111,12 +111,15 @@
                            </color>
                         </DropShadow>
                      </effect></PieChart>
-                  <Label alignment="CENTER" contentDisplay="CENTER" minHeight="85.0" prefHeight="85.0" prefWidth="596.0" text="Status dashboard" GridPane.columnIndex="1">
+                  <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" minHeight="75.0" prefHeight="75.0" prefWidth="596.0" text="Status dashboard" GridPane.columnIndex="1">
                      <font>
-                        <Font size="41.0" />
+                        <Font size="27.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <HBox prefHeight="64.0" prefWidth="601.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <HBox prefHeight="64.0" prefWidth="601.0" style="-fx-background-color: #DAE3D9;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
                         <Label minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="56.0" text="Open:" HBox.hgrow="ALWAYS">
                            <padding>
@@ -185,6 +188,16 @@
                            </font>
                         </Label>
                      </children>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" />
+                     </GridPane.margin>
+                     <effect>
+                        <DropShadow blurType="TWO_PASS_BOX">
+                           <color>
+                              <Color red="0.8421052694320679" green="0.8421052694320679" blue="0.8421052694320679" />
+                           </color>
+                        </DropShadow>
+                     </effect>
                   </HBox>
                   <Circle fill="#f0f0f0" radius="76.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <effect>

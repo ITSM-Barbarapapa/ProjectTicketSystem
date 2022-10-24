@@ -18,7 +18,7 @@
     <children>
         <VBox prefHeight="200.0" prefWidth="59.0" spacing="20.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
             <children>
-                <ImageView fitHeight="50.0" fitWidth="45.0" onMouseClicked="#onHouseIconClick" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+                <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#onHouseIconClick" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                     <Image url="@../../../img/Home-button-img.png" />
                     <VBox.margin>
                         <Insets />
@@ -84,10 +84,13 @@
             <RowConstraints maxHeight="444.4000152587891" minHeight="10.0" prefHeight="424.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" minHeight="85.0" prefHeight="59.0" prefWidth="954.0" text="Mijn tickets">
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" minHeight="78.0" prefHeight="78.0" prefWidth="940.0" text="Mijn tickets">
                <font>
-                  <Font size="41.0" />
+                  <Font size="27.0" />
                </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
             </Label>
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
