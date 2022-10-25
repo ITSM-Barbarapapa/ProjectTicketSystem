@@ -86,11 +86,9 @@ public class CrudEmployeeController extends BaseController implements Initializa
     @FXML
     public void onUpdateEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
-        if (employeesTableView.getSelectionModel().getSelectedItem() == null) {
-            errorLabel.setText("Selecteer een medewerker");
+        if (isSelectedUserNull() || isUAS()) {
             return;
         }
-
 
         //set the new data
         User updatedUser = selectedUser;
@@ -114,14 +112,30 @@ public class CrudEmployeeController extends BaseController implements Initializa
     @FXML
     public void onDeleteEmployeeButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
-        if (selectedUser == null) {
-            errorLabel.setText("selecteer een medewerker");
+        if (isSelectedUserNull() || isUAS()) {
             return;
         }
+
         userService.deleteUser(selectedUser);
         users.remove(selectedUser);
         loadTableView();
         employeesTableView.getSelectionModel().clearSelection();
+    }
+
+    private boolean isSelectedUserNull() {
+        if (selectedUser == null) {
+            errorLabel.setText("Selecteer een medewerker");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isUAS() {
+        if (selectedUser.getID() == 1) {
+            errorLabel.setText("Deze medewerker kan niet worden aangepast");
+            return true;
+        }
+        return false;
     }
 
     private boolean checkEmptyFields() {
