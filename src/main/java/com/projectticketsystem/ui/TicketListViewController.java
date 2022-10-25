@@ -62,7 +62,7 @@ public class TicketListViewController extends BaseController implements Initiali
         List<String> employeeList = userService.getEmployeeNames();
         employeeList.add(0, "All");
         employeeFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(employeeList));
-        employeeFilterChoicebox.setValue(user.getName());
+        employeeFilterChoicebox.setValue("All");
     }
 
 
