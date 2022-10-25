@@ -205,7 +205,7 @@ public class TicketDAO extends BaseDAO
 
     public List<Ticket> getTicketsByEmployee(int id)
     {
-        Bson filter = eq("UserID", id);
+        Bson filter = eq("EmployeeID", id);
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
 
     }
@@ -218,7 +218,7 @@ public class TicketDAO extends BaseDAO
 
     public List<Ticket> getTicketsByStatusAndEmployee(String statusFilter, int id)
     {
-        Bson filter = and(eq("Status", statusFilter), eq("UserID", id));
+        Bson filter = and(eq("Status", statusFilter), eq("EmployeeID", id));
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
     }
 
