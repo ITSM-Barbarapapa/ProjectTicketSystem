@@ -75,7 +75,6 @@ public class TicketDAO extends BaseDAO
 
 
         getCollection().insertOne(document);
-        out.println("Ticket added");
     }
 
     public void updateTicket(Ticket ticket)
@@ -100,7 +99,6 @@ public class TicketDAO extends BaseDAO
         UpdateOptions options = new UpdateOptions().upsert(true);
 
         getCollection().updateOne(found, updatedValues, options);
-        out.println("Ticket updated");
     }
 
     private void deleteTicket(Document ticket) {
