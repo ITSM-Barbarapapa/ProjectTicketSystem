@@ -57,12 +57,12 @@ public class TicketListViewController extends BaseController implements Initiali
         List<String> statusList = TicketStatus.getObservableList();
         statusList.add(0, "All");
         statusFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(statusList));
-        statusFilterChoicebox.setValue("All");
+        statusFilterChoicebox.setValue("Open");
 
         List<String> employeeList = userService.getEmployeeNames();
         employeeList.add(0, "All");
         employeeFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(employeeList));
-        employeeFilterChoicebox.setValue("All");
+        employeeFilterChoicebox.setValue(user.getName());
     }
 
 
@@ -72,7 +72,7 @@ public class TicketListViewController extends BaseController implements Initiali
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
         priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
-        assigneeColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        assigneeColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeUsername"));
         assigneeColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(userService.getEmployeeNames()));
         assigneeColumn.setOnEditCommit(event -> {
             Ticket ticket = event.getRowValue();

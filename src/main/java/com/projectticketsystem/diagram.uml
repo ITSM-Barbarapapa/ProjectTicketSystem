@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="592.8593750000002" y="32.8125">com.projectticketsystem.ui.CrudEmployeeController</node>
+    <node x="592.8593750000002" y="-93.875">com.projectticketsystem.ui.ReactTicketController</node>
+    <node x="370.90625000000045" y="-157.21875">com.projectticketsystem.ui.BaseController</node>
+    <node x="100.46000000000004" y="-30.53125">com.projectticketsystem.dal.ArchivedTicketDao</node>
+    <node x="-160.04" y="-93.875">com.projectticketsystem.dal.BaseDAO</node>
+    <node x="592.8593750000002" y="349.53125">com.projectticketsystem.ui.LoginController</node>
+    <node x="-160.04" y="-285.965">com.projectticketsystem.ui.StartApplication</node>
+    <node x="100.46000000000004" y="-157.21875">com.projectticketsystem.dal.TicketDAO</node>
+    <node x="100.46000000000004" y="-93.875">com.projectticketsystem.dal.UserDAO</node>
+    <node x="22.250000000000227" y="154.53125">com.projectticketsystem.model.Categories</node>
+    <node x="-158.03999999999996" y="156.5">com.projectticketsystem.model.Role</node>
+    <node x="592.8593750000002" y="286.1875">com.projectticketsystem.ui.DashboardController</node>
+    <node x="592.8593750000002" y="222.84375">com.projectticketsystem.ui.TicketListViewController</node>
+    <node x="-158.04" y="109.25">com.projectticketsystem.model.TicketStatus</node>
+    <node x="22.250000000000227" y="109.25">com.projectticketsystem.model.Ticket</node>
+    <node x="592.8593750000002" y="159.5">com.projectticketsystem.ui.TicketController</node>
+    <node x="-160.03999999999996" y="62.0">com.projectticketsystem.model.HashedPassword</node>
+    <node x="592.8593750000002" y="-30.53125">com.projectticketsystem.ui.ArchiveDatabaseController</node>
+    <node x="592.8593750000002" y="-157.21875">com.projectticketsystem.ui.TicketCreationController</node>
+    <node x="-162.04" y="322.35749999999985">com.projectticketsystem.service.UserService</node>
+    <node x="592.8593750000002" y="96.15625">com.projectticketsystem.ui.MyTicketController</node>
+    <node x="-162.04" y="372.74999999999983">com.projectticketsystem.service.ArchivedTicketService</node>
+    <node x="22.250000000000227" y="62.0">com.projectticketsystem.model.User</node>
+    <node x="-162.04" y="271.96499999999986">com.projectticketsystem.service.TicketService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.projectticketsystem.ui.ArchiveDatabaseController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="-111.52137500000129" y="0.8177187499995853" />
+      <point x="593.9099999999991" y="-15.213531250000415" />
+      <point x="593.9099999999991" y="-16.03125" />
+      <point x="555.509999999999" y="-16.03125" />
+      <point x="555.509999999999" y="-143.72553125000033" />
+      <point x="73.15574999999853" y="-1.00678125000033" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.MyTicketController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="15.0" y="-14.5" />
+      <point x="692.3593750000002" y="229.5" />
+      <point x="456.90625000000045" y="229.5" />
+      <point x="15.0" y="14.5" />
+    </edge>
+    <edge source="com.projectticketsystem.dal.TicketDAO" target="com.projectticketsystem.dal.BaseDAO" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="159.46000000000004" y="-142.71875" />
+      <point x="5.110000000000014" y="-142.71875" />
+      <point x="5.110000000000014" y="-79.375" />
+      <point x="55.0" y="0.0" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.CrudEmployeeController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="-103.99737500000128" y="0.4499687499995275" />
+      <point x="591.861999999999" y="47.3125" />
+      <point x="552.8828125000003" y="47.3125" />
+      <point x="552.8828125000003" y="-142.71875" />
+      <point x="71.0" y="0.0" />
+    </edge>
+    <edge source="com.projectticketsystem.dal.ArchivedTicketDao" target="com.projectticketsystem.dal.BaseDAO" relationship="GENERALIZATION">
+      <point x="-84.1875" y="0.21875" />
+      <point x="5.875" y="-15.8125" />
+      <point x="5.875" y="-79.375" />
+      <point x="-105.03999999999999" y="-79.375" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.LoginController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="666.8593750000002" y="227.0" />
+      <point x="426.90625000000045" y="227.0" />
+      <point x="-15.0" y="14.5" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.TicketController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="-74.5" y="0.0" />
+      <point x="1158.5" y="174.0" />
+      <point x="1158.5" y="227.0" />
+      <point x="411.90625000000045" y="227.0" />
+      <point x="-30.0" y="14.5" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.TicketCreationController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="101.0" y="0.0" />
+      <point x="515.4164999999987" y="-142.71875" />
+      <point x="73.51024999999822" y="-0.4977500000001669" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.DashboardController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="684.3593750000002" y="212.0" />
+      <point x="552.8828125000003" y="212.0" />
+      <point x="552.8828125000003" y="-142.71875" />
+      <point x="441.90625000000045" y="-142.71875" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.projectticketsystem.dal.UserDAO" target="com.projectticketsystem.dal.BaseDAO" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="155.46000000000004" y="-79.375" />
+      <point x="-55.0" y="0.0" />
+    </edge>
+    <edge source="com.projectticketsystem.ui.TicketListViewController" target="com.projectticketsystem.ui.BaseController" relationship="GENERALIZATION">
+      <point x="-99.5" y="0.0" />
+      <point x="1143.5" y="237.34375" />
+      <point x="1143.5" y="212.0" />
+      <point x="396.90625000000045" y="212.0" />
+      <point x="-45.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="2.4414062500000027" showDependencies="false" x="571.6499183423986" y="-133.9908199232001" />
+  <SelectedNodes>
+    <node>com.projectticketsystem.ui.ReactTicketController</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
