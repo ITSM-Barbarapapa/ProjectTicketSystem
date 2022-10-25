@@ -20,7 +20,8 @@
     <children>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
             <children>
-                <ImageView fx:id="userIcon" fitHeight="50.0" fitWidth="60.0" layoutX="879.0" layoutY="6.0"
+                <ImageView fx:id="userIcon" onMouseClicked="#onLogoutButtonClicked" fitHeight="50.0" fitWidth="60.0"
+                           layoutX="879.0" layoutY="6.0"
                            pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../img/piepUser.png"/>

@@ -38,7 +38,7 @@ public class UserDAO extends BaseDAO
    public User getUser(int userID)
     {
         Document found = getCollection().find(new Document("UserID", userID)).first();
-        return getUser(found);
+        return createUser(found);
     }
 
     public List<User> getAllUsers()
@@ -104,7 +104,7 @@ public class UserDAO extends BaseDAO
     public User getUserByID(int userID)
     {
         Document found = getCollection().find(new Document("UserID", userID)).first();
-        return getUser(found);
+        return createUser(found);
     }
 
     public List<User> getUsersByRole(Role role) {
@@ -128,10 +128,10 @@ public class UserDAO extends BaseDAO
 
     public User getUserByName(String userName) {
         Document found = getCollection().find(new Document("Username", userName)).first();
-        return getUser(found);
+        return createUser(found);
     }
 
-    private User getUser(Document found) {
+    private User createUser(Document found) {
         if (found == null)
         {
             out.println("User not found");
