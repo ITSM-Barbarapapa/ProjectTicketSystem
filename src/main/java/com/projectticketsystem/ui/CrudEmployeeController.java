@@ -22,7 +22,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
 
     private static final UserService userService = new UserService();
     private final User user;
-    private final ObservableList<User> users;
+    private ObservableList<User> users;
     @FXML
     public TextField nameField;
     @FXML
@@ -91,18 +91,22 @@ public class CrudEmployeeController extends BaseController implements Initializa
             return;
         }
 
+
         //set the new data
         User updatedUser = selectedUser;
-        updatedUser.setPassword(new HashedPassword(passwordField.getText()));
-        updatedUser.setName(nameField.getText());
-        updatedUser.setRole(Role.valueOf(Role.values()[roleChoiceBox.getItems().indexOf(roleChoiceBox.getValue())].toString()));
-
-        //remove selected user from tableview
-        users.remove(selectedUser);
+        if (!nameField.getText().equals("")) {
+            updatedUser.setName(nameField.getText());
+        }
+        if (!passwordField.getText().equals("")) {
+            updatedUser.setPassword(new HashedPassword(passwordField.getText()));
+        }
+        if (!roleChoiceBox.getValue().equals(selectedUser.getRole().name)) {
+            updatedUser.setRole(Role.valueOf(Role.values()[roleChoiceBox.getItems().indexOf(roleChoiceBox.getValue())].toString()));
+        }
 
         //update the user
         userService.updateUser(updatedUser);
-        users.add(updatedUser);
+        users = FXCollections.observableArrayList(userService.getAllUsers());
         loadTableView();
         employeesTableView.getSelectionModel().select(updatedUser);
     }

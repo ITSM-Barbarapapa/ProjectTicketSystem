@@ -18,6 +18,7 @@ public class Ticket {
     private String ticketDescription;
     private String ticketReaction;
     private User user;
+    private User employee;
 
     public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;
@@ -25,6 +26,14 @@ public class Ticket {
         this.ticketStatus = ticketStatus;
         this.date = date;
         this.ticketID = id;
+    }
+
+    public User getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(User employee) {
+        this.employee = employee;
     }
 
     public Ticket() {
@@ -35,8 +44,8 @@ public class Ticket {
         return user;
     }
 
-    public String getUsername() {
-        return user.getName();
+    public String getEmployeeUsername() {
+        return employee.getName();
     }
     public void setUser(User user) {
         this.user = user;
@@ -100,6 +109,6 @@ public class Ticket {
     public void assignNewEmployeeToTicket(String newEmployee)
     {
         UserDAO userDAO = new UserDAO();
-        this.setUser(userDAO.getUserByName(newEmployee));
+        this.setEmployee(userDAO.getUserByName(newEmployee));
     }
 }

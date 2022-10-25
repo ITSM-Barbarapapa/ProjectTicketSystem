@@ -5,19 +5,22 @@ import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
+import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import java.io.IOException;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
-import static java.lang.System.out;
 
 public class TicketCreationController extends BaseController implements Initializable {
 
@@ -58,6 +61,8 @@ public class TicketCreationController extends BaseController implements Initiali
     public ImageView employeeIcon;
     @FXML
     public ImageView archiveIcon;
+    @FXML
+    public Label errorLabel;
 
     public TicketCreationController(User user){
         ticketService = new TicketService();
@@ -88,7 +93,10 @@ public class TicketCreationController extends BaseController implements Initiali
 
     @FXML
     public void AddTicket(ActionEvent actionEvent){
+
         if (!Requirements()){
+            errorLabel.setText("Niet alle vereiste velden zijn ingevuld.");
+            errorLabel.setVisible(true);
             return;
         }
 
@@ -112,6 +120,8 @@ public class TicketCreationController extends BaseController implements Initiali
         ticket.setTicketReaction("");
         ticket.setPriority("");
         ticket.setUser(user);
+        UserService userService = new UserService();
+        ticket.setEmployee(userService.getUser(1));
 
         if(categoryChoiceBox.getValue() != null){
             ticket.setTicketCategory(categoryChoiceBox.getValue());
@@ -141,11 +151,6 @@ public class TicketCreationController extends BaseController implements Initiali
 
     private boolean Requirements(){
         boolean requirementsCheck = true;
-
-        out.println(nameTextField.getText());
-        out.println(contactTextField.getText());
-
-
         if (Objects.equals(nameTextField.getText(), "") || Objects.equals(contactTextField.getText(), ""))
             requirementsCheck = false;
 
@@ -176,6 +181,7 @@ public class TicketCreationController extends BaseController implements Initiali
         CheckUser();
         usernameLabel.setText(user.getName());
         nameTextField.setText(user.getName());
+        errorLabel.setVisible(false);
     }
 
     @FXML

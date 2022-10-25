@@ -70,7 +70,9 @@ public class TicketDAO extends BaseDAO
                 .append("Date", ticket.getDate().toString())
                 .append("UserID", ticket.getUser().getID())
                 .append("Status", ticket.getTicketStatus())
-                .append("Reaction", ticket.getTicketReaction());
+                .append("Reaction", ticket.getTicketReaction())
+                .append("EmployeeID", 1);
+
 
         getCollection().insertOne(document);
         out.println("Ticket added");
@@ -78,7 +80,6 @@ public class TicketDAO extends BaseDAO
 
     public void updateTicket(Ticket ticket)
     {
-        //TODO: if ticket has no 'User' it needs to create one or add one so ErrorHandling
         Document found = getCollection().find(new Document().append(TICKET_ID, ticket.getTicketID())).first();
         if (found == null)
         {
@@ -93,7 +94,8 @@ public class TicketDAO extends BaseDAO
                 Updates.set("Status", ticket.getTicketStatus()),
                 Updates.set("Priority", ticket.getPriority()),
                 Updates.set("UserID", ticket.getUser().getID()),
-                Updates.set("Reaction", ticket.getTicketReaction()));
+                Updates.set("Reaction", ticket.getTicketReaction()),
+                Updates.set("EmployeeID", ticket.getEmployee().getID()));
 
         UpdateOptions options = new UpdateOptions().upsert(true);
 
@@ -134,6 +136,9 @@ public class TicketDAO extends BaseDAO
         ticket.setUser(userDAO.getUserByID((document.getInteger("UserID"))));
         ticket.setTicketDescription(document.getString("Description"));
         ticket.setTicketReaction(document.getString("Reaction"));
+        if (document.get("EmployeeID") != null) {
+            ticket.setEmployee(userDAO.getUserByID((document.getInteger("EmployeeID"))));
+        }
 
         return ticket;
     }
