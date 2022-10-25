@@ -71,7 +71,7 @@ public class TicketDAO extends BaseDAO
                 .append("UserID", ticket.getUser().getID())
                 .append("Status", ticket.getTicketStatus())
                 .append("Reaction", ticket.getTicketReaction())
-                .append("EmployeeID", ticket.getEmployee().getID());
+                .append("EmployeeID", 1);
 
 
         getCollection().insertOne(document);

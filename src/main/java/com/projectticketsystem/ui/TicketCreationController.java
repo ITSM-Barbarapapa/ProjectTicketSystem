@@ -59,6 +59,8 @@ public class TicketCreationController extends BaseController implements Initiali
     public ImageView employeeIcon;
     @FXML
     public ImageView archiveIcon;
+    @FXML
+    public Label errorLabel;
 
     public TicketCreationController(User user){
         ticketService = new TicketService();
@@ -89,7 +91,10 @@ public class TicketCreationController extends BaseController implements Initiali
 
     @FXML
     public void AddTicket(ActionEvent actionEvent){
+
         if (!Requirements()){
+            errorLabel.setText("Niet alle vereiste velden zijn ingevuld.");
+            errorLabel.setVisible(true);
             return;
         }
 
@@ -179,6 +184,7 @@ public class TicketCreationController extends BaseController implements Initiali
         CheckUser();
         usernameLabel.setText(user.getName());
         nameTextField.setText(user.getName());
+        errorLabel.setVisible(false);
     }
 
     @FXML
