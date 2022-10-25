@@ -19,12 +19,24 @@ public class Ticket {
     private String ticketReaction;
     private User user;
 
+
+
+    private User employee;
+
     public Ticket(String name, String contact, LocalDate date, TicketStatus ticketStatus, int id) {
         this.name = name;
         this.contact = contact;
         this.ticketStatus = ticketStatus;
         this.date = date;
         this.ticketID = id;
+    }
+
+    public User getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(User employee) {
+        this.employee = employee;
     }
 
     public Ticket() {

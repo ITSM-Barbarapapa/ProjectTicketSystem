@@ -5,6 +5,7 @@ import com.projectticketsystem.model.Ticket;
 import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.TicketService;
+import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -112,6 +113,8 @@ public class TicketCreationController extends BaseController implements Initiali
         ticket.setTicketReaction("");
         ticket.setPriority("");
         ticket.setUser(user);
+        UserService userService = new UserService();
+        ticket.setEmployee(userService.getUser(1));
 
         if(categoryChoiceBox.getValue() != null){
             ticket.setTicketCategory(categoryChoiceBox.getValue());

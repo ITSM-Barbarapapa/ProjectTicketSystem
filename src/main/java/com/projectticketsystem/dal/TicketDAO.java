@@ -70,7 +70,9 @@ public class TicketDAO extends BaseDAO
                 .append("Date", ticket.getDate().toString())
                 .append("UserID", ticket.getUser().getID())
                 .append("Status", ticket.getTicketStatus())
-                .append("Reaction", ticket.getTicketReaction());
+                .append("Reaction", ticket.getTicketReaction())
+                .append("EmployeeID", ticket.getEmployee().getID());
+
 
         getCollection().insertOne(document);
         out.println("Ticket added");
@@ -134,6 +136,7 @@ public class TicketDAO extends BaseDAO
         ticket.setUser(userDAO.getUserByID((document.getInteger("UserID"))));
         ticket.setTicketDescription(document.getString("Description"));
         ticket.setTicketReaction(document.getString("Reaction"));
+        ticket.setEmployee(userDAO.getUserByID(document.getInteger("EmployeeID")));
 
         return ticket;
     }
