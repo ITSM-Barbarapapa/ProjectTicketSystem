@@ -52,14 +52,10 @@ public class Ticket {
     }
 
     public String getTicketStatus() {return this.ticketStatus.toString(); }
-
     public void setTicketStatus(TicketStatus ticketStatus) { this.ticketStatus = ticketStatus; }
-
-
     public LocalDate getDate() {
         return date;
     }
-
     public void setTicketCategory(String category) {this.ticketCategory = category;}
     public void setTicketSummary(String summary){this.ticketSummary = summary;}
     public void setTicketDescription(String description) {this.ticketDescription = description;}

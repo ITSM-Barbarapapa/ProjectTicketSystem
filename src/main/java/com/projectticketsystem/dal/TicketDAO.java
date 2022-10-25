@@ -50,7 +50,6 @@ public class TicketDAO extends BaseDAO
         Document found = Objects.requireNonNull(getCollection()).find(new Document(TICKET_ID, ticketID)).first();
         if (found == null)
         {
-            out.println("Ticket not found");
             return null;
         }
         return generateTicket(found);
@@ -75,7 +74,7 @@ public class TicketDAO extends BaseDAO
 
 
         getCollection().insertOne(document);
-        out.println("Ticket added");
+
     }
 
     public void updateTicket(Ticket ticket)
@@ -83,8 +82,6 @@ public class TicketDAO extends BaseDAO
         Document found = getCollection().find(new Document().append(TICKET_ID, ticket.getTicketID())).first();
         if (found == null)
         {
-            out.println("Ticket not found in database");
-            out.println("Could not update ticket");
             return;
         }
 
@@ -100,7 +97,7 @@ public class TicketDAO extends BaseDAO
         UpdateOptions options = new UpdateOptions().upsert(true);
 
         getCollection().updateOne(found, updatedValues, options);
-        out.println("Ticket updated");
+
     }
 
     private void deleteTicket(Document ticket) {
@@ -137,9 +134,8 @@ public class TicketDAO extends BaseDAO
         ticket.setTicketDescription(document.getString("Description"));
         ticket.setTicketReaction(document.getString("Reaction"));
         if (document.get("EmployeeID") != null) {
-            ticket.setEmployee(userDAO.getUserByID((document.getInteger("EmployeeID"))));
+                ticket.setEmployee(userDAO.getUserByID((document.getInteger("EmployeeID"))));
         }
-
         return ticket;
     }
 

@@ -63,7 +63,7 @@ public class UserDAO extends BaseDAO
                 .append("Salt", user.getPassword().getSalt())
                 .append("Role", user.getRole().toString());
         getCollection().insertOne(document);
-        out.println("User added");
+
     }
 
     public void updateUser(User user)
@@ -71,8 +71,6 @@ public class UserDAO extends BaseDAO
         Document found = getCollection().find(new Document().append("UserID", user.getID())).first();
         if (found == null)
         {
-            out.println("User not found in database");
-            out.println("Could not update user");
             return;
         }
         Bson updatedValues = Updates.combine(
@@ -83,13 +81,12 @@ public class UserDAO extends BaseDAO
 
         UpdateOptions options = new UpdateOptions().upsert(true);
         getCollection().updateOne(found, updatedValues, options);
-        out.println("User updated");
+
     }
 
     public void deleteUser(User user)
     {
         getCollection().deleteOne(new Document("UserID", user.getID()));
-        out.println("User deleted");
     }
 
     public int getNextUserId()
@@ -134,7 +131,6 @@ public class UserDAO extends BaseDAO
     private User createUser(Document found) {
         if (found == null)
         {
-            out.println("User not found");
             return null;
         }
         return new User(

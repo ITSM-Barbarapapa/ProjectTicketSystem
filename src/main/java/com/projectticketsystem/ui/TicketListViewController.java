@@ -67,7 +67,6 @@ public class TicketListViewController extends BaseController implements Initiali
 
 
     private void initializeTableView() {
-
         ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("ticketSummary"));
         priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
