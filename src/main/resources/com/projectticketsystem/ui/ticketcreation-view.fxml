@@ -56,7 +56,7 @@
             </padding></VBox>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
             <children>
-                <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="787.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
+                <Label fx:id="usernameLabel" onMouseClicked="#onLogoutButtonClicked" alignment="CENTER_RIGHT" layoutX="787.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
                     <font>
                         <Font size="16.0" />
                     </font>
