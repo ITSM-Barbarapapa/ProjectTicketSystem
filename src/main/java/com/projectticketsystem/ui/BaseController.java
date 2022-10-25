@@ -1,6 +1,7 @@
 package com.projectticketsystem.ui;
 
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -41,6 +42,11 @@ public class BaseController {
             throw new RuntimeException("Cannot run " + fxmlFileName + "\n" + e);
         }
         return new Scene(root);
+    }
+
+    @FXML
+    public void onLogoutButtonClicked(Event event) {
+        loadNextStage("login-view.fxml", null, event);
     }
 
 }
