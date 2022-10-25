@@ -95,7 +95,9 @@ public class TicketController extends BaseController implements Initializable {
         employeeChoicebox.setItems(FXCollections.observableList(userNames));
         impactChoicebox.setValue(ticket.getImpact());
         urgencyChoicebox.setValue(ticket.getUrgency());
-        employeeChoicebox.setValue(ticket.getEmployee().getName());
+        if (ticket.getEmployee() != null) {
+            employeeChoicebox.setValue(ticket.getEmployee().getName());
+        }
         statusChoicebox.setValue(ticket.getTicketStatus());
         reactionTextarea.setText(ticket.getTicketReaction());
         usernameLabel.setText(user.getName());
