@@ -25,24 +25,23 @@ import static java.text.NumberFormat.getPercentInstance;
 
 public class DashboardController extends BaseController implements Initializable
 {
-    double perOpen;
-    double perResolved;
-    double perClosed;
+    private double perOpen;
+    private double perResolved;
+    private double perClosed;
 
     private int statusOpen;
     private int statusResolved;
     private int statusClosedWithoutResolve;
-    @FXML
-    PieChart statusChart;
+    @FXML PieChart statusChart;
 
-    public Label countOpen;
-    public Label countResolved;
-    public Label countClosed;
+    @FXML public Label countOpen;
+    @FXML public Label countResolved;
+    @FXML public Label countClosed;
 
-    public Label labelUsername;
-    public ImageView AllTicketIcon;
-    public ImageView ArchiveTicketIcon;
-    public ImageView CRUDEmployeeIcon;
+    @FXML public Label labelUsername;
+    @FXML public ImageView AllTicketIcon;
+    @FXML public ImageView ArchiveTicketIcon;
+    @FXML public ImageView CRUDEmployeeIcon;
     private final User user;
 
     @Override
