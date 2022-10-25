@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
@@ -88,11 +87,11 @@
             <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
          </columns>
          <GridPane.margin>
-            <Insets left="9.0" />
+            <Insets left="4.0" />
          </GridPane.margin></TableView>
       <Label text="Filter:">
          <GridPane.margin>
-            <Insets left="5.0" />
+            <Insets left="7.0" />
          </GridPane.margin>
       </Label>
       <Label layoutX="10.0" layoutY="27.0" text="Werknemer:">
