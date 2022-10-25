@@ -42,6 +42,8 @@ public class MyTicketController extends BaseController implements Initializable 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        this.myTickets = new TicketService().getMyTickets(user);
+
         fillChoiceBox();
         myTicketsView();
         labelUsername.setText(user.getName());
@@ -52,6 +54,7 @@ public class MyTicketController extends BaseController implements Initializable 
             ArchiveTicketIcon.setVisible(false);
             CRUDEmployeeIcon.setVisible(false);
         }
+
     }
 
     public MyTicketController(User user)

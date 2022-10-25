@@ -18,7 +18,6 @@ public abstract class BaseDAO
         try {
             MongoClient mongoClient = MongoClients.create(URL);
             database = mongoClient.getDatabase("ProjectNoSQL");
-            System.out.println("Connected to database!");
 
         } catch (Exception e) {
             System.out.println("An error occurred when connecting to the database" + e.getMessage());

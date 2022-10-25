@@ -192,7 +192,7 @@ public class TicketCreationController extends BaseController implements Initiali
     @FXML
     public void onMyTicketIconClick(MouseEvent mouseEvent) {
         //TODO Add right controller and view for my tickets
-        loadNextStage("my-tickets-view.fxml", new MyTicketController(user), mouseEvent);
+        loadNextStage("myTickets-view.fxml", new MyTicketController(user), mouseEvent);
         mouseEvent.consume();
     }
 
