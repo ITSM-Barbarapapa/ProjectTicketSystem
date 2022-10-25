@@ -97,7 +97,7 @@ public class MyTicketController extends BaseController implements Initializable 
 
         myTicketView.getItems().addAll(myTickets);
     }
-    
+
     @FXML
     public void nieuwTicketButtonClick(Event event)
     {
