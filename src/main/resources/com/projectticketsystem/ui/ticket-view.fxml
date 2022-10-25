@@ -1,160 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="940.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="940.0" prefWidth="100.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="540.0" prefHeight="100.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="540.0" prefHeight="100.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <VBox prefHeight="200.0" prefWidth="59.0" spacing="20.0" style="-fx-background-color: #DAE3D9;" GridPane.rowIndex="1">
+        <VBox prefHeight="200.0" prefWidth="59.0" spacing="20.0" style="-fx-background-color: #DAE3D9;"
+              GridPane.rowIndex="1">
             <children>
-                <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#onHouseIconClick" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
-                    <Image url="@../../../img/Home-button-img.png" />
+                <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#onHouseIconClick" pickOnBounds="true"
+                           preserveRatio="true" VBox.vgrow="NEVER">
+                    <Image url="@../../../img/Home-button-img.png"/>
                     <VBox.margin>
-                        <Insets />
+                        <Insets/>
                     </VBox.margin>
                 </ImageView>
-                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onMyTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onMyTicketIconClick" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/my-tickets-icon.png" />
+                        <Image url="@../../../img/my-tickets-icon.png"/>
                     </image>
                 </ImageView>
-                <ImageView fx:id="allTicketsIcon" fitHeight="44.0" fitWidth="44.0" onMouseClicked="#onAllTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="allTicketsIcon" fitHeight="44.0" fitWidth="44.0"
+                           onMouseClicked="#onAllTicketIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/all-tickets-icon.png" />
-                    </image></ImageView>
-                <ImageView fx:id="archiveIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onArchiveTicketIconClick" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../../img/all-tickets-icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="archiveIcon" fitHeight="40.0" fitWidth="40.0"
+                           onMouseClicked="#onArchiveTicketIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/archive-tickets-icon.png" />
+                        <Image url="@../../../img/archive-tickets-icon.png"/>
                     </image>
                     <VBox.margin>
-                        <Insets />
-                    </VBox.margin></ImageView>
-                <ImageView fx:id="employeeIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#onCRUDEmployeeIconClick" pickOnBounds="true" preserveRatio="true">
+                        <Insets/>
+                    </VBox.margin>
+                </ImageView>
+                <ImageView fx:id="employeeIcon" fitHeight="40.0" fitWidth="40.0"
+                           onMouseClicked="#onCRUDEmployeeIconClick" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/crud-employees-icon.png" />
-                    </image></ImageView>
-            </children>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </padding></VBox>
-        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
-            <children>
-                <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="787.0" layoutY="17.0" prefHeight="27.0" prefWidth="92.0" text="username">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <ImageView fx:id="userIcon" onMouseClicked="#onLogoutButtonClicked" fitHeight="50.0" fitWidth="60.0" layoutX="879.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../img/piepUser.png" />
+                        <Image url="@../../../img/crud-employees-icon.png"/>
                     </image>
                 </ImageView>
-            </children></Pane>
+            </children>
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </VBox>
+        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;" GridPane.columnIndex="1">
+            <children>
+                <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="787.0" layoutY="17.0" prefHeight="27.0"
+                       prefWidth="92.0" text="username">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="userIcon" onMouseClicked="#onLogoutButtonClicked" fitHeight="50.0" fitWidth="60.0"
+                           layoutX="879.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../img/piepUser.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #93C98E;">
             <children>
                 <ImageView fitHeight="97.0" fitWidth="146.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../img/green-desk.png" />
+                        <Image url="@../../../img/green-desk.png"/>
                     </image>
                 </ImageView>
             </children>
         </Pane>
         <GridPane style="-fx-background-color: #FBFBFB;" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="80.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="80.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="80.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0"
+                                   prefWidth="80.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="80.0" valignment="CENTER"
+                                vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DEDEDE;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DEDEDE;"
+                      GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Label fx:id="summaryLabel" prefHeight="62.0" prefWidth="510.0" text="(Ticket summary placeholder text)">
+                        <Label fx:id="summaryLabel" prefHeight="62.0" prefWidth="510.0"
+                               text="(Ticket summary placeholder text)">
                             <font>
-                                <Font size="22.0" />
+                                <Font size="22.0"/>
                             </font>
                             <padding>
-                                <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+                                <Insets bottom="10.0" left="20.0" right="10.0" top="20.0"/>
                             </padding>
                         </Label>
-                        <Label fx:id="nameAndContactLabel" layoutY="62.0" text="(Piet klaassen) | (pietklaassen1989@gmail.com)">
+                        <Label fx:id="nameAndContactLabel" layoutY="62.0"
+                               text="(Piet klaassen) | (pietklaassen1989@gmail.com)">
                             <padding>
-                                <Insets bottom="10.0" left="20.0" right="10.0" />
+                                <Insets bottom="10.0" left="20.0" right="10.0"/>
                             </padding>
                         </Label>
-                        <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0" prefHeight="130.0" prefWidth="490.0" promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)" />
-                        <Line endX="-100.0" endY="296.0" layoutX="629.0" layoutY="75.0" startX="-100.0" startY="-66.0" />
-                        <HBox alignment="CENTER_LEFT" layoutX="529.0" layoutY="9.0" prefHeight="332.0" prefWidth="250.0">
+                        <TextArea fx:id="descriptionTextField" editable="false" layoutX="18.0" layoutY="88.0"
+                                  prefHeight="130.0" prefWidth="490.0"
+                                  promptText="(Description placeholder text this is were the whole problem is explained i don't know if its better to do a label or textbox but at the very least i think it looks kinda cool)"/>
+                        <Line endX="-100.0" endY="296.0" layoutX="629.0" layoutY="75.0" startX="-100.0" startY="-66.0"/>
+                        <HBox alignment="CENTER_LEFT" layoutX="529.0" layoutY="9.0" prefHeight="332.0"
+                              prefWidth="250.0">
                             <children>
                                 <VBox prefHeight="332.0" prefWidth="150.0">
                                     <children>
                                         <Label text="Ticket ID: ">
                                             <padding>
-                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label text="Datum: ">
                                             <padding>
-                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label text="Categorie: ">
                                             <padding>
-                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="priorityTextLabel" text="Prioriteit: ">
                                             <padding>
-                                                <Insets bottom="10.0" left="15.0" right="5.0" top="12.0" />
+                                                <Insets bottom="10.0" left="15.0" right="5.0" top="12.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="impacttextLabel" text="Invloed:">
                                             <padding>
-                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" left="15.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="urgencyTextLabel" text="Urgentie:">
                                             <padding>
-                                                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                                                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0"/>
                                             </padding>
                                         </Label>
                                         <Label text="Status: ">
                                             <padding>
-                                                <Insets bottom="5.0" left="15.0" right="5.0" top="15.0" />
+                                                <Insets bottom="5.0" left="15.0" right="5.0" top="15.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="employeeTextLabel" text="Werknemer:">
                                             <padding>
-                                                <Insets bottom="10.0" left="15.0" right="5.0" top="12.0" />
+                                                <Insets bottom="10.0" left="15.0" right="5.0" top="12.0"/>
                                             </padding>
                                         </Label>
-                                        <Button fx:id="reactButton" mnemonicParsing="false" onAction="#OnReactButtonClick" prefHeight="30.0" prefWidth="60.0" text="Reageer">
+                                        <Button fx:id="reactButton" mnemonicParsing="false"
+                                                onAction="#OnReactButtonClick" prefHeight="30.0" prefWidth="60.0"
+                                                text="Reageer">
                                             <HBox.margin>
-                                                <Insets left="15.0" />
+                                                <Insets left="15.0"/>
                                             </HBox.margin>
                                             <VBox.margin>
-                                                <Insets left="15.0" top="6.0" />
+                                                <Insets left="15.0" top="6.0"/>
                                             </VBox.margin>
                                         </Button>
                                     </children>
@@ -163,98 +186,102 @@
                                     <children>
                                         <Label fx:id="ticketIDLabel" text="(ticket ID)">
                                             <padding>
-                                                <Insets bottom="10.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="dateLabel" text="(9-10-2022)">
                                             <padding>
-                                                <Insets bottom="10.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="categoryLabel" text="(category)">
                                             <padding>
-                                                <Insets bottom="10.0" right="5.0" top="10.0" />
+                                                <Insets bottom="10.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </Label>
                                         <Label fx:id="priorityLabel" text="(priority)">
                                             <padding>
-                                                <Insets bottom="10.0" right="5.0" top="12.0" />
+                                                <Insets bottom="10.0" right="5.0" top="12.0"/>
                                             </padding>
                                             <VBox.margin>
-                                                <Insets />
+                                                <Insets/>
                                             </VBox.margin>
                                         </Label>
                                         <ChoiceBox fx:id="impactChoicebox" onAction="#itemChange" prefWidth="165.0">
                                             <HBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets top="5.0"/>
                                             </HBox.margin>
                                             <VBox.margin>
-                                                <Insets bottom="5.0" top="5.0" />
+                                                <Insets bottom="5.0" top="5.0"/>
                                             </VBox.margin>
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="1-Hoog" />
-                                                    <String fx:value="2-Midden" />
-                                                    <String fx:value="3-Laag" />
-                                                    <String fx:value="" />
+                                                    <String fx:value="1-Hoog"/>
+                                                    <String fx:value="2-Midden"/>
+                                                    <String fx:value="3-Laag"/>
+                                                    <String fx:value=""/>
                                                 </FXCollections>
                                             </items>
                                         </ChoiceBox>
                                         <ChoiceBox fx:id="urgencyChoicebox" onAction="#itemChange" prefWidth="165.0">
                                             <HBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets top="5.0"/>
                                             </HBox.margin>
                                             <VBox.margin>
-                                                <Insets bottom="5.0" top="5.0" />
+                                                <Insets bottom="5.0" top="5.0"/>
                                             </VBox.margin>
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="1-Hoog" />
-                                                    <String fx:value="2-Midden" />
-                                                    <String fx:value="3-Laag" />
-                                                    <String fx:value="" />
+                                                    <String fx:value="1-Hoog"/>
+                                                    <String fx:value="2-Midden"/>
+                                                    <String fx:value="3-Laag"/>
+                                                    <String fx:value=""/>
                                                 </FXCollections>
                                             </items>
                                         </ChoiceBox>
                                         <ChoiceBox fx:id="statusChoicebox" prefHeight="25.0" prefWidth="165.0">
                                             <HBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets top="5.0"/>
                                             </HBox.margin>
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Open" />
-                                                    <String fx:value="Resolved" />
-                                                    <String fx:value="ClosedWithoutResolve" />
+                                                    <String fx:value="Open"/>
+                                                    <String fx:value="Resolved"/>
+                                                    <String fx:value="ClosedWithoutResolve"/>
                                                 </FXCollections>
                                             </items>
                                             <VBox.margin>
-                                                <Insets bottom="5.0" top="5.0" />
+                                                <Insets bottom="5.0" top="5.0"/>
                                             </VBox.margin>
                                         </ChoiceBox>
                                         <ChoiceBox fx:id="employeeChoicebox" prefHeight="25.0" prefWidth="165.0">
                                             <HBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets top="5.0"/>
                                             </HBox.margin>
                                             <VBox.margin>
-                                                <Insets bottom="5.0" top="5.0" />
+                                                <Insets bottom="5.0" top="5.0"/>
                                             </VBox.margin>
                                         </ChoiceBox>
-                                        <Button fx:id="saveTicketButton" mnemonicParsing="false" onAction="#OnSaveButtonClickUpdate" prefHeight="30.0" prefWidth="165.0" text="Opslaan">
+                                        <Button fx:id="saveTicketButton" mnemonicParsing="false"
+                                                onAction="#OnSaveButtonClickUpdate" prefHeight="30.0" prefWidth="165.0"
+                                                text="Opslaan">
                                             <HBox.margin>
-                                                <Insets left="15.0" />
+                                                <Insets left="15.0"/>
                                             </HBox.margin>
                                             <VBox.margin>
-                                                <Insets top="6.0" />
+                                                <Insets top="6.0"/>
                                             </VBox.margin>
                                         </Button>
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
-                        <TextArea fx:id="reactionTextarea" editable="false" layoutX="18.0" layoutY="236.0" prefHeight="130.0" prefWidth="490.0" promptText="(Answer)" />
+                        <TextArea fx:id="reactionTextarea" editable="false" layoutX="18.0" layoutY="236.0"
+                                  prefHeight="130.0" prefWidth="490.0" promptText="(Answer)"/>
                     </children>
                 </Pane>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="30.0" text="Terug" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="30.0"
+                        text="Terug" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
             </children>
         </GridPane>
     </children>

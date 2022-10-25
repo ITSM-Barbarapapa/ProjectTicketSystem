@@ -21,13 +21,13 @@ import java.util.ResourceBundle;
 public class ArchiveDatabaseController extends BaseController implements Initializable {
     private final User user;
     private final ArchivedTicketService archivedTicketService;
-    private ObservableList<Ticket> archivedTickets;
     @FXML
     public Label usernameLabel;
     @FXML
     public TextField searchField;
     @FXML
     public TableView<Ticket> archivedTicketsTableView;
+    private ObservableList<Ticket> archivedTickets;
 
 
     public ArchiveDatabaseController(User user) {

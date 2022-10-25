@@ -10,57 +10,55 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.projectticketsystem.model.Role.RegularEmployee;
-import static java.text.NumberFormat.getPercentInstance;
 
-public class DashboardController extends BaseController implements Initializable
-{
+public class DashboardController extends BaseController implements Initializable {
+    private final User user;
+    @FXML
+    public Label countOpen;
+    @FXML
+    public Label countResolved;
+    @FXML
+    public Label countClosed;
+    @FXML
+    public Label labelUsername;
+    @FXML
+    public ImageView AllTicketIcon;
+    @FXML
+    public ImageView ArchiveTicketIcon;
+    @FXML
+    public ImageView CRUDEmployeeIcon;
+    @FXML
+    PieChart statusChart;
     private double perOpen;
     private double perResolved;
     private double perClosed;
-
     private int statusOpen;
     private int statusResolved;
     private int statusClosedWithoutResolve;
-    @FXML PieChart statusChart;
 
-    @FXML public Label countOpen;
-    @FXML public Label countResolved;
-    @FXML public Label countClosed;
-
-    @FXML public Label labelUsername;
-    @FXML public ImageView AllTicketIcon;
-    @FXML public ImageView ArchiveTicketIcon;
-    @FXML public ImageView CRUDEmployeeIcon;
-    private final User user;
+    public DashboardController(User user) {
+        this.user = user;
+    }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         FillStatusChart();
-        if(user.getRole() == RegularEmployee)
-        {
+        if (user.getRole() == RegularEmployee) {
             AllTicketIcon.setVisible(false);
             ArchiveTicketIcon.setVisible(false);
             CRUDEmployeeIcon.setVisible(false);
         }
     }
-    public DashboardController(User user)
-    {
-        this.user = user;
-    }
-    private void FillStatusChart()
-    {
+
+    private void FillStatusChart() {
         labelUsername.setText(user.getName());
 
         perOpen = 0;
@@ -70,58 +68,53 @@ public class DashboardController extends BaseController implements Initializable
         CalculateChart();
         ObservableList<PieChart.Data> statusChartData = FXCollections.observableArrayList();
 
-        if(perOpen > 0)
-        {
+        if (perOpen > 0) {
             PieChart.Data data = new PieChart.Data("Open", perOpen);
             statusChartData.add(data);
         }
-        if (perResolved > 0)
-        {
+        if (perResolved > 0) {
             PieChart.Data data = new PieChart.Data("Opgelost", perResolved);
             statusChartData.add(data);
         }
-        if (perResolved > 0)
-        {
+        if (perResolved > 0) {
             PieChart.Data data = new PieChart.Data("Gesloten zonder oplossing", perClosed);
             statusChartData.add(data);
         }
         statusChart.setData(statusChartData);
 
-        statusChartData.forEach(data -> data.nameProperty().bind(Bindings.format(data.getName()+ " %.1f%%", data.pieValueProperty())));
+        statusChartData.forEach(data -> data.nameProperty().bind(Bindings.format(data.getName() + " %.1f%%", data.pieValueProperty())));
         fillTable();
     }
-    private void fillTable()
-    {
+
+    private void fillTable() {
         countOpen.setText(String.valueOf(statusOpen));
         countResolved.setText(String.valueOf(statusResolved));
         countClosed.setText(String.valueOf(statusClosedWithoutResolve));
     }
-    private void CalculateChart()
-    {
+
+    private void CalculateChart() {
         TicketService ticketService = new TicketService();
         List<TicketStatus> statuses = ticketService.getAllTicketStatus();
 
         countStatuses(statuses);
 
-        if(statusOpen > 0)
+        if (statusOpen > 0)
             perOpen = (100.00 / statuses.size()) * statusOpen;
-        if(statusResolved > 0)
+        if (statusResolved > 0)
             perResolved = (100.00 / statuses.size()) * statusResolved;
-        if(statusClosedWithoutResolve > 0)
+        if (statusClosedWithoutResolve > 0)
             perClosed = (100.00 / statuses.size()) * statusClosedWithoutResolve;
 
         statuses.clear();
     }
-    private void countStatuses(List<TicketStatus> statuses)
-    {
-        statusOpen =0;
+
+    private void countStatuses(List<TicketStatus> statuses) {
+        statusOpen = 0;
         statusResolved = 0;
         statusClosedWithoutResolve = 0;
 
-        for (TicketStatus status : statuses)
-        {
-            switch(status)
-            {
+        for (TicketStatus status : statuses) {
+            switch (status) {
                 case Open:
                     statusOpen++;
                     break;
@@ -134,6 +127,7 @@ public class DashboardController extends BaseController implements Initializable
             }
         }
     }
+
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
         loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);

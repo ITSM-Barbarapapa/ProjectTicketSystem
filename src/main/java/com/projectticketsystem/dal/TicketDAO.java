@@ -1,7 +1,6 @@
 package com.projectticketsystem.dal;
 
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Sorts;
@@ -12,7 +11,6 @@ import com.projectticketsystem.model.TicketStatus;
 import com.projectticketsystem.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import com.projectticketsystem.service.UserService;
 import org.bson.BsonType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -25,18 +23,15 @@ import java.util.Objects;
 import static com.mongodb.client.model.Filters.*;
 import static java.lang.System.out;
 
-public class TicketDAO extends BaseDAO
-{
+public class TicketDAO extends BaseDAO {
     static final String TICKET_ID = "TicketID";
     static final UserDAO userDAO = new UserDAO();
 
-    public TicketDAO()
-    {
+    public TicketDAO() {
         super();
     }
 
-    private MongoCollection<Document> getCollection()
-    {
+    private MongoCollection<Document> getCollection() {
         try {
             return database.getCollection("Tickets");
         } catch (Exception e) {
@@ -45,19 +40,16 @@ public class TicketDAO extends BaseDAO
         }
     }
 
-    public Ticket getTicketByID(int ticketID)
-    {
+    public Ticket getTicketByID(int ticketID) {
         Document found = Objects.requireNonNull(getCollection()).find(new Document(TICKET_ID, ticketID)).first();
-        if (found == null)
-        {
+        if (found == null) {
             out.println("Ticket not found");
             return null;
         }
         return generateTicket(found);
     }
 
-    public void addTicket(Ticket ticket)
-    {
+    public void addTicket(Ticket ticket) {
         Document document = new Document(TICKET_ID, ticket.getTicketID())
                 .append("Name", ticket.getName())
                 .append("Contact", ticket.getContact())
@@ -77,11 +69,9 @@ public class TicketDAO extends BaseDAO
         getCollection().insertOne(document);
     }
 
-    public void updateTicket(Ticket ticket)
-    {
+    public void updateTicket(Ticket ticket) {
         Document found = getCollection().find(new Document().append(TICKET_ID, ticket.getTicketID())).first();
-        if (found == null)
-        {
+        if (found == null) {
             out.println("Ticket not found in database");
             out.println("Could not update ticket");
             return;
@@ -113,8 +103,7 @@ public class TicketDAO extends BaseDAO
     }
 
     // This method collects all tickets from the database and returns them as a list
-    public List<Ticket> getAllTickets()
-    {
+    public List<Ticket> getAllTickets() {
         return convertFoundDocumentsToTickets(getCollection().find().into(new ArrayList<>()));
     }
 
@@ -140,8 +129,7 @@ public class TicketDAO extends BaseDAO
         return ticket;
     }
 
-    public List<Ticket> getTicketsByFilter(String filter, String value)
-    {
+    public List<Ticket> getTicketsByFilter(String filter, String value) {
         List<Ticket> tickets = new ArrayList<>();
         List<Document> found = Objects.requireNonNull(getCollection()).find(eq(filter, value)).into(new ArrayList<>());
         for (Document document : found)
@@ -149,8 +137,7 @@ public class TicketDAO extends BaseDAO
         return tickets;
     }
 
-    public Ticket getTicketByFilter(String filter, String value)
-    {
+    public Ticket getTicketByFilter(String filter, String value) {
         Document found = Objects.requireNonNull(getCollection()).find(eq(filter, value)).first();
         if (found == null)
             return null;
@@ -173,26 +160,24 @@ public class TicketDAO extends BaseDAO
 
         return tickets;
     }
-    public List<TicketStatus> getAllTicketStatus()
-    {
+
+    public List<TicketStatus> getAllTicketStatus() {
         List<TicketStatus> ticketStatus = new ArrayList<>();
         Bson filter = type("Status", BsonType.STRING);
         FindIterable<Document> results = getCollection().find(filter);
-        for ( Document d : results)
+        for (Document d : results)
             ticketStatus.add(TicketStatus.valueOf(d.getString("Status")));
         return ticketStatus;
     }
-    public ObservableList<Ticket> getMyTickets(User user)
-    {
+
+    public ObservableList<Ticket> getMyTickets(User user) {
         ObservableList<Ticket> myTickets = FXCollections.observableArrayList();
 
         Bson filter = eq("UserID", user.getID());
         FindIterable<Document> results = getCollection().find(filter);
 
-        for (Document d : results)
-        {
-            if (d == null)
-            {
+        for (Document d : results) {
+            if (d == null) {
                 return null;
             }
             myTickets.add(generateTicket(d));
@@ -200,27 +185,23 @@ public class TicketDAO extends BaseDAO
         return myTickets;
     }
 
-    public List<Ticket> getTicketsByEmployee(int id)
-    {
+    public List<Ticket> getTicketsByEmployee(int id) {
         Bson filter = eq("EmployeeID", id);
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
 
     }
 
-    public List<Ticket> getTicketsByStatus(String statusFilter)
-    {
+    public List<Ticket> getTicketsByStatus(String statusFilter) {
         Bson filter = eq("Status", statusFilter);
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
     }
 
-    public List<Ticket> getTicketsByStatusAndEmployee(String statusFilter, int id)
-    {
+    public List<Ticket> getTicketsByStatusAndEmployee(String statusFilter, int id) {
         Bson filter = and(eq("Status", statusFilter), eq("EmployeeID", id));
         return convertFoundDocumentsToTickets(Objects.requireNonNull(getCollection()).find(filter).into(new ArrayList<>()));
     }
 
-    private List<Ticket> convertFoundDocumentsToTickets(ArrayList<Document> found)
-    {
+    private List<Ticket> convertFoundDocumentsToTickets(ArrayList<Document> found) {
         List<Ticket> tickets = new ArrayList<>();
         for (Document document : found)
             tickets.add(generateTicket(document));

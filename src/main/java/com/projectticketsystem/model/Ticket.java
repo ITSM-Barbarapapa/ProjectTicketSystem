@@ -28,6 +28,9 @@ public class Ticket {
         this.ticketID = id;
     }
 
+    public Ticket() {
+    }
+
     public User getEmployee() {
         return employee;
     }
@@ -36,32 +39,42 @@ public class Ticket {
         this.employee = employee;
     }
 
-    public Ticket() {
+    public int getTicketID() {
+        return ticketID;
     }
 
-    public int getTicketID() { return ticketID; }
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getEmployeeUsername() {
         return employee.getName();
     }
-    public void setUser(User user) {
-        this.user = user;
+
+    public String getTicketStatus() {
+        return this.ticketStatus.toString();
     }
 
-    public String getTicketStatus() {return this.ticketStatus.toString(); }
-    public void setTicketStatus(TicketStatus ticketStatus) { this.ticketStatus = ticketStatus; }
+    public void setTicketStatus(TicketStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
     public LocalDate getDate() {
         return date;
     }
-    public void setTicketCategory(String category) {this.ticketCategory = category;}
-    public void setTicketSummary(String summary){this.ticketSummary = summary;}
-    public void setTicketDescription(String description) {this.ticketDescription = description;}
-    public void setTicketImpact(String impact) {this.impact = impact;}
-    public void setTicketUrgency(String urgency) {this.urgency = urgency;}
-    public void setPriority(String priority) {this.priority = priority;}
+
+    public void setTicketImpact(String impact) {
+        this.impact = impact;
+    }
+
+    public void setTicketUrgency(String urgency) {
+        this.urgency = urgency;
+    }
+
     public String getName() {
         return name;
     }
@@ -82,16 +95,32 @@ public class Ticket {
         return priority;
     }
 
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
     public String getTicketCategory() {
         return ticketCategory;
+    }
+
+    public void setTicketCategory(String category) {
+        this.ticketCategory = category;
     }
 
     public String getTicketSummary() {
         return ticketSummary;
     }
 
+    public void setTicketSummary(String summary) {
+        this.ticketSummary = summary;
+    }
+
     public String getTicketDescription() {
         return ticketDescription;
+    }
+
+    public void setTicketDescription(String description) {
+        this.ticketDescription = description;
     }
 
     public String getTicketReaction() {
@@ -102,8 +131,7 @@ public class Ticket {
         this.ticketReaction = ticketReaction;
     }
 
-    public void assignNewEmployeeToTicket(String newEmployee)
-    {
+    public void assignNewEmployeeToTicket(String newEmployee) {
         UserDAO userDAO = new UserDAO();
         this.setEmployee(userDAO.getUserByName(newEmployee));
     }

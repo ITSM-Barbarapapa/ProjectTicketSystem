@@ -7,7 +7,6 @@ import com.projectticketsystem.service.TicketService;
 import com.projectticketsystem.service.UserService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -23,24 +22,36 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class TicketListViewController extends BaseController implements Initializable
-{
+public class TicketListViewController extends BaseController implements Initializable {
     private final User user;
-    @FXML private TableView<Ticket> ticketTable;
-    @FXML private TableColumn<Ticket, Integer> ticketIDColumn;
-    @FXML private TableColumn<Ticket, String> subjectColumn;
-    @FXML private TableColumn<Ticket, String> priorityColumn;
-    @FXML private TableColumn<Ticket, String> assigneeColumn;
-    @FXML private TableColumn<Ticket, String> statusColumn;
-    @FXML private ChoiceBox<String> statusFilterChoicebox;
-    @FXML private ChoiceBox<String> employeeFilterChoicebox;
-    @FXML private Label usernameLabel;
     UserService userService = new UserService();
     TicketService ticketService = new TicketService();
+    @FXML
+    private TableView<Ticket> ticketTable;
+    @FXML
+    private TableColumn<Ticket, Integer> ticketIDColumn;
+    @FXML
+    private TableColumn<Ticket, String> subjectColumn;
+    @FXML
+    private TableColumn<Ticket, String> priorityColumn;
+    @FXML
+    private TableColumn<Ticket, String> assigneeColumn;
+    @FXML
+    private TableColumn<Ticket, String> statusColumn;
+    @FXML
+    private ChoiceBox<String> statusFilterChoicebox;
+    @FXML
+    private ChoiceBox<String> employeeFilterChoicebox;
+    @FXML
+    private Label usernameLabel;
 
-    public TicketListViewController(User user)
-    {
+    public TicketListViewController(User user) {
         this.user = user;
+    }
+
+    private static List<Ticket> getAllTickets() {
+        TicketService ticketService = new TicketService();
+        return ticketService.getAllTickets();
     }
 
     @Override
@@ -52,8 +63,7 @@ public class TicketListViewController extends BaseController implements Initiali
         usernameLabel.setText(user.getName());
     }
 
-    private void initializeChoiceBoxes()
-    {
+    private void initializeChoiceBoxes() {
         List<String> statusList = TicketStatus.getObservableList();
         statusList.add(0, "All");
         statusFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(statusList));
@@ -64,7 +74,6 @@ public class TicketListViewController extends BaseController implements Initiali
         employeeFilterChoicebox.getItems().addAll(FXCollections.observableArrayList(employeeList));
         employeeFilterChoicebox.setValue("All");
     }
-
 
     private void initializeTableView() {
         ticketIDColumn.setCellValueFactory(new PropertyValueFactory<>("ticketID"));
@@ -89,28 +98,22 @@ public class TicketListViewController extends BaseController implements Initiali
 
         ticketTable.getItems().addAll(getAllTickets());
     }
-    private static List<Ticket> getAllTickets()
-    {
-        TicketService ticketService = new TicketService();
-        return ticketService.getAllTickets();
-    }
 
     @FXML
-    private void openTicket(MouseEvent event)
-    {
+    private void openTicket(MouseEvent event) {
         Ticket ticket = ticketTable.getSelectionModel().getSelectedItem();
         if (ticket != null)
-                loadNextStage("ticket-view.fxml", new TicketController(ticket, user, "ticket-list-view.fxml", new TicketListViewController(user)), event);
+            loadNextStage("ticket-view.fxml", new TicketController(ticket, user, "ticket-list-view.fxml", new TicketListViewController(user)), event);
     }
 
     @FXML
-    private void onItemChange(ActionEvent event)
-    {
+    private void onItemChange(ActionEvent event) {
         String statusFilter = statusFilterChoicebox.getValue();
         String employeeFilter = employeeFilterChoicebox.getValue();
         ticketTable.getItems().clear();
         ticketTable.getItems().addAll(ticketService.getTicketsByFilter(statusFilter, employeeFilter));
     }
+
     @FXML
     public void onHouseIconClick(MouseEvent mouseEvent) {
         loadNextStage("dashboard-view.fxml", new DashboardController(user), mouseEvent);

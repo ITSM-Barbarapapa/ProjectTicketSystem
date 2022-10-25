@@ -17,16 +17,13 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.type;
 import static java.lang.System.out;
 
-public class UserDAO extends BaseDAO
-{
+public class UserDAO extends BaseDAO {
 
-    public UserDAO()
-    {
+    public UserDAO() {
         super();
     }
 
-    private MongoCollection<Document> getCollection()
-    {
+    private MongoCollection<Document> getCollection() {
         try {
             return database.getCollection("Users");
         } catch (Exception e) {
@@ -35,28 +32,24 @@ public class UserDAO extends BaseDAO
         }
     }
 
-   public User getUser(int userID)
-    {
+    public User getUser(int userID) {
         Document found = getCollection().find(new Document("UserID", userID)).first();
         return createUser(found);
     }
 
-    public List<User> getAllUsers()
-    {
+    public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)));
         return AddFoundUsersToList(users, filter);
     }
 
-    public List<User> getAllEmployees()
-    {
+    public List<User> getAllEmployees() {
         List<User> users = new ArrayList<>();
         Bson filter = and(type("Password", BsonType.findByValue(5)), type("Salt", BsonType.findByValue(5)), new Document("Role", Role.ServiceDeskEmployee.toString()));
         return AddFoundUsersToList(users, filter);
     }
 
-    public void addUser(User user)
-    {
+    public void addUser(User user) {
         Document document = new Document("UserID", user.getID())
                 .append("Username", user.getName())
                 .append("Password", user.getPassword().getHashPassword())
@@ -66,11 +59,9 @@ public class UserDAO extends BaseDAO
 
     }
 
-    public void updateUser(User user)
-    {
+    public void updateUser(User user) {
         Document found = getCollection().find(new Document().append("UserID", user.getID())).first();
-        if (found == null)
-        {
+        if (found == null) {
             return;
         }
         Bson updatedValues = Updates.combine(
@@ -84,13 +75,11 @@ public class UserDAO extends BaseDAO
 
     }
 
-    public void deleteUser(User user)
-    {
+    public void deleteUser(User user) {
         getCollection().deleteOne(new Document("UserID", user.getID()));
     }
 
-    public int getNextUserId()
-    {
+    public int getNextUserId() {
         int nextId;
         Document found = getCollection().find().sort(new Document("UserID", -1)).first();
         assert found != null;
@@ -98,8 +87,7 @@ public class UserDAO extends BaseDAO
         return nextId + 1;
     }
 
-    public User getUserByID(int userID)
-    {
+    public User getUserByID(int userID) {
         Document found = getCollection().find(new Document("UserID", userID)).first();
         return createUser(found);
     }
@@ -111,8 +99,7 @@ public class UserDAO extends BaseDAO
     }
 
     private List<User> AddFoundUsersToList(List<User> users, Bson filter) {
-        for (Document found : getCollection().find(filter))
-        {
+        for (Document found : getCollection().find(filter)) {
             users.add(new User(
                     found.getInteger("UserID"),
                     found.getString("Username"),
@@ -129,8 +116,7 @@ public class UserDAO extends BaseDAO
     }
 
     private User createUser(Document found) {
-        if (found == null)
-        {
+        if (found == null) {
             return null;
         }
         return new User(

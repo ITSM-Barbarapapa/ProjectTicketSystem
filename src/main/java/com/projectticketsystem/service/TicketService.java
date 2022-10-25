@@ -13,19 +13,21 @@ public class TicketService {
     private final TicketDAO ticketDAO;
     UserService userService = new UserService();
 
-    public TicketService(){
+    public TicketService() {
         ticketDAO = new TicketDAO();
     }
 
-    public void addTicket(Ticket ticket){
+    public void addTicket(Ticket ticket) {
         ticketDAO.addTicket(ticket);
     }
 
-    public int getHighestTicketID(){
+    public int getHighestTicketID() {
         return ticketDAO.getHighestTicketID();
     }
 
-    public List<TicketStatus> getAllTicketStatus(){return ticketDAO.getAllTicketStatus();}
+    public List<TicketStatus> getAllTicketStatus() {
+        return ticketDAO.getAllTicketStatus();
+    }
 
     public List<Ticket> getAllTickets() {
         return ticketDAO.getAllTickets();
@@ -39,11 +41,12 @@ public class TicketService {
         return ticketDAO.getTicketsToArchive();
     }
 
-    public ObservableList<Ticket> getMyTickets(User user){return ticketDAO.getMyTickets(user);}
+    public ObservableList<Ticket> getMyTickets(User user) {
+        return ticketDAO.getMyTickets(user);
+    }
 
 
-    public List<Ticket> getTicketsByFilter(String statusFilter, String employeeFilter)
-    {
+    public List<Ticket> getTicketsByFilter(String statusFilter, String employeeFilter) {
         if ((statusFilter == "All" || statusFilter == null) && (employeeFilter == "All" || employeeFilter == null))
             return ticketDAO.getAllTickets();
         if (statusFilter == "All" || statusFilter == null)

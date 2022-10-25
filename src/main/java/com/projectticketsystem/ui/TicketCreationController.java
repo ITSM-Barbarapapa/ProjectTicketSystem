@@ -9,11 +9,7 @@ import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -31,7 +27,6 @@ public class TicketCreationController extends BaseController implements Initiali
     public Label urgentieLabel;
     @FXML
     public Label berekendePrioriteitLabel;
-    private User user;
     @FXML
     public TextArea descriptionTextField;
     @FXML
@@ -54,7 +49,6 @@ public class TicketCreationController extends BaseController implements Initiali
     public ImageView homeButton;
     @FXML
     public Label usernameLabel;
-
     @FXML
     public ImageView allTicketsIcon;
     @FXML
@@ -63,14 +57,15 @@ public class TicketCreationController extends BaseController implements Initiali
     public ImageView archiveIcon;
     @FXML
     public Label errorLabel;
+    private User user;
 
-    public TicketCreationController(User user){
+    public TicketCreationController(User user) {
         ticketService = new TicketService();
         this.user = user;
     }
 
-    private void CheckUser(){
-        if(user.getRole().equals(Role.RegularEmployee)) {
+    private void CheckUser() {
+        if (user.getRole().equals(Role.RegularEmployee)) {
             HidePriorityBoxes();
             HideSiteBalkIcons();
         }
@@ -92,9 +87,9 @@ public class TicketCreationController extends BaseController implements Initiali
     }
 
     @FXML
-    public void AddTicket(ActionEvent actionEvent){
+    public void AddTicket(ActionEvent actionEvent) {
 
-        if (!Requirements()){
+        if (!Requirements()) {
             errorLabel.setText("Niet alle vereiste velden zijn ingevuld.");
             errorLabel.setVisible(true);
             return;
@@ -106,7 +101,7 @@ public class TicketCreationController extends BaseController implements Initiali
         loadNextStage("myTickets-view.fxml", new MyTicketController(user), actionEvent);
     }
 
-    private int CreateID(){
+    private int CreateID() {
         int ticketID = ticketService.getHighestTicketID();
         return ticketID + 1;
     }
@@ -123,33 +118,33 @@ public class TicketCreationController extends BaseController implements Initiali
         UserService userService = new UserService();
         ticket.setEmployee(userService.getUser(1));
 
-        if(categoryChoiceBox.getValue() != null){
+        if (categoryChoiceBox.getValue() != null) {
             ticket.setTicketCategory(categoryChoiceBox.getValue());
         }
 
-        if (!Objects.equals(summaryTextField.getText(), "")){
+        if (!Objects.equals(summaryTextField.getText(), "")) {
             ticket.setTicketSummary(summaryTextField.getText());
         }
 
-        if (!Objects.equals(descriptionTextField.getText(), "")){
+        if (!Objects.equals(descriptionTextField.getText(), "")) {
             ticket.setTicketDescription(descriptionTextField.getText());
         }
 
-        if (impactChoiceBox.getValue() != null){
+        if (impactChoiceBox.getValue() != null) {
             ticket.setTicketImpact(impactChoiceBox.getValue());
         }
 
-        if (urgencyChoiceBox.getValue() != null){
+        if (urgencyChoiceBox.getValue() != null) {
             ticket.setTicketUrgency(urgencyChoiceBox.getValue());
         }
 
-        if (!Objects.equals(calculatePriorityTextBox.getText(), "")){
+        if (!Objects.equals(calculatePriorityTextBox.getText(), "")) {
             ticket.setPriority(calculatePriorityTextBox.getText());
         }
 
     }
 
-    private boolean Requirements(){
+    private boolean Requirements() {
         boolean requirementsCheck = true;
         if (Objects.equals(nameTextField.getText(), "") || Objects.equals(contactTextField.getText(), ""))
             requirementsCheck = false;
@@ -161,7 +156,7 @@ public class TicketCreationController extends BaseController implements Initiali
     public void itemChange(ActionEvent actionEvent) {
         String impactValue = impactChoiceBox.getValue();
         String urgencyValue = urgencyChoiceBox.getValue();
-        if (impactValue == null || urgencyValue == null){
+        if (impactValue == null || urgencyValue == null) {
             return;
         }
 
@@ -171,7 +166,7 @@ public class TicketCreationController extends BaseController implements Initiali
         calculatePriorityTextBox.setText(String.valueOf(CalculatePriority(impactNumber, urgencyNumber)));
     }
 
-    private int CalculatePriority(int impact, int urgency){
+    private int CalculatePriority(int impact, int urgency) {
 
         return impact + urgency - 1;
     }

@@ -40,6 +40,7 @@ public class User implements Comparable<User> {
     public HashedPassword getPassword() {
         return password;
     }
+
     public void setPassword(HashedPassword password) {
         this.password = password;
     }

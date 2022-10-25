@@ -22,7 +22,6 @@ public class CrudEmployeeController extends BaseController implements Initializa
 
     private static final UserService userService = new UserService();
     private final User user;
-    private ObservableList<User> users;
     @FXML
     public TextField nameField;
     @FXML
@@ -35,6 +34,7 @@ public class CrudEmployeeController extends BaseController implements Initializa
     public Label usernameLabel;
     @FXML
     TableView<User> employeesTableView;
+    private ObservableList<User> users;
     private User selectedUser;
 
     public CrudEmployeeController(User user) {
