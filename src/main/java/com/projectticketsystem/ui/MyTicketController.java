@@ -25,12 +25,12 @@ import static com.projectticketsystem.model.Role.RegularEmployee;
 
 public class MyTicketController extends BaseController implements Initializable {
 
-    @FXML private ChoiceBox choiceBox;
-    @FXML private TableView<Ticket> myTicketView;
-    @FXML private TableColumn<Ticket, Integer> columnTicketID;
-    @FXML private TableColumn<Ticket, String> columnSubject;
-    @FXML private TableColumn<Ticket, String> columnPriority;
-    @FXML private TableColumn<Ticket, String> columnStatus;
+    @FXML public ChoiceBox choiceBox;
+    @FXML public TableView<Ticket> myTicketView;
+    @FXML public TableColumn<Ticket, Integer> columnTicketID;
+    @FXML public TableColumn<Ticket, String> columnSubject;
+    @FXML public TableColumn<Ticket, String> columnPriority;
+    @FXML public TableColumn<Ticket, String> columnStatus;
 
     @FXML public Label labelUsername;
     public ImageView AllTicketIcon;
@@ -54,7 +54,6 @@ public class MyTicketController extends BaseController implements Initializable 
             ArchiveTicketIcon.setVisible(false);
             CRUDEmployeeIcon.setVisible(false);
         }
-
     }
 
     public MyTicketController(User user)
@@ -85,7 +84,6 @@ public class MyTicketController extends BaseController implements Initializable 
             Comparator<Ticket> comparator = Comparator.comparing(Ticket::getTicketID);
             myTickets.sort(comparator);
         }
-
         myTicketsView();
     }
     private void myTicketsView()
