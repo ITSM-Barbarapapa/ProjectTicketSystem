@@ -9,16 +9,18 @@ import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import java.io.IOException;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
-import static java.lang.System.out;
 
 public class TicketCreationController extends BaseController implements Initializable {
 
@@ -149,11 +151,6 @@ public class TicketCreationController extends BaseController implements Initiali
 
     private boolean Requirements(){
         boolean requirementsCheck = true;
-
-        out.println(nameTextField.getText());
-        out.println(contactTextField.getText());
-
-
         if (Objects.equals(nameTextField.getText(), "") || Objects.equals(contactTextField.getText(), ""))
             requirementsCheck = false;
 
