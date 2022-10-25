@@ -1,7 +1,5 @@
 package com.projectticketsystem.ui;
 
-import com.projectticketsystem.dal.TicketDAO;
-import com.projectticketsystem.model.Role;
 import com.projectticketsystem.model.User;
 import com.projectticketsystem.service.UserService;
 import javafx.event.ActionEvent;
@@ -24,7 +22,7 @@ public class LoginController extends BaseController {
 
     @FXML
     private void onLoginButtonClicked(ActionEvent event) {
-        if (checkPassword()) {
+        if (checkPassword() && user.getID() != 1) {
             loadNextStage("dashboard-view.fxml", new DashboardController(user), event);
         } else {
             errorLabel.setText("Gebruikerscode of wachtwoord is onjuist");
